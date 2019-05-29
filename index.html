@@ -1,17 +1,60 @@
-<html>
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
 <head>
-<title>saugns/SAU language</title>
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+	<meta name='description'
+content="Home of the saugns project and SAU (Scriptable AUdio) language." />
+	<meta name='keywords'
+content="saugns, SAU language, Scriptable AUdio, scripting language, FM" />
+<title>saugns &amp; SAU</title>
 </head>
 <body>
-<h1>saugns/SAU language home</h1>
-<p>saugns is the Scriptable AUdio GeNeration System, implementing the SAU (Scriptable AUdio) language.
+<h1>saugns &amp; SAU language</h1>
+<p><a href='#saugns'>saugns</a> is an audio generation program. Written in C,
+it implements the SAU (Scriptable AUdio) language.
+<a href='#SAU'>SAU</a> is a simple language for mathematical sound synthesis.
+</p>
 <ul>
 <li><a href="https://github.com/saugns/saugns">GitHub project</a>.</li>
 <li>Repo for clone/download:<br />
 <tt>https://github.com/saugns/saugns.git</tt></li>
 </ul>
+<h2 id='saugns'>saugns program</h2>
+<p>saugns (the Scriptable AUdio GeNeration System) is a
+command-line program which reads SAU (Scriptable AUdio)
+scripts or strings and produces audio. Output can be to
+system audio, and/or a 16-bit PCM WAV file.
 </p>
-<h2>SAU language</h2>
+<p>The program is written in C and on the lightweight side,
+without any dependencies beyond the standard C library and
+support for system audio on the given platform. While
+currently smaller than 100KB once built, it may grow
+with the language.
+</p>
+<p>saugns is distributed under the terms of the
+<a href="https://www.gnu.org/licenses/lgpl-4.0.en.html">GNU Lesser General Public License (LGPL), version 3</a> or later.
+</p>
+<p>Supported platforms include x86 and x86-64,
+running DragonFly, FreeBSD, Linux, NetBSD, or OpenBSD.
+</p>
+<p>Building requires a C99 compiler and `make` (GNU or BSD).
+On Linux systems, the ALSA library needs to be installed.
+</p>
+<p>A quick test after building is the following, which should beep a sine wave for 1 second:<br />
+<tt>./saugns -e "Osin"</tt>
+</p>
+<p>A set of example and test scripts are also included, under <tt>examples/</tt>.
+</p>
+<h3>Plans</h3>
+<p>The bulk of the program may be split off into a library implementing
+support for the SAU language in the future.
+</p>
+<p>Such a library could be used in e.g. media players to play SAU files,
+or in retro-ish games to play music or sounds from SAU files.
+</p>
+<p>Further ideas are listed on the <a href="https://github.com/saugns/saugns/wiki">saugns GitHub wiki</a>.
+</p>
+<h2 id='SAU'>SAU language</h2>
 <p>SAU is a simple language for mathematical sound synthesis,
 without support for the use of pre-recorded samples.
 While developed with the aim of becoming useful for writing
@@ -36,34 +79,6 @@ may be the easier part; the latter requires greater expressiveness
 than the language has at present.
 </p>
 <p>A compact language reference is included in the saugns README file.
-</p>
-<h2>saugns program</h2>
-<p>saugns is a command-line program which reads SAU (Scriptable AUdio)
-scripts and produces audio. Output can be to system audio,
-and/or a 16-bit PCM WAV file.
-</p>
-<p>saugns is distributed under the terms of the
-<a href="https://www.gnu.org/licenses/lgpl-4.0.en.html">GNU Lesser General Public License (LGPL), version 3</a> or later.
-</p>
-<p>Supported platforms include x86 and x86-64,
-running DragonFly, FreeBSD, Linux, NetBSD, or OpenBSD.
-</p>
-<p>Building requires a C99 compiler and `make` (GNU or BSD).
-On Linux systems, the ALSA library needs to be installed.
-</p>
-<p>The program is deliberately minimalistic and without any dependencies
-beyond the standard C library and support for system audio on the given
-platform. While currently smaller than 100KB once built, it may grow
-with the language.
-</p>
-<h2>Plans</h2>
-<p>The bulk of the program may be split off into a library implementing
-support for the SAU language in the future.
-</p>
-<p>Such a library could be used in e.g. media players to play SAU files,
-or in retro-ish games to play music or sounds from SAU files.
-</p>
-<p>Further ideas are listed on the <a href="https://github.com/saugns/saugns/wiki">saugns GitHub wiki</a>.
 </p>
 </body>
 </html>
