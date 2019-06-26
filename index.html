@@ -17,7 +17,7 @@ it implements the SAU (Scriptable AUdio) language.
 <ul>
 <li><a href="https://github.com/saugns/saugns">GitHub project</a>.</li>
 <li>Repo for clone/download:<br />
-<tt>https://github.com/saugns/saugns.git</tt></li>
+<code>https://github.com/saugns/saugns.git</code></li>
 </ul>
 <h2 id='saugns'>saugns program</h2>
 <p>saugns (the Scriptable AUdio GeNeration System) is a
@@ -41,12 +41,12 @@ running DragonFly, FreeBSD, Linux, NetBSD, or OpenBSD.
 On Linux systems, the ALSA library (<tt>libasound2</tt>) needs to be installed.
 On the 4 major BSDs, the base systems have everything needed.
 </p>
-<p>A quick test after building is the following, which should beep a sine wave for 1 second:<br />
-<tt>./saugns -e "Osin"</tt>
+<p>A quick test after building is the following, which should beep a sine wave for 1 second:
 </p>
-<p>Or, for something more interesting, the following produces 10 seconds of "engine rumble" using PM:<br />
-<tt>./saugns -e "Osin f137 t10 p+[Osin f32 p+[Osin f42]]"</tt>
+<pre>./saugns -e "Osin"</pre>
+<p>Or, for something more interesting, the following produces 10 seconds of "engine rumble" using PM:
 </p>
+<pre>./saugns -e "Osin f137 t10 p+[Osin f32 p+[Osin f42]]"</pre>
 <p>A set of example and test scripts are also included, under <tt>examples/</tt>.
 (These are copied to a <tt>share/saugns/</tt> directory with `make install`.)
 </p>
@@ -71,6 +71,9 @@ It is however easy to use for experimenting with sounds.
 (the "FM" of most commercial synthesizers). An arbitrary number of
 oscillators can be used.
 </p>
+<p>A brief overview of the syntax is available <a href='syntax.html'>here</a>.
+A compact language reference is included in the saugns <a href='https://github.com/saugns/saugns/blob/master/README'>README file</a> (GitHub view).
+</p>
 <p>Compared to older and more well-known audio synthesis languages,
 SAU is simpler (and less developed/full-featured) and more focused
 on FM/PM. There are differences in basic ideas concerning the language,
@@ -82,8 +85,6 @@ long and intricate sequences of sounds &ndash; music &ndash; both
 tersely and in a way easy to mentally map and keep track of. The former
 may be the easier part; the latter requires greater expressiveness
 than the language has at present.
-</p>
-<p>A compact language reference is included in the saugns README file.
 </p>
 </body>
 </html>

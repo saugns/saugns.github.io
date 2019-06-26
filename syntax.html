@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+	<meta name='description'
+content="Syntax of the SAU (Scriptable AUdio) language." />
+	<meta name='keywords'
+content="saugns, SAU language, script syntax" />
+<title>SAU syntax</title>
+</head>
+<body>
+<h1>SAU language syntax</h1>
+<p>A brief, informal overview of the syntax of the SAU language provided by the <a href='index.html#saugns'>saugns</a> program. It does not cover everything.
+A more systematic, concise reference can be found in the <a href='https://github.com/saugns/saugns/blob/master/README'>README file</a> (GitHub view).
+</p>
+<h2 id='output'>Generating sound</h2>
+<p>To generate a single pure tone in the SAU language:
+</p>
+<pre>Osin f440 p0 a0.5 t1</pre>
+<p>In this case, frequency is set to 440 Hz, phase to 0% of the wave cycle,
+and amplitude to 0.5 (-6dB). The time duration will be 1 second.
+</p>
+<p>The "<tt>O</tt>" adds an oscillator (also called an "operator" in FM synth
+terminology). It is followed by a wave type value, in this case "<tt>sin</tt>"
+(there's also "<tt>tri</tt>", "<tt>sqr</tt>", "<tt>saw</tt>", and more).
+The other parameters are named, but not ordered, and any which are left out
+will be given default values. (All of them could be left out,
+for the shortest script which generates audio: "<tt>Osin</tt>".)
+</p>
+<p>To generate a cosine, use the "<tt>sin</tt>" wave type and set phase to 25% of the wave cycle with "<tt>p0.25</tt>".
+</p>
+<p>Oscillators can be used in a nested way,
+as in this example which uses PM (phase modulation):
+</p>
+<pre>
+// Generate 10 seconds of "engine rumble"
+Osin f137 t10 p+[
+	Osin f32 p+[
+		Osin f42
+	]
+]
+</pre>
+<p>The oscillators with frequency 32 Hz and 42 Hz are linked in a chain
+which ends at the carrier (with frequency 137 Hz), and play when it does.
+The "<tt>p+</tt>" means "add to the phase", which is what PM does.
+</p>
+<h3>Compared to SuperCollider</h3>
+<p>This example for <a href="https://supercollider.github.io/">SuperCollider</a>
+generates a sine wave (without actually playing it,
+which requires a few additional details):
+</p>
+<pre>SinOsc.ar(440, 0, 0.5);</pre>
+<p>In SAU, the closest-looking equivalent is:
+</p>
+<pre>Osin f440 p0 a0.5</pre>
+<p>By itself, this is a carrier oscillator which will play for
+the default time of 1 second. It could also be included in
+a list of modulators, and will then be linked to a carrier
+and play when the carrier does.
+</p>
+<p>In SAU, data cannot currently be held or combined without
+specifying carrier oscillators which play.
+</p>
+<h2 id='numexp'>Numerical expressions</h2>
+<p>Numbers can be specified with or without a decimal point.
+Within parentheses, signs ("<tt>+</tt>" or "<tt>-</tt>"),
+and arithmetic operators ("<tt>+</tt>", "<tt>-</tt>",
+"<tt>*</tt>", "<tt>/</tt>", and "<tt>^</tt>") are allowed
+&ndash; with whitespace freely placed.
+Note that negative numbers require parentheses around them,
+to enclose the sign.
+</p>
+<p>If a decimal point is used,
+a leading "<tt>0</tt>" can be left out
+&ndash; as in "<tt>.25</tt>".
+</p>
+</body>
+</html>
