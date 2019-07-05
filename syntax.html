@@ -33,11 +33,14 @@ terminology). It is followed by a wave type value, in this case "<tt>sin</tt>"
 (there's also "<tt>tri</tt>", "<tt>sqr</tt>", "<tt>saw</tt>", and more).
 The other parameters are named, but not ordered, and any which are left out
 will be given default values. (All of them could be left out,
-for the shortest script which generates audio: "<tt>Osin</tt>".)
+for the shortest script which generates audio: "<tt>Osin</tt>"
+beeps for 1 second.)
 </p>
-<p>To generate a cosine, use the "<tt>sin</tt>" wave type and
-set phase to 25% of the wave cycle with "<tt>p0.25</tt>".
+<p>A cosine can be generated using the "<tt>sin</tt>" wave type,
+setting phase to 25% of the wave cycle with "<tt>p0.25</tt>"
+(or "<tt>p(1/4)</tt>").
 </p>
+<h3>Using modulation</h3>
 <p>Oscillators can be used in a nested way,
 as in this example which uses PM (phase modulation):
 </p>
@@ -49,9 +52,21 @@ Osin f137 t10 p+[
 	]
 ]
 </pre>
-<p>The oscillators with frequency 32 Hz and 42 Hz are linked in a chain
-which ends at the carrier (with frequency 137 Hz), and play when it does.
-The "<tt>p+</tt>" means "add to the phase", which is what PM does.
+<p>The oscillators with frequency 32 Hz and 42 Hz are modulators,
+linked in a chain which ends at the carrier (with frequency 137 Hz),
+and play for the same time (10 seconds).
+Modulators only run when their carriers do;
+their default time durations, unlike for carriers,
+is actually infinite, which means playing as long as the carrier does.
+(The "<tt>p+</tt>" means "add to the phase",
+and PM means adding modulator amplitudes to the phase.)
+</p>
+<p>For modulators, frequency can be specified using '<tt>r</tt>'
+(<i>relative frequency</i>) instead of '<tt>f</tt>'.
+The value assigned to '<tt>r</tt>' will be multiplied by
+the carrier frequency in order to give the frequency of
+the modulator. For example, a modulator with "<tt>r(2/3)</tt>"
+will maintain a frequency 2/3 times the frequency of the carrier.
 </p>
 <h3>Timing</h3>
 <p>A "<tt>|</tt>" separates that before and that after in time,
