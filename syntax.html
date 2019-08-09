@@ -37,8 +37,8 @@ for the shortest script which generates audio: "<tt>Osin</tt>"
 beeps for 1 second.)
 </p>
 <p>A cosine can be generated using the "<tt>sin</tt>" wave type,
-setting phase to 25% of the wave cycle with "<tt>p0.25</tt>"
-(or "<tt>p(1/4)</tt>").
+by setting phase to 25% of the wave cycle,
+using "<tt>p(1/4)</tt>" or "<tt>p0.25</tt>".
 </p>
 <h3>Using modulation</h3>
 <p>Oscillators can be used in a nested way,
@@ -67,6 +67,10 @@ The value assigned to '<tt>r</tt>' will be multiplied by
 the carrier frequency in order to give the frequency of
 the modulator. For example, a modulator with "<tt>r(2/3)</tt>"
 will maintain a frequency 2/3 times the frequency of the carrier.
+</p>
+<p>Frequency and amplitude can be given values which are computed
+using FM or AM, respectively. See the section
+<a href='#modvalrange'>Modulation with value range</a>.
 </p>
 <h3>Timing</h3>
 <p>A "<tt>|</tt>" separates that before and that after in time,
@@ -110,20 +114,46 @@ and play when the carrier does.
 <p>In SAU, data cannot currently be held or combined without
 specifying carrier oscillators which play.
 </p>
-<h2 id='numexp'>Numerical expressions</h2>
-<p>Numbers can be specified with or without a decimal point.
-Within parentheses, signs ("<tt>+</tt>" or "<tt>-</tt>"),
-and arithmetic operators ("<tt>+</tt>", "<tt>-</tt>",
-"<tt>*</tt>", "<tt>/</tt>", and "<tt>^</tt>") are allowed
-&ndash; with whitespace freely placed.
-Note that negative numbers require parentheses around them,
-to enclose the sign.
+<h2 id='values'>Values and expressions</h2>
+<p>For most parameters, a single number is a value.
+The number may be written simply, or as an <a href='#numexp'>expression</a>
+which is evaluated to yield the number. A simple number can be written with
+or without a decimal point. Negative numbers require the use of parentheses,
+so as to enclose the minus (<tt>-</tt>) sign, as in "<tt>(-0.5)</tt>".
 </p>
-<p>If a decimal point is used,
-a leading "<tt>0</tt>" can be left out
+<p>Other types of values also exist. Parameters for amplitude, frequency,
+and panning support using <a href='#ramp'>value ramp</a> values for timed
+"ramping" or "sweeping" instead of the instantaneous setting of a value.
+</p>
+<p>Frequency and amplitude parameters support yet another type of value,
+for FM or AM <a href='#modvalrange'>with a value range</a>, respectively.
+</p>
+<p>All types of modulation use the <i>list</i> of oscillators as a type
+of parameter value, supported in a nested way.
+</p>
+<p><a href='#comment'>Comments</a> are text which is ignored;
+several comment styles are supported.
+</p>
+<h3 id='numexp'>Numerical expressions</h3>
+<p>Within parentheses, numbers can be combined with arithmetic operators.
+The result is treated as a number. For example, "<tt>(1/2)</tt>"
+is another way of writing "<tt>0.5</tt>".
+Plus or minus signs (<tt>+</tt>, <tt>-</tt>) can only be added to numbers
+within parentheses. (Negative numbers require the use of parentheses.)
+</p>
+<p>Individual numbers can be specified with or without a decimal point.
+If a decimal point is used, a leading "<tt>0</tt>" can be left out
 &ndash; as in "<tt>.25</tt>".
 </p>
-<h2>Value ramps</h2>
+<p>Supported arithmetic operators are:
+<tt>+</tt>, <tt>-</tt>, <tt>*</tt>, <tt>/</tt>,
+and <tt>^</tt> (to the power of).
+Conventional rules determine precedence
+when not made clear using parentheses.
+Nested parentheses can be used for multiplication in the customary way,
+e.g. "<tt>(2(3))</tt>" means "<tt>6</tt>".
+</p>
+<h3 id='ramp'>Value ramp</h3>
 <p>To ramp, or "sweep", a parameter value towards a goal,
 a set of value ramp arguments can be given instead of the usual number.
 (This is currently supported for amplitude, frequency, and panning parameters.)
@@ -161,7 +191,11 @@ The '<tt>lsd</tt>' curve behaves the opposite,
 logarithmically saturating and decaying
 (increasing like '<tt>exp</tt>' and decreasing like '<tt>log</tt>').
 </p>
-<h2>Comment syntax</h2>
+<h3 id='modvalrange'>Modulation with value range</h3>
+<p>
+A syntax for AM and FM.
+</p>
+<h3 id='comment'>Comment syntax</h3>
 <p>Following "<tt>//</tt>", the rest of a line is commented out.
 </p>
 <p>Following "<tt>/*</tt>", text is
