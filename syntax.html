@@ -13,11 +13,15 @@ content="saugns, SAU language, script syntax" />
 <p>A brief overview of how to use the syntax of the SAU language
 provided by the <a href='index.html#saugns'>saugns</a> program.
 It does not cover everything.
-A systematic, concise reference can be found in the <a href='https://github.com/saugns/saugns/blob/master/README'>README file</a> (GitHub view).
-(For usage of the command-line program,
-see the <a href='usage.html'>usage</a> page.)
+(For usage examples for the command-line program,
+see the <a href='usage.html'>usage</a> page,
+or the <tt>saugns(1)</tt> man page.)
 </p>
-<p>Note that this describes the version provided by the git
+<p>A systematic, concise reference can be found in the
+<a href='https://github.com/saugns/saugns/blob/master/doc/README.SAU'>doc/README.SAU</a> file (GitHub view).
+(It is copied to a <tt>share/doc/saugns/</tt> directory with `make install`.)
+</p>
+<p>Note that this page is updated along with work proceeding on the git
 <a href='https://github.com/saugns/saugns'>master branch</a>
 (what you get with a `git clone https://github.com/saugns/saugns.git`).
 </p>
@@ -226,17 +230,13 @@ Setting (changing) the amplitude for modulators may thus change
 the range, but is allowed for the sake of flexibility.
 </p>
 <h3 id='comment'>Comment syntax</h3>
-<p>Following "<tt>//</tt>", the rest of a line is commented out.
+<p>Several comment styles exist:
 </p>
-<p>Following "<tt>/*</tt>", text is
-commented out until "<tt>*/</tt>" has been read.
-</p>
-<p>Following "<tt>#</tt>", the rest of a line is commented out.
-Note that this may change in future versions;
-"<tt>#</tt>" may be given a more complex meaning.
-</p>
-<p>A "<tt>Q</tt>", by itself,
-will "quit" &ndash; ending the script and commenting out all that follows it.
-</p>
+<ul>
+<li>"<tt>//</tt>" (C++-style comment) comments out the rest of a line.</li>
+<li>"<tt>/*</tt>" (C-style comment) comments out text until the first following "<tt>*/</tt>".</li>
+<li>"<tt>#!</tt>" (Shebang) comments out the rest of a line.</li>
+<li>"<tt>#Q</tt>" (Quit file) comments out the rest of the whole file.</li>
+</ul>
 </body>
 </html>
