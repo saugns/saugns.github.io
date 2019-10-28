@@ -23,7 +23,7 @@ it implements the <a href='#SAU'>SAU</a> (Scriptable AUdio) language
 <li><a href='history.html'>History of the project</a>.</li>
 </ul>
 <h2 id='saugns'>saugns program</h2>
-<p><i>Further command-line usage examples/instructions can be found
+<p><i>Command-line usage examples can be found
 <a href='usage.html'>here</a>.</i>
 </p>
 <p>saugns (the Scriptable AUdio GeNeration System) is a
@@ -42,23 +42,17 @@ with the language.
 </p>
 <p>Supported platforms include x86 and x86-64,
 running DragonFly, FreeBSD, Linux, NetBSD, or OpenBSD.
+(It may or may not work on other *nix platforms.)
 </p>
-<p>Building requires a C99 compiler toolchain and running `make` (GNU or BSD).
-On Linux systems, the ALSA library (<tt>libasound2</tt>) needs to be installed.
-On the 4 major BSDs, the base systems have everything needed.
+<p>The <a href='https://github.com/saugns/saugns/blob/master/README'>README</a> file (GitHub view) describes how to build and install it.
+(Short version: For the 4 major BSDs, `<tt>make</tt>` is enough to get it built.)
 </p>
-<p>A quick test after building is the following, which should beep a sine wave for 1 second:
-</p>
-<pre>./saugns -e "Osin"</pre>
-<p>Or, for something more interesting, the following produces 10 seconds of "engine rumble" using PM:
+<p>A more interesting test to run after building is the following,
+which produces 10 seconds of "engine rumble" using PM:
 </p>
 <pre>./saugns -e "Osin f137 t10 p+[Osin f32 p+[Osin f42]]"</pre>
-<p>A set of example and test scripts are also included, under <tt>examples/</tt>.
-(These are copied to a <tt>share/examples/saugns/</tt> directory with `make install`.)
-</p>
-<p>Basic usage information can also be found in the accompanying
-<tt>saugns(1)</tt> man page
-(installed with `make install`, typically ran as `sudo make install`).
+<p>A set of example and test scripts are included,
+along with a concise SAU language reference, as described in the README file.
 </p>
 <h2 id='SAU'>SAU language</h2>
 <p><i>A brief overview of the syntax is available <a href='syntax.html'>here</a>.
