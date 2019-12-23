@@ -23,6 +23,23 @@ be found in the <a href='https://github.com/saugns/saugns/blob/master/doc/README
 <a href='https://github.com/saugns/saugns'>master branch</a>
 (what you get with a `git clone https://github.com/saugns/saugns.git`).
 </p>
+<h2 id='contents'>Contents</h2>
+<ul>
+<li><a href='#output'>Generating sound</a><ul>
+	<li><a href='#modulation'>Using modulation</a></li>
+	<li><a href='#timing'>Timing</a></li>
+	<li><a href='#supercollider'>Compared to SuperCollider</a></li>
+	</ul>
+</li>
+<li><a href='#values'>Values and expressions</a><ul>
+	<li><a href='#numexp'>Numerical expressions</a></li>
+	<li><a href='#comment'>Comment syntax</a></li>
+	<li><a href='#labelref'>Labels and referencing</a></li>
+	<li><a href='#ramp'>Value ramps</a></li>
+	<li><a href='#modvalrange'>Modulation with value range</a></li>
+	</ul>
+</li>
+</ul>
 <h2 id='output'>Generating sound</h2>
 <p>To generate a single pure tone in the SAU language:
 </p>
@@ -42,7 +59,7 @@ beeps for 1 second.)
 by setting phase to 25% of the wave cycle,
 using "<tt>p(1/4)</tt>" or "<tt>p0.25</tt>".
 </p>
-<h3>Using modulation</h3>
+<h3 id='modulation'>Using modulation</h3>
 <p>Oscillators can be used in a nested way,
 as in this example which uses PM (phase modulation):
 </p>
@@ -74,7 +91,7 @@ will maintain a frequency 2/3 times the frequency of the carrier.
 using FM or AM, respectively. See the section
 <a href='#modvalrange'>Modulation with value range</a>.
 </p>
-<h3>Timing</h3>
+<h3 id='timing'>Timing</h3>
 <p>A "<tt>|</tt>" separates that before and that after in time,
 while "<tt>\</tt>" (followed by a time in seconds)
 adds delay independently of that.
@@ -99,7 +116,7 @@ Osin f440 t1
 </pre>
 <p>This can also be done for an oscillator within a list.
 </p>
-<h3>Compared to SuperCollider</h3>
+<h3 id='supercollider'>Compared to SuperCollider</h3>
 <p>This example for <a href="https://supercollider.github.io/">SuperCollider</a>
 generates a sine wave (without actually playing it,
 which requires a few additional details):
@@ -155,7 +172,51 @@ when not made explicitly clear using parentheses.
 Nested parentheses can be used for multiplication in the customary way,
 e.g. "<tt>(2(3))</tt>" means "<tt>6</tt>".
 </p>
-<h3 id='ramp'>Value ramp</h3>
+<h3 id='comment'>Comment syntax</h3>
+<p>Several comment styles exist:
+</p>
+<ul>
+<li>"<tt>//</tt>" (C++-style comment) comments out the rest of a line.</li>
+<li>"<tt>/*</tt>" (C-style comment) comments out text until after the next "<tt>*/</tt>".</li>
+<li>"<tt>#!</tt>" (Shebang) comments out the rest of a line.</li>
+<li>"<tt>#Q</tt>" (Quit file) comments out the rest of the whole file.</li>
+</ul>
+<h3 id='labelref'>Labels and referencing</h3>
+<p>The declaration of an oscillator/operator can be
+prefixed by "<tt>'label "</tt>, where <tt>label</tt> is a
+case-sensitive alphanumeric name. (Underscores can also be used.)
+That which is labeled can be referred to
+using the syntax "<tt>@label</tt>", to place
+changes to it in any time scope later in the script.
+</p>
+<p>Note that a "<tt>@label</tt>" reference placed in a nesting scope
+different from the original does not add the operator to the new
+nesting scope. (It will not be moved out from nor into a list by
+being referenced anywhere.) The time scope is however new and of
+the reference.
+</p>
+<p>For example, the modulator used in this PM example has its frequency
+relative to the carrier changed at one-second intervals:
+</p>
+<pre>
+Osin f500 t5 p+[
+	'name Osin r(1/1)
+]
+
+\1
+@name r(1/2)
+\1
+@name r(1/3)
+\1
+@name r(1/4)
+\1
+@name r(1/5)
+</pre>
+<p>(The section <a href='#timing'>Timing</a> describes more means of
+placing changes in time. The "<tt>;</tt>" separator is often a simpler
+alternative, but can also be combined with label referencing.)
+</p>
+<h3 id='ramp'>Value ramps</h3>
 <p>To ramp, or "sweep", a parameter value towards a goal,
 a set of value ramp arguments can be given instead of the usual number.
 (This is currently supported for amplitude, frequency, and panning parameters.)
@@ -212,7 +273,9 @@ Osin f250,500~[Osin f0.1] t10
 // Vary amplitude, using a half-wave with 1/5 the frequency
 Osin f200 a(1/4),(4/4)~[Oszh r(1/5)] t5
 </pre>
-<p>The second value is only used when this kind of modulation is done, and defaults to 0. It can be specified without changing the first value, by leaving out the first value before the comma.
+<p>The second value is only used when this kind of modulation is done, and
+defaults to 0. It can be specified without changing the first value, by
+leaving out the first value before the comma.
 </p>
 <p>After value(s) or by itself, "<tt>~[]</tt>" (tilde and square brackets)
 can be used to set a list of modulator operators specified within the
@@ -227,14 +290,5 @@ range; 0.0 means the normal value and 1.0 means the second value.
 Setting (changing) the amplitude for modulators may thus change
 the range, but is allowed for the sake of flexibility.
 </p>
-<h3 id='comment'>Comment syntax</h3>
-<p>Several comment styles exist:
-</p>
-<ul>
-<li>"<tt>//</tt>" (C++-style comment) comments out the rest of a line.</li>
-<li>"<tt>/*</tt>" (C-style comment) comments out text until the first following "<tt>*/</tt>".</li>
-<li>"<tt>#!</tt>" (Shebang) comments out the rest of a line.</li>
-<li>"<tt>#Q</tt>" (Quit file) comments out the rest of the whole file.</li>
-</ul>
 </body>
 </html>
