@@ -26,22 +26,30 @@ by the "sound" of the 16-bit video game era, particularly
 Sega Genesis games and the FM synth side of the samples vs. FM divide.
 </p>
 <p>The design unfolded bottom-up, experimentally, into something very
-compact and simple - which also applies to the scripting language.
-But it became clear that much, much work would be needed to make it
-truly suitable for writing music in, as opposed to merely experimenting
-with sounds. Far greater expressiveness was hoped for than was
-straightforward to arrive at.
+compact and simple &ndash; which also applies to the scripting language.
+But after a few months, and in large part arriving at
+<a href='design.html#roots'>the early design</a>,
+it became clearer over time that much work would be needed to make it
+truly suitable for writing music in. It had only become fit for
+experimenting with sound. Far greater expressiveness was hoped
+for than was straightforward to arrive at.
 </p>
-<p>Various sketchy ideas for further development remain from this period.
+<p>In hindsight, many changes were rushed or poorly done after
+the initial design was arrived at. The first four months or so
+brought most things of more lasting quality. The remaining ten
+were spent breaking and unbreaking things in various ways, and
+leaving extra debugging and clean-up work for later years.
 </p>
 <p>The program was first called "mgensys" and then renamed "sgensys".
 Two sgensys versions were released in 2012 at Gna!, with OSS
 system audio support and WAV file output support. Historical
-versions are available in the
-<a href='https://github.com/saugns/saugns'>modern git repository</a>.
+versions, including other old snapshots, precede modern work in the
+<a href="https://github.com/saugns/saugns">git repository</a>.
 </p>
 <p>These historical versions never had any known users other
 than the original developer.
+</p>
+<p>Various sketchy ideas for further development remain from this period.
 </p>
 <h2 id='2013'>2013&ndash;2014</h2>
 <p>The project stagnated after a time of mostly theoretical focus.
@@ -82,35 +90,37 @@ together with crudely anti-aliasing '<tt>sqr</tt>' and
 and automatic downscaling of amplitude by the number of voices
 (easily added as voices were already counted).
 </p>
-<p>Later <i>v0.3.x</i> versions debug, tweak, and refine,
-without really changing audio generation capabilities.
-The main idea was to prepare for later redesign.
+<p>Further changes were made in further <i>v0.3.x</i> versions
+as a lead-up to some eventual bigger redesign.
+Currently, some main ideas from 2019 remain on the
+<a href="https://github.com/saugns/saugns/wiki">saugns GitHub wiki</a>.
 </p>
 <h2 id='2020'>2020</h2>
-<p>Bugfixes. Then a restart, redesigning the program from a much earlier
-starting point. The goal, re-expanding the simpler code for a fuller
-feature set, drawing upon the best ideas and code from <i>v0.3.x</i>.
-New major audio features and script syntax changes were planned to go
-in the new branches, leading up to some kind of saugns <i>v0.4.x</i>.
+<p>More bugfixing. Then a restart, forking off the
+<a href='design.html#roots'>more simply designed</a> early 2011 version from
+around the time the name changed from "mgensys". Some new ideas had begun to
+echo really old ones in the design of the program. The elegance of the early
+design was rediscovered, a goal set to re-expand it for a fuller feature set
+with newer experience and code to draw on.
 </p>
-<p>The new-old program temporarily kept the oldest working name, "mgensys",
-building upon a 2011 starting point discarding a year of early rushed changes.
-Noise generation was implemented, and minor syntax tweaks done, other features
-planned for, and design experimented with. (This version is kept in the branch
+<p>New major audio features and script syntax changes were planned to go
+in this new-old program, leading to some kind of saugns <i>v0.4.x</i>.
+Meanwhile, it kept the oldest working name "mgensys". Noise generation
+was implemented, minor syntax tweaks done, other features planned for,
+and design experimented with. (This version is kept in the branch
 named <tt>old-dev_202006</tt>.)
 </p>
-<p>The question became, whether to fill in the missing pieces in the new
-"mgensys", or to bridge the gap from the old stable version instead? For
-now the latter, bringing across changes of increasing size, from smaller
-code updates to new design ideas. This is planned to become <i>v0.4.x</i>.
-The opposite idea is there for later, for further fresh experimentation.
+<p>But eventually I decided to bridge the gap between the elegant
+new "mgensys" and the feature-preserving old "saugns" the other
+way around. So the 2020 saugns <i>v0.3.x</i> versions debug and
+tweak, along with bringing across changes of increasing size from
+the new "mgensys" (from smaller code updates to the main new design
+ideas). This is planned to become the new <i>v0.4.x</i>, once the design
+and feature synthesis is completed.
 </p>
-<p>Maybe the lack of feedback (including critical) meant the old program
-was simply too boring for others.
-Discussion and feedback is welcome, whether on GitHub
-or by email (Gmail, joelkpettersson).
-Some main ideas from the time of v0.3.x are listed on the
-<a href="https://github.com/saugns/saugns/wiki">saugns GitHub wiki</a>.
+<p>Maybe the overall lack of feedback (including critical) for the whole
+project, as of October 2020, meant the old stable program was simply too
+boring for others? Time may tell...
 </p>
 </body>
 </html>
