@@ -10,21 +10,33 @@ content="saugns, SAU language, Scriptable AUdio, software design" />
 </head>
 <body>
 <h1>Design</h1>
-<p>Notes on the design of the <a href='index.html'>saugns software (and SAU language)</a>, as it has evolved. (The SAU language has evolved in parallel with the software implementing it.)
+<p>Notes on the design of the <a href='index.html'>saugns software (and SAU language)</a>, as it has evolved, and the main ideas involved. (The SAU language has evolved in parallel with the software implementing it.)
 </p>
 <ul>
-<li><a href='#roots'>Roots: Early 2011 design</a></li>
+<li><a href='#roots'>Roots: Early 2011 design</a><ul>
+	<li><a href='#roots-timing'>Timing when running and generating</a></li>
+	</ul>
+</li>
 </ul>
 <h2 id='roots'>Roots: Early 2011 design</h2>
 <p>The program was developed from scratch, the language starting out as something simple enough for a trivial program to interpret.
 </p>
-<p>If a single big letter is used to start an oscillator, and a small letter followed by a number gives it a value for frequency ('f'), amplitude ('a'), or time duration ('t'), then parsing is trivial. No abstractions for lexing or syntax trees, etc., are necessary. Oscillator by oscillator, the parser can simply add a node to a list for the generator to run after parsing, setting values for the current node according to any parameter assignments in the script.
+<p>If a single big letter ('W') is used to start a wave oscillator, and a small letter followed by a number gives it a value for frequency ('f'), amplitude ('a'), or time duration ('t'), then parsing is trivial. No abstractions for lexing or syntax trees, etc., are necessary. For each oscillator, the parser can simply add a node to a list, and set values for the current node according to any parameter assignments which follow for that oscillator. After parsing is done, the resulting list of nodes specifies what to run and generate.
 </p>
-<p>The big eventual problem is that the complexity of keeping it working explodes exponentially as features for greater expressiveness are added to the language. But long before that point is reached, in small and tidy ways it's very possible to support nice things like parallel audio generation, combined with a sequential "time separator", and a more flexible "insert time delay for what's placed after this" modifier.
+<p>The list of nodes can be viewed as a sequential list of "events" to handle, which is basically the same as a list of instructions to follow in a program. To run it all, the list needs to be examined once to figure out what objects need to be allocated and prepared, and a second time when actually running the "program" it constitutes.
 </p>
-<p>Supporting nested lists in the parser and generator allows implementing modulation techniques, with the language extended to allow a list of oscillators to do something with frequency, phase, amplitude, etc. A touch of recursion, and this is a simple-enough extension.
+<p>The big eventual problem is that the complexity of keeping it working explodes exponentially as language features for greater expressiveness are added. But long before that turns into a problem, in small and tidy ways it's very possible to support nice things like parallel audio generation (several "voices"), combined with a sequential "time separator", and a more flexible "insert time delay for what's placed after this" modifier.
+</p>
+<p>Supporting nested lists in the parser and generator allows implementing modulation techniques, with the language extended to allow a list of oscillators to do something with the frequency, phase, amplitude, etc., of an oscillator to which the list is assigned. A touch of recursion, and this is a simple-enough extension.
 </p>
 <p>That kind of terse and simple language which a fairly trivial program can run may be ideal for a flexible tone generator language. But there's a great, huge chasm between that and a powerful musical language.
+</p>
+<h3 id='#roots-timing'>Timing when running and generating</h3>
+<p>Time for a script begins at 0 ms. A script is translated into a list of timed updates, or "events", each new event taking place after the previous. Each event configures the system, e.g. telling it to start generating something. (Some events take place 0 ms after the previous, making them simultaneous. The change brought by each new simultaneous event is applied on top of the previous state before time proceeds.)
+</p>
+<p>The running of a script advances through the list of events. Events take priority over output generation, but it is the output generation loop which actually advances the time. Repeatedly, after checking and handling events, the maximum time of further output generation (before a new visit to event handling) is limited to the time until the next event arrives.
+</p>
+<p>(Time is actually translated to time in samples for the sample rate, rather than time in ms, after parsing and post-parse processing before running.)
 </p>
 </body>
 </html>
