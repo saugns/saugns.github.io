@@ -34,9 +34,9 @@ content="saugns, SAU language, Scriptable AUdio, software design" />
 <h3 id='#roots-timing'>Timing when running and generating</h3>
 <p>Time for a script begins at 0 ms. A script is translated into a list of timed updates, or "events", each new event taking place after the previous. Each event configures the system, e.g. telling it to start generating something. (Some events take place 0 ms after the previous, making them simultaneous. The change brought by each new simultaneous event is applied on top of the previous state before time proceeds.)
 </p>
-<p>The running of a script advances through the list of events. Events take priority over output generation, but it is the output generation loop which actually advances the time. Repeatedly, after checking and handling events, the maximum time of further output generation (before a new visit to event handling) is limited to the time until the next event arrives.
+<p>The running of a script advances through time, primarily, and in turn the list of events, secondarily. Time proceeds as output samples are written, and after translation from ms is measured in the number of samples. Events, on the other hand, only come with time and do not advance it. But events take priority over output generation in time, pausing it while the events are handled.
 </p>
-<p>(Time is actually translated to time in samples for the sample rate, rather than time in ms, after parsing and post-parse processing before running.)
+<p>Each thing which generates output, such as a wave oscillator, has a time duration of use. Thus, its output will begin at a time position and end at another time position. The script has ended when no things remain in use, and no further events remain to be waited for (in sound or in quiet).
 </p>
 </body>
 </html>
