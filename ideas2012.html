@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+	<meta name='description'
+content="Design of the saugns program and SAU language." />
+	<meta name='keywords'
+content="saugns, SAU language, Scriptable AUdio, 2012 notes" />
+<title>2012 ideas</title>
+</head>
+<body>
+<h1>Early notes and 2012 ideas</h1>
+<p>From a collection of 2011-2013 notes on the program and language (the program then named "sgensys"), where the thinking continued after the coding stopped in early 2012. <i>{New 2020 thoughts italicized in brackets.}</i>
+</p>
+<p>The names of persons from whom I got a little feedback in 2012 are three who worked at LiU's IDA (computer science) department. At the time, I had been studying a bit of undergraduate theory, looking around the library, searched in general, and had a difficult time translating between the theory of programming languages and the track I had already begun to explore.
+</p>
+<p>When I revived the project years later, I had forgotten many details of the 2012 knowledge, but could much more clearly see how my old experimenting related to bigger programming language concepts, no longer blinded by specifics of form. Later, I think a personal refresher on formal languages, automata theory, and compiler construction may come in handy.
+</p>
+<p>Note that the word "operator" here refers to a FM synthesizer operator, i.e. a parametrized oscillator.
+</p>
+<ul>
+<li><a href='#main-ideas'>Main ideas list</a></li>
+<li><a href='#the-remainder'>The remainder</a></li>
+</ul>
+<h2 id='main-ideas'>Main ideas list</h2>
+<p>New language and syntax:
+</p>
+<ul>
+<li>Read, study, and see how it works out.</li>
+<li>Preliminary ideas:<ul>
+	<li>Voices implicit, not necessarily as in old version. (Make invisible at language level?)
+	<br /><i>{Later thought: Deal with carrier sound sources in the language, make other aspects of voices implicit.}</i></li>
+	<li>Operator-related objects in language &ndash; requires more study to elaborate structure.
+	<br /><i>{Later thought: I already did it from the start, in terms of one pre-defined class for instantiation, easily extended to providing several for further purposes.}</i></li>
+	<li>Applying more generic concepts of functions, expressions &ndash; enabling greater flexibility.
+	<br /><i>{Later thought: Making lists or arrays more general in uses makes a building block for functions later, as lists/arrays with parametrized contents.}</i></li>
+	<li>Parser separated, creating proper parse tree, from the start. Unknown complete design.
+	<br /><i>{Later thought: Simplifying the parser, and handling most processing outside it, is the most important part.}</i></li>
+	<li>Clear separation between imperative and other elements of language.</li>
+	<li>Scopes and nesting made more clearly defined, more strict, given greater role.
+	<br /><i>{Later thought: It started out loosely experimented into the language.}</i></li>
+	<li>Spend some time studying functional programming languages for ideas, adopting whatever fits.</li>
+	<li>Make constructions for envelopes and dynamic variations as expressive as possible.
+	<br /><i>{Later thought: Envelopes are like flexibly used devices, ramps are like array fill-and-use instructions, other things may be like such or otherwise.}</i></li>
+	<li>Allow "templates" of sound-defining objects, in some as-yet undefined form.
+	<br /><i>{Later thought: Lists or arrays can hold contents for repeated insertion(s)/use(s). Extend to allow varying contents in using them...}</i></li>
+	<li>Flexible referencing/addressing/substitution.</li>
+	</ul>
+<li>A speculative synthesis of ideas:<ul>
+	<li>Functions as objects -&gt; Operators as functions -&gt; A unified, as yet unknown, syntax.</li>
+	<li>Using and combining functions in defining other functions. Simple, terse, unified syntax.</li>
+	<li>Allow flexible relational querying in specifying timing.
+	<br /><i>{Later thought: Was a very vague idea.}</i></li>
+	<li>Reference without evaluation the imperative state in function-objects, values undetermined until evaluation.
+	<br /><i>{Later thought: Much more generally, a more flexible language allows referencing things only given their full or final values later, as part of specifying new or larger expressions.}</i></li>
+	<li>Imperative state scope-dependent, scopes nested. Language details to be made flexible, and as practical as possible.</li>
+	<li>Evaluate function-objects according to current local state when actions are performed. (closures?)</li>
+	</ul>
+</li>
+<li>Haraldson's feedback:
+<br /><i>{Later thoughts: Advice not taken on how to be pragmatic instead of experimenting the way I did.}</i><ul>
+	<li>"Play" with constructs using Lisp or similar without getting stuck in details.</li>
+	<li>Use tools instead of wasting half a year writing a parser by hand, if possible for the language.</li>
+	<li>[Suggestions for courses which could be useful.]</li>
+	<li>Don't get stuck in low-level thinking.</li>
+	</ul>
+</li>
+<li>Szalas' feedback:<ul>
+	<li>Timing relation problem seems to fit constraint programming.</li>
+	<li>Integer (linear) programming, if it fits, has efficient algorithms.</li>
+	</ul>
+</li>
+<li>Further synthesis of ideas:<ul>
+	<li>Relation to other objects &ndash; contraints? &ndash; can be generally applicable, not just to timing.</li>
+	</ul>
+</li>
+<li>Stavaker's feedback:<ul>
+	<li>Write grammar, see problems that appear, and how it goes and where it leads.</li>
+	<li>[Book suggestions.]</li>
+	<li>[Course suggestions.]</li>
+	</ul>
+</li>
+<li>My own thoughts:<ul>
+	<li>This cannot all be planned and designed in advance; [experimentation is needed].</li>
+	<li>Needing more experience thinking and working like an engineer, and broader understanding.</li>
+	<li>Once ideas are worked out a bit further, it may pay to ask for further feedback. Mainly, more of a feel and some perspective on what at present seems to remain is needed.</li>
+	</ul>
+</li>
+</ul>
+<h2 id='the-remainder'>The remainder</h2>
+<p>Later pages described, firstly, ideas about how to solve various problems seen for extending or reworking the program as it then was, having to do with timing, data structures for oscillators and their relations, and traversal. Secondly, further lists with theoretical thoughts about a "new language" and work leading to it were interspersed with more practical ideas about reworking the program.
+</p>
+<p>Comparing the 2020 program to the more practical 2012 redesign ideas, the language and work done by the parser simply hasn't grown to fit the sketched-out ideas of a more full-featured symbol table, and a bit more. But an antiquated idea of scanner input buffering copied into my notes made its way into the file module used in my code. The practical notes also include the simple idea of pre-traversing oscillator connection graphs "in the compiler" (after parsing), and scheduling audio input and output blocks/buffers into a flat ordered list for audio generation to use afterwards.
+</p>
+</body>
+</html>
