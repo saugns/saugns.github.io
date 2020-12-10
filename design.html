@@ -15,6 +15,11 @@ content="saugns, SAU language, Scriptable AUdio, software design" />
 <ul>
 <li><a href='#roots'>Roots: Early 2011 design</a><ul>
 	<li><a href='#roots-timing'>Timing when running and generating</a></li>
+	<li><a href='#roots-limits'>Limitations of the early design</a></li>
+	</ul>
+</li>
+<li><a href='#trunk'>Trunk: Experimentation and 2012 ideas</a><ul>
+	<li><a href='#trunk-problems'>Old problems and solving them</a></li>
 	</ul>
 </li>
 </ul>
@@ -25,18 +30,37 @@ content="saugns, SAU language, Scriptable AUdio, software design" />
 </p>
 <p>The list of nodes can be viewed as a sequential list of "events" to handle, which is basically the same as a list of instructions to follow in a program. To run it all, the list needs to be examined once to figure out what objects need to be allocated and prepared, and a second time when actually running the "program" it constitutes.
 </p>
-<p>The big eventual problem is that the complexity of keeping it working explodes exponentially as language features for greater expressiveness are added. But long before that turns into a problem, in small and tidy ways it's very possible to support nice things like parallel audio generation (several "voices"), combined with a sequential "time separator", and a more flexible "insert time delay for what's placed after this" modifier.
+<p>Supporting nested lists in the parser and generator allows implementing modulation techniques, with the language extended to allow a list of oscillators to do something with the frequency, phase, amplitude, etc., of an oscillator to which the list is assigned. A touch of recursion, and this is a simple-enough extension; time proceeds along a linear list like before, though the data used in connection with each node may branch out.
 </p>
-<p>Supporting nested lists in the parser and generator allows implementing modulation techniques, with the language extended to allow a list of oscillators to do something with the frequency, phase, amplitude, etc., of an oscillator to which the list is assigned. A touch of recursion, and this is a simple-enough extension.
+<p>The big eventual problem is that the complexity of keeping it working explodes exponentially as language features for greater expressiveness are added on top of the simple core. (This is best solved by gracefully complicating the simple core with further processing stages to scale better.) But long before that turns into a problem, in small and tidy ways it's very possible to support nice things like parallel audio generation (several "voices"), combined with a sequential "time separator", and a more flexible "insert time delay for what's placed after this" modifier.
 </p>
 <p>That kind of terse and simple language which a fairly trivial program can run may be ideal for a flexible tone generator language. But there's a great, huge chasm between that and a powerful musical language.
 </p>
-<h3 id='#roots-timing'>Timing when running and generating</h3>
+<h3 id='roots-timing'>Timing when running and generating</h3>
 <p>Time for a script begins at 0 ms. A script is translated into a list of timed updates, or "events", each new event taking place after the previous. Each event configures the system, e.g. telling it to start generating something. (Some events take place 0 ms after the previous, making them simultaneous. The change brought by each new simultaneous event is applied on top of the previous state before time proceeds.)
 </p>
 <p>The running of a script advances through time, primarily, and in turn the list of events, secondarily. Time proceeds as output samples are written, and after translation from ms is measured in the number of samples. Events, on the other hand, only come with time and do not advance it. But events take priority over output generation in time, pausing it while the events are handled.
 </p>
 <p>Each thing which generates output, such as a wave oscillator, has a time duration of use. Thus, its output will begin at a time position and end at another time position. The script has ended when no things remain in use, and no further events remain to be waited for (in sound or in quiet).
+</p>
+<h3 id='roots-limits'>Limitations of the early design</h3>
+<p>Some functionality cannot be reached without complicating the core design and beginning to move beyond it.
+</p>
+<p>For example, originally the capabilities of old FM synthesizer systems had been an inspiration, but they support connecting oscillators in arrangements other than the tree structures of carriers and modulators provided for by nested lists; e.g. several carriers may share a modulator, and in general the oscillator connection schema is a DAG (directed acyclic graph) in Yamaha's old FM "algorithms". (Technically, DAG plus immediate loops for self-modulation.) Considered early, this led to moving into further experimenting.
+</p>
+<h2 id='trunk'>Trunk: Experimentation and 2012 ideas</h2>
+<p>Experimenting on in 2011 and beyond, and also researching potentially useful ideas for programming languages and compilers in 2012, led to a series of <a href='ideas2012.html'>old notes</a>. Mainly, a list of thoughts on a new language, and ideas for possible design elaborations. But the gap between theory in the abstract, and seeing how whatever has been done in practice maps to it, was great for me back then; I was too blinded by differences in appearance. In later years, I can recover the understanding of my own early work and understand fancier theory at the same time.
+</p>
+<p>A middle-layer between the parsing end and the audio generation end of the program developed, initially from moving out part of the semantic handling from the parser after it had become overgrown. The middle developed to track timing, and count and allocate voices for sound generation prior to running it. (Some of the limitations of the language allow time durations in a script to be pre-calculated without running the script; the language is not Turing complete.)
+</p>
+<p>Ideas from 2012, and later, remain to be explored more thoroughly for extending and reworking features.
+</p>
+<h3 id='trunk-problems'>Old problems and solving them</h3>
+<p>Subtle bugs and technical debt tended to increase in the year between April 2011 and April 2012, when the old work ended. Redesign work often stopped short of exploring the potential of ideas more fully after the first steps were made, and some smaller changes were premature. Changes were done and undone, bugs added and removed, and code evolved for both better and worse.
+</p>
+<p>New work since reviving the project in November 2017 has left a cleaner and more modular start for further experimenting, though few of the design changes as of November 2020 go to the core of audio generation features. Most of them rather deal with the parsing end of things, or otherwise hopefully make future work simpler and less error-prone.
+</p>
+<p>To be continued...
 </p>
 </body>
 </html>
