@@ -19,7 +19,8 @@ content="saugns, SAU language, Scriptable AUdio, software design" />
 	</ul>
 </li>
 <li><a href='#trunk'>Trunk: Experimentation and 2012 ideas</a><ul>
-	<li><a href='#trunk-problems'>Old problems and solving them</a></li>
+	<li><a href='#trunk-growing'>Growing the early design</a></li>
+	<li><a href='#trunk-oddsends'>Odds and ends from clean-up work</a></li>
 	</ul>
 </li>
 </ul>
@@ -46,19 +47,30 @@ content="saugns, SAU language, Scriptable AUdio, software design" />
 <h3 id='roots-limits'>Limitations of the early design</h3>
 <p>Some functionality cannot be reached without complicating the core design and beginning to move beyond it.
 </p>
-<p>For example, originally the capabilities of old FM synthesizer systems had been an inspiration, but they support connecting oscillators in arrangements other than the tree structures of carriers and modulators provided for by nested lists; e.g. several carriers may share a modulator, and in general the oscillator connection schema is a DAG (directed acyclic graph) in Yamaha's old FM "algorithms". (Technically, DAG plus immediate loops for self-modulation.) Considered early, this led to moving into further experimenting.
+<p>Early on, the capabilities of old FM synthesizer systems had been an inspiration, but it was seen that they support connecting oscillators in arrangements other than the tree structures of carriers and modulators provided for by nested lists; e.g. several carriers may share a modulator, and in general the oscillator connection schema is a DAG (directed acyclic graph) in Yamaha's old FM "algorithms". (Technically, self-modulation could however be viewed as addding self-loops to an otherwise acyclic graph.)
+</p>
+<p>Among ideas not implemented in the early program, mostly it isn't audio generation features which suggest great departures in design, however. Mostly, it is programming language ideas, like defining and using functions for creating sounds, or other ways of turning audio definitions entered in a script into a "template" of sorts for further audio in that script, and other ideas increasing language expressiveness.
+</p>
+<p>Relative to the early language, some kinds of extensions for it would mainly require complicating the design closer to the parsing end of the program, while others require reworking the other end which ultimately runs stuff into Turing complete capability (from something far more limited). I mainly focused on the former, on the way into further experimenting.
 </p>
 <h2 id='trunk'>Trunk: Experimentation and 2012 ideas</h2>
 <p>Experimenting on in 2011 and beyond, and also researching potentially useful ideas for programming languages and compilers in 2012, led to a series of <a href='ideas2012.html'>old notes</a>. Mainly, a list of thoughts on a new language, and ideas for possible design elaborations. But the gap between theory in the abstract, and seeing how whatever has been done in practice maps to it, was great for me back then; I was too blinded by differences in appearance. In later years, I can recover the understanding of my own early work and understand fancier theory at the same time.
 </p>
-<p>A middle-layer between the parsing end and the audio generation end of the program developed, initially from moving out part of the semantic handling from the parser after it had become overgrown. The middle developed to track timing, and count and allocate voices for sound generation prior to running it. (Some of the limitations of the language allow time durations in a script to be pre-calculated without running the script; the language is not Turing complete.)
+<p>Various good little ideas made it into the program design in the year between April 2011 and April 2012 (when the old work ended), but in a rough and sometimes buggy form, requiring later clean-up. Various things towards which first steps were taken were also left unfinished.
 </p>
 <p>Ideas from 2012, and later, remain to be explored more thoroughly for extending and reworking features.
 </p>
-<h3 id='trunk-problems'>Old problems and solving them</h3>
-<p>Subtle bugs and technical debt tended to increase in the year between April 2011 and April 2012, when the old work ended. Redesign work often stopped short of exploring the potential of ideas more fully after the first steps were made, and some smaller changes were premature. Changes were done and undone, bugs added and removed, and code evolved for both better and worse.
+<h3 id='trunk-growing'>Growing the early design</h3>
+<p>In April 2011, the simple structures used as parser output and input for audio generation were cleaner than a year later. They consisted of a main, flat linked list of nodes from the parser, and additional fields making it possible to traverse it and handle the data in other ways, when nested script content had resulted in the sequence of nodes.
 </p>
-<p>New work since reviving the project in November 2017 has left a cleaner and more modular start for further experimenting, though few of the design changes as of November 2020 go to the core of audio generation features. Most of them rather deal with the parsing end of things, or otherwise hopefully make future work simpler and less error-prone.
+<p>The April 2012 program, though messier, had however brought a good compromise in principle between those structures and a normal "syntax tree", by making a tree in the parser when nesting is used, but keeping the nodes used equally "fat" (e.g. one node per oscillator definition, not one node for every parameter or value). Post-parse code can later translate that structure into something more flat and better-suited for the ultimate use.
+</p>
+<p>A syntax extension part of the early design makes use of an extra type of node nesting, flattened away after parsing. "Composite events" allow timing to be structured differently in a script. The idea is to group a series of changes for a single object (e.g. an oscillator) in one place, each change taking place after the time duration used for the previous, making the whole look like one big event composed of sub-events. This allows updates to several objects in a part of the script to be grouped per object, instead of having to intersperse changes for different objects according to the script-wide flow of time.
+</p>
+<p>A middle-layer between the parsing end and the audio generation end of the program had come along by 2012, initially from moving out such semantic handling from the parser after it became overgrown. This middle developed to track timing, and count and allocate voices for sound generation prior to running it. (Some of the limitations of the language allow time durations in a script to be pre-calculated without running the script; the language is not Turing complete.)
+</p>
+<h3 id='trunk-oddsends'>Odds and ends from clean-up work</h3>
+<p>Some general ideas have evolved since reviving the project in November 2017, concerning making and keeping it cleaner and more modular. Small-scale experiments in how to (re)structure or otherwise improve little pieces of the whole have taken a large part of the focus as of November 2020, in a slow-going pedantic clean-up phase for the project. (It's not pragmatic at all, but it's been a good-enough way to spend time in a glum period of life.)
 </p>
 <p>To be continued...
 </p>
