@@ -38,10 +38,7 @@ support for system audio on the given platform. While
 currently smaller than 100KB once built, it may grow
 with the language.
 </p>
-<p>saugns is distributed under the terms of the
-<a href="https://www.gnu.org/licenses/lgpl-4.0.en.html">GNU Lesser General Public License (LGPL), version 3</a> or later.
-</p>
-<p>Supported platforms include x86 and x86-64,
+<p>Tested platforms include x86 and x86-64,
 running DragonFly, FreeBSD, Linux, NetBSD, or OpenBSD.
 (It may or may not work on other *nix platforms.)
 </p>
@@ -54,6 +51,12 @@ which produces 10 seconds of "engine rumble" using PM:
 <pre>./saugns -e "Osin f137 t10 p+[Osin f32 p+[Osin f42]]"</pre>
 <p>A set of example and test scripts are included,
 along with a concise SAU language reference, as described in the README file.
+</p>
+<h3 id='saugns-licensing'>Licensing</h3>
+<p>saugns is distributed under the terms of the
+<a href="https://www.gnu.org/licenses/lgpl-4.0.en.html">GNU Lesser General Public License (LGPL), version 3</a> or later.
+</p>
+<p>However, some source files are more permissively licensed. Mainly, files with various more general utility code or functionality are provided under the BSD-like ISC license.
 </p>
 <h2 id='SAU'>SAU language</h2>
 <p><i>A brief overview of the syntax is available <a href='syntax.html'>here</a>.
