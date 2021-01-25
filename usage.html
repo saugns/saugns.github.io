@@ -42,6 +42,14 @@ each of which plays as a separate script.)
 <p>Sample rate in Hz can be changed using the <tt>-r</tt> option:
 </p>
 <pre>saugns -r 48000 script(s)</pre>
+<h3>Changing audio device</h3>
+<p>The audio device used for playback can be changed using the <tt>AUDIODEV</tt>
+environment variable, similarly to in other software supporting it.
+</p>
+<pre>export AUDIODEV=value</pre>
+<p>Where instead of <tt>value</tt> something is inserted to
+replace e.g. <tt>default</tt> for ALSA or sndio, or <tt>/dev/dsp</tt> for OSS.
+</p>
 <h2>Checking scripts</h2>
 <p>To simply check if scripts parse cleanly (no errors or warnings),
 use the <tt>-c</tt> option:
