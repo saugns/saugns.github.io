@@ -14,7 +14,14 @@ content="saugns, SAU language, Scriptable AUdio, project history" />
 <a href='index.html'>saugns program, SAU language</a> and project as a whole.
 </p>
 <ul>
-<li><a href='#2011'>2011&ndash;2012: Beginning</a></li>
+<li><a href='#2011'>2011&ndash;2012: Beginning</a><ul>
+	<li><a href='#2011-01-21'>2011-01-21: Quick tests</a></li>
+	<li><a href='#2011-02-21'>2011-02-21: PM synthesis achieved</a></li>
+	<li><a href='#2011-04-04'>2011-04-04: sgensys is the Sound GENeration SYStem</a></li>
+	<li><a href='#2011-06-04'>2011-06-04: Early feature plateau</a></li>
+	<li><a href='#2012-04-01'>2012-04-01: All the rest, then at rest</a></li>
+	</ul>
+</li>
 <li><a href='#2013'>2013&ndash;2014: Stagnation</a></li>
 <li><a href='#2017'>2017&ndash;2019: Great clean-up</a></li>
 <li><a href='#2020'>2020&ndash;2021+: Reorienting</a></li>
@@ -51,6 +58,141 @@ than the original developer.
 </p>
 <p>Various sketchy ideas for further development
 <a href='ideas2012.html'>remain</a> from this period.
+</p>
+<h3 id='2011-01-21'>2011-01-21: Quick tests</h3>
+<p>The first snapshot is a quick test supporting playing the classic wave
+types: sine, triangle, square, saw. The script syntax uses <tt>D</tt> to
+set default values, <tt>W</tt> to insert a wait time</tt>, <tt>E</tt> to
+wait until playing done (until end), and <tt>S</tt> to insert a "sound":
+</p>
+<pre>
+# This is the first mgensys script made
+D      a0.5
+W      t0.5
+Ssqr   f220 t1
+Ssqr   f110 t0.5 a.05  E
+Ssqr   f440 t1.5
+Ssqr   f220 t0.5 a.05  E
+Ssqr   f400 t0.5       E
+Ssqr   f350 t0.5       E
+Ssqr   f325 t1.5       E
+W      t1
+Ssqr   f220 t1         E
+Ssqr   f440 t1.5       E
+Ssqr   f415 t0.5       E
+Ssqr   f445 t0.5       E
+Ssqr   f490 t1         E
+Ssqr   f420 t1         E
+Ssqr   f440 t1.5       E
+Q
+</pre>
+<p>A quick second version the same day changes to the basic wave-table
+oscillator (one cycle per wave type) then kept. It also changes script
+syntax towards the direction of later versions. <tt>S</tt> sets a
+default value, <tt>W</tt> plays a wave, and <tt>/</tt> inserts a delay:
+</p>
+<pre>
+# This is the first mgensys script made
+S      a0.5
+                       /0.5
+Wsin   f220 t1
+Wsin   f110 t0.5 a.05  E
+Wsin   f440 t1.5
+Wsin   f220 t0.5 a.05  E
+Wsin   f400 t0.5       E
+Wsin   f350 t0.5       E
+Wsin   f325 t1.5       /1 E
+Wsin   f220 t1         E
+Wsin   f440 t1.5       E
+Wsin   f415 t0.5       E
+Wsin   f445 t0.5       E
+Wsin   f490 t1         E
+Wsin   f420 t1         E
+Wsin   f440 t1.5       E
+Q
+</pre>
+<p>"Wait nodes" were replaced by timing calculations using a delay time in each
+sound-generating node, and only reaching later nodes after time for the current
+node has advanced past any delay before play.
+</p>
+<h3 id='2011-02-21'>2011-02-21: PM synthesis achieved</h3>
+<p>On 02-13, label assignment and referencing was added to the syntax, so
+that sounds can be named and then changed further after a delay.
+By 02-16, scope level handling was added and a modulator list syntax,
+<tt>m&lt;...&gt;</tt>, was added for grouping modulator sounds for carrier
+sounds. (The syntax for waiting until the end of prior sounds was also
+changed to <tt>|</tt>.) Basically correctly-sounding PM finally appeared in
+the 02-21 version, along with supporting relative frequencies for modulators.
+</p>
+<pre>
+Wsin f444 t2 m&lt;Wsin r1.23456789&gt; |
+'a Wsin f444 t2 m&lt;Wsin r(1/7.12)&gt; |
+:a t2 m&lt;Wsin r(1/2.255)&gt; |
+:a f222 t2 |
+/2
+
+Wsin f137 t1 m&lt;Wsin f032 m&lt;Wsin f42&gt;&gt; |
+Wsin f137 t1 m&lt;Wsin f132 m&lt;Wsin f42&gt;&gt; |
+Wsin f137 t1 m&lt;Wsin f232 m&lt;Wsin f42&gt;&gt; |
+Wsin f137 t1 m&lt;Wsin f332 m&lt;Wsin f42&gt;&gt; |
+Wsin f137 t1 m&lt;Wsin f432 m&lt;Wsin f42&gt;&gt; |
+Wsin f137 t1 m&lt;Wsin f532 m&lt;Wsin f42&gt;&gt; |
+Wsin f137 t1 m&lt;Wsin f632 m&lt;Wsin f42&gt;&gt; |
+Wsin f137 t1 m&lt;Wsin f732 m&lt;Wsin f42&gt;&gt; |
+Wsin f137 t.5 m&lt;Wsin f832 m&lt;Wsin f42&gt;&gt; |
+Wsin f137 t.5 m&lt;Wsin f932 m&lt;Wsin f42&gt;&gt; |
+Wsin f137 t2 m&lt;Wsin f1032 m&lt;Wsin f42&gt;&gt;
+Q
+</pre>
+<h3 id='2011-04-04'>2011-04-04: sgensys is the Sound GENeration SYStem</h3>
+<p>AM and FM support were added by 03-04, and the modulator list syntax was
+also changed for PM then: <tt>a!{...}</tt> for AM, <tt>f!{...}</tt> for FM,
+and <tt>m{...}</tt> for PM. Soon after, PM syntax became <tt>p!{...}</tt>.
+</p>
+<p>The 04-04 version changed sound generation to fill and use buffers or
+"blocks", instead of re-traversing the nodes on a sample by sample basis.
+</p>
+<p>A joke that never took off: "sgensys is the Sound GENeration SYStem.
+Throw out your fancy pre-recorded samples and replace them with terse
+scripts in a primitive language invoking the powers of FM synthesis."
+(Compare to "ed is the standard editor"; the only problem was/is the
+young age of my program.)
+</p>
+<h3 id='2011-06-04'>2011-06-04: Early feature plateau</h3>
+<p>A series of quick design tweaks and feature additions led up to an early
+feature plateau. A few early features were added after 06-04, but most was
+completed by then, and most of what was striven for afterwards was left
+unfinished.
+</p>
+<p>By 04-26, some fancy syntactic sugar was added in the form of the
+<tt>;</tt>-separator that allows grouping a series of changes for the
+same sound in one place in a script, even if other events in the script
+alternate with some of those changes in the flow of time.
+</p>
+<p>By 05-08, basic support for value ramps (linear, and curves using a
+polynomial chosen by ear for "exponential and logarithmic") was added. That
+was just after support for writing frequencies as notes in C-major scale was
+also added.
+</p>
+<p>A mixture of ideas were in the inconsistent syntax of early June.
+The letter <tt>O</tt> became used for an "operator" (oscillator) in a
+long-lived change. But the PM syntax was also replaced with a new scheme,
+basically meant to be developed further as a new modulator syntax in general,
+but then dropped and that change undone. For an oscillator, a <tt>-</tt> meant
+"link it to what follows", flattening the PM modulator list syntax. (A line
+break marked the end in the absence of nesting characters.) Furthermore, a
+scope nesting <tt>&lt;...&gt;</tt> syntax was meant to allow pushing/popping
+such scope, as in <tt>&lt;-...&gt;</tt>.
+</p>
+<h3 id='2012-04-01'>2012-04-01: All the rest, then at rest</h3>
+<p>All remaining syntax changes in the early versions were done by 01-23. That
+snapshot added support for letting modulator oscillators either have their time
+duration determined by the carrier (as earlier), or set so as to be limited to a
+shorter time.
+</p>
+<p>WAV file output was added in the 02-10 snapshot. By 02-26, preparations to
+release it at Gna! were visibly done. Further fixes and little design tweaks
+mark the 03-05 release and the 04-01 release.
 </p>
 <h2 id='2013'>2013&ndash;2014: Stagnation</h2>
 <p>The project stagnated after a time of mostly theoretical focus.
