@@ -23,8 +23,11 @@ content="saugns, SAU language, Scriptable AUdio, project history" />
 	</ul>
 </li>
 <li><a href='#2013'>2013&ndash;2014: Stagnation</a></li>
-<li><a href='#2017'>2017&ndash;2019: Great clean-up</a></li>
-<li><a href='#2020'>2020&ndash;2021+: Reorienting</a></li>
+<li><a href='#2017'>2017&ndash;2020: Great clean-up</a><ul>
+	<li><a href='#2020-06-mgensys'>2020-06 "mgensys": Almost starting over</a></li>
+	</ul>
+</li>
+<li><a href='#2021'>2021+: Reorienting</a></li>
 </ul>
 <h2 id='2011'>2011&ndash;2012: Beginning</h2>
 <p>The program was originally developed in 2011-2012. Meant to
@@ -212,34 +215,46 @@ incomplete ideas for an intermediate redesign of the old system.
 <p>The old program design and language were seen as a dead end,
 but no substantial ideas for a rewrite developed.
 </p>
-<h2 id='2017'>2017&ndash;2019: Great clean-up</h2>
+<h2 id='2017'>2017&ndash;2020: Great clean-up</h2>
 <p>The project was revived on November 27, 2017,
-with a mix of clean-up work and some experimentation.
-A year later, the code was cleaner and more portable,
-but audio features largely the same. In January 2019,
-the project and program was renamed to saugns
-and the language to SAU (Scriptable AUdio).
+with a focus torn between three paths:
 </p>
-<p><b>v0.3.0</b>, released in July 2019, completed the initial clean-up work.
-The biggest single design change is in the scanning and parsing, new
-low-level code having been spun off from the 2014 test lexer. Command-line
-options are expanded and strings can be evaluated with "<tt>-e</tt>".
-Various syntax details have been tweaked without changing basic capabilities.
+<ol>
+<li>Bugfix and refactoring clean-ups.</li>
+<li>Deep-going redesign with the old language and features still the basis.</li>
+<li>Experimenting on and developing a new language.</li>
+</ol>
+<p>The first of these ended up given most of the focus, until early 2021.
+For whatever reason, I found myself stuck moving in the other directions.
+The main exception is reworking the command-line interface, and expanding
+its options. Strings can be evaluated with "<tt>-e</tt>", after using new
+low-level code spun off from the 2014 test lexer to scan the script text.
+Further, some smaller syntax changes don't significantly extend features.
 </p>
-<p>Further improvements include better audio mixing,
-3 added wave types (1 removed in later <i>v0.3.x</i>,
-together with crudely anti-aliasing '<tt>sqr</tt>' and
-'<tt>saw</tt>'), changes and additions to value ramp curves,
-and automatic downscaling of amplitude by the number of voices
+<p>A new development style took form in 2018, with small clean-up changes
+git-rebased down as far as "cleanly possible" in the new work, logs kept,
+the early commits "growing" while maintained like stable versions. Splits
+were later done to compensate for the over-squashing. Sometimes the later
+commits were discarded or redone in a little "restart" on top of earlier;
+that took place to different extents, old branches kept with big rebases.
+</p>
+<p>In January 2019, the project and program was renamed to saugns and the
+language to SAU (Scriptable AUdio). The first currently tagged version is
+<i>v0.3.0</i>, released in July 2019. The clean-up work however continues
+throughout v0.3.x, changes measured in lines often large between versions
+while features differ little.
+</p>
+<p><i>v0.3.0</i> brought better audio mixing, 3 added wave types
+(1 removed in later <i>v0.3.x</i>, together with crudely anti-aliasing
+'<tt>sqr</tt>' and '<tt>saw</tt>'), changes and additions to value ramp
+curves, and automatic downscaling of amplitude by the number of voices
 (easily added as voices were already counted).
 </p>
-<p>Further changes were made in further <i>v0.3.x</i> versions
-as a lead-up to some eventual bigger redesign.
-Currently, some main ideas from 2019 remain on the
+<p>Currently, some old ideas for future work remain from 2019 on the
 <a href="https://github.com/saugns/saugns/wiki">saugns GitHub wiki</a>.
 </p>
-<h2 id='2020'>2020&ndash;2021+: Reorienting</h2>
-<p>Following more bugfixing, a restart, forking off the
+<h3 id='2020-06-mgensys'>2020-06 "mgensys": Almost starting over</h3>
+<p>In early 2020, following more bugfixing, for half a year I forked off the
 <a href='design.html#roots'>more simply designed</a> early 2011 version from
 around the time the name changed from "mgensys". Some new ideas had begun to
 echo really old ones in the design of the program. The elegance of the early
@@ -260,6 +275,11 @@ tweak, along with bringing across changes of increasing size from
 the new "mgensys" (from smaller code updates to the main new design
 ideas). This is planned to lead to the new <i>v0.4.x</i>, once the
 design and feature synthesis is completed.
+</p>
+<h2 id='2021'>2021+: Reorienting</h2>
+<p>A fuller and more experimental redesign may be up next, following
+more fully digesting ideas from reading, and rethinking what's meaningful
+for the program to be...
 </p>
 </body>
 </html>
