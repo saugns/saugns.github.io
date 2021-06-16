@@ -20,6 +20,7 @@ it implements the <a href='#SAU'>SAU</a> (Scriptable AUdio) language
 <code>https://github.com/saugns/saugns.git</code></li>
 <li><a href='usage.html'>Command-line usage</a>.</li>
 <li><a href='syntax.html'>SAU language syntax</a>.</li>
+<li><a href='platforms.html'>Platforms and modifications</a>.</li>
 <li><a href='design.html'>Design and main ideas</a>.</li>
 <li><a href='history.html'>History of the project</a>.</li>
 </ul>
@@ -34,13 +35,13 @@ system audio, and/or a 16-bit PCM WAV file.
 </p>
 <p>The program is written in C and on the lightweight side,
 without any dependencies beyond the standard C library and
-support for system audio on the given platform. While
-currently smaller than 100KB once built, it may grow
+support for system audio on the given <a href='platforms.html'>platform</a>.
+While currently smaller than 100KB once built, it may grow
 with the language.
 </p>
-<p>Tested platforms include x86 and x86-64,
-running DragonFly, FreeBSD, Linux, NetBSD, or OpenBSD.
-(It may or may not work on other *nix platforms.)
+<p>Mainly tested on x86/x86-64 on *BSD and Linux systems, but
+may generally work on 32-bit and 64-bit little-endian systems
+for those OSes without the need for changes.
 </p>
 <p>The <a href="https://github.com/saugns/saugns/blob/master/README">README</a> file (GitHub view) describes how to build and install it.
 (Short version: For the 4 major BSDs, `<tt>make</tt>` is enough to get it built.)
