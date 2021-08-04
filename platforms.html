@@ -6,6 +6,7 @@
 content="Platforms and modifications for the saugns program." />
 	<meta name='keywords'
 content="saugns, platforms, modifications" />
+	<link rel='stylesheet' href='style.css' type='text/css' title='Default' /><style type='text/css'>@import url("style.css");</style>
 <title>saugns platforms</title>
 </head>
 <body>
@@ -17,8 +18,8 @@ the program, and it reportedly works fine on Raspberry Pi 3, i.e.
 ARM. Generally, little-endian 32-bit and 64-bit architectures can
 work fine with the current code unless something has been missed.
 </p>
-<p>For big-endian, at a minimum the audio output code must change
-so that output bytes are always in the right order.
+<p>For big-endian, not knowing more yet, at a minimum WAV file
+output code must change so that output bytes are still little-endian.
 </p>
 <h2>Operating systems</h2>
 <p>Tested operating systems include the four major BSDs (FreeBSD,

@@ -1,0 +1,13 @@
+p {
+	text-align: justify;
+}
+pre {
+	font: 1em monospace;
+	border: 1px solid gray;
+	padding: 0.25em;
+	overflow: auto;
+}
+.center {
+	text-align: center;
+}
+

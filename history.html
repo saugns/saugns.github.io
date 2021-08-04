@@ -6,6 +6,7 @@
 content="Project history for the saugns program and SAU language." />
 	<meta name='keywords'
 content="saugns, SAU language, Scriptable AUdio, project history" />
+	<link rel='stylesheet' href='style.css' type='text/css' title='Default' /><style type='text/css'>@import url("style.css");</style>
 <title>Project history</title>
 </head>
 <body>
@@ -183,9 +184,11 @@ long-lived change. But the PM syntax was also replaced with a new scheme,
 basically meant to be developed further as a new modulator syntax in general,
 but then dropped and that change undone. For an oscillator, a <tt>-</tt> meant
 "link it to what follows", flattening the PM modulator list syntax. (A line
-break marked the end in the absence of nesting characters.) Furthermore, a
-scope nesting <tt>&lt;...&gt;</tt> syntax was meant to allow pushing/popping
-such scope, as in <tt>&lt;-...&gt;</tt>.
+break marked the end of nesting using one or more <tt>-</tt> in the absence of
+other nesting characters.) Furthermore, a
+scope nesting <tt>&lt;...&gt;</tt> syntax was meant to be combined with it, to
+allow pushing/popping such scope in a more conventional way,
+as in <tt>&lt;-...&gt;</tt> where nesting ends after the <tt>&gt;</tt>.
 </p>
 <h3 id='2012-04-01'>2012-04-01: All the rest, then at rest</h3>
 <p>All remaining syntax changes in the early versions were done by 01-23. That
@@ -229,14 +232,8 @@ For whatever reason, I found myself stuck moving in the other directions.
 The main exception is reworking the command-line interface, and expanding
 its options. Strings can be evaluated with "<tt>-e</tt>", after using new
 low-level code spun off from the 2014 test lexer to scan the script text.
-Further, some smaller syntax changes don't significantly extend features.
-</p>
-<p>A new development style took form in 2018, with small clean-up changes
-git-rebased down as far as "cleanly possible" in the new work, logs kept,
-the early commits "growing" while maintained like stable versions. Splits
-were later done to compensate for the over-squashing. Sometimes the later
-commits were discarded or redone in a little "restart" on top of earlier;
-that took place to different extents, old branches kept with big rebases.
+Further, some smaller syntax changes made while still feeling torn on how
+it should ultiamtely look, don't significantly extend features.
 </p>
 <p>In January 2019, the project and program was renamed to saugns and the
 language to SAU (Scriptable AUdio). The first currently tagged version is
@@ -245,7 +242,7 @@ throughout v0.3.x, changes measured in lines often large between versions
 while features differ little.
 </p>
 <p><i>v0.3.0</i> brought better audio mixing, 3 added wave types
-(1 removed in later <i>v0.3.x</i>, together with crudely anti-aliasing
+(1 removed in <i>v0.3.3</i>, together with crudely anti-aliasing
 '<tt>sqr</tt>' and '<tt>saw</tt>'), changes and additions to value ramp
 curves, and automatic downscaling of amplitude by the number of voices
 (easily added as voices were already counted).
@@ -272,14 +269,23 @@ named <tt>old-dev_202006</tt>.)
 new "mgensys" and the feature-preserving old "saugns" the other
 way around. So the further saugns <i>v0.3.x</i> versions debug and
 tweak, along with bringing across changes of increasing size from
-the new "mgensys" (from smaller code updates to the main new design
-ideas). This is planned to lead to the new <i>v0.4.x</i>, once the
+the new "mgensys" (from smaller code updates to some design ideas).
+This is planned to lead to the new <i>v0.4.x</i>, once the
 design and feature synthesis is completed.
 </p>
 <h2 id='2021'>2021+: Reorienting</h2>
-<p>A fuller and more experimental redesign may be up next, following
-more fully digesting ideas from reading, and rethinking what's meaningful
-for the program to be...
+<p>Having felt somewhat bored and aimless with the overall design,
+which I found a bit stale and limited, I mostly left it for a time,
+rethinking what's meaningful for the program to be...
+</p>
+<p>A fuller and more experimental redesign may be up next... One experimental
+branch uses pre-integrated wave tables followed by differentiation
+in the oscillator for DPW-like box-filtering anti-aliasing for all
+waveforms (including FM and PM for sine waves). But very different
+designs are possible, and eventually I may abandon the wavetable approach
+entirely. I remember some early ideas for more flexibly wavetype-morphing
+oscillators which may make for more interesting synthesis if implemented,
+(and if it's made to work without terrible aliasing noise).
 </p>
 </body>
 </html>
