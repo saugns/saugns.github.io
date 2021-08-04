@@ -15,22 +15,22 @@ content="saugns, SAU language, Scriptable AUdio, project history" />
 <a href='index.html'>saugns program, SAU language</a> and project as a whole.
 </p>
 <ul>
-<li><a href='#2011'>2011&ndash;2012: Beginning</a><ul>
-	<li><a href='#2011-01-21'>2011-01-21: Quick tests</a></li>
-	<li><a href='#2011-02-21'>2011-02-21: PM synthesis achieved</a></li>
-	<li><a href='#2011-04-04'>2011-04-04: sgensys is the Sound GENeration SYStem</a></li>
-	<li><a href='#2011-06-04'>2011-06-04: Early feature plateau</a></li>
-	<li><a href='#2012-04-01'>2012-04-01: All the rest, then at rest</a></li>
+<li><a href='#y2011'>2011&ndash;2012: Beginning</a><ul>
+	<li><a href='#d2011-01-21'>2011-01-21: Quick tests</a></li>
+	<li><a href='#d2011-02-21'>2011-02-21: PM synthesis achieved</a></li>
+	<li><a href='#d2011-04-04'>2011-04-04: sgensys is the Sound GENeration SYStem</a></li>
+	<li><a href='#d2011-06-04'>2011-06-04: Early feature plateau</a></li>
+	<li><a href='#d2012-04-01'>2012-04-01: All the rest, then at rest</a></li>
 	</ul>
 </li>
-<li><a href='#2013'>2013&ndash;2014: Stagnation</a></li>
-<li><a href='#2017'>2017&ndash;2020: Great clean-up</a><ul>
-	<li><a href='#2020-06-mgensys'>2020-06 "mgensys": Almost starting over</a></li>
+<li><a href='#y2013'>2013&ndash;2014: Stagnation</a></li>
+<li><a href='#y2017'>2017&ndash;2020: Great clean-up</a><ul>
+	<li><a href='#mgensys-2020-06'>2020-06 "mgensys": Almost starting over</a></li>
 	</ul>
 </li>
-<li><a href='#2021'>2021+: Reorienting</a></li>
+<li><a href='#y2021'>2021+: Reorienting</a></li>
 </ul>
-<h2 id='2011'>2011&ndash;2012: Beginning</h2>
+<h2 id='y2011'>2011&ndash;2012: Beginning</h2>
 <p>The program was originally developed in 2011-2012. Meant to
 have a "retro"-touch from the start, it was originally inspired
 by the "sound" of the 16-bit video game era, particularly
@@ -63,10 +63,10 @@ than the original developer.
 <p>Various sketchy ideas for further development
 <a href='ideas2012.html'>remain</a> from this period.
 </p>
-<h3 id='2011-01-21'>2011-01-21: Quick tests</h3>
+<h3 id='d2011-01-21'>2011-01-21: Quick tests</h3>
 <p>The first snapshot is a quick test supporting playing the classic wave
 types: sine, triangle, square, saw. The script syntax uses <tt>D</tt> to
-set default values, <tt>W</tt> to insert a wait time</tt>, <tt>E</tt> to
+set default values, <tt>W</tt> to insert a wait time, <tt>E</tt> to
 wait until playing done (until end), and <tt>S</tt> to insert a "sound":
 </p>
 <pre>
@@ -119,7 +119,7 @@ Q
 sound-generating node, and only reaching later nodes after time for the current
 node has advanced past any delay before play.
 </p>
-<h3 id='2011-02-21'>2011-02-21: PM synthesis achieved</h3>
+<h3 id='d2011-02-21'>2011-02-21: PM synthesis achieved</h3>
 <p>On 02-13, label assignment and referencing was added to the syntax, so
 that sounds can be named and then changed further after a delay.
 By 02-16, scope level handling was added and a modulator list syntax,
@@ -148,7 +148,7 @@ Wsin f137 t.5 m&lt;Wsin f932 m&lt;Wsin f42&gt;&gt; |
 Wsin f137 t2 m&lt;Wsin f1032 m&lt;Wsin f42&gt;&gt;
 Q
 </pre>
-<h3 id='2011-04-04'>2011-04-04: sgensys is the Sound GENeration SYStem</h3>
+<h3 id='d2011-04-04'>2011-04-04: sgensys is the Sound GENeration SYStem</h3>
 <p>AM and FM support were added by 03-04, and the modulator list syntax was
 also changed for PM then: <tt>a!{...}</tt> for AM, <tt>f!{...}</tt> for FM,
 and <tt>m{...}</tt> for PM. Soon after, PM syntax became <tt>p!{...}</tt>.
@@ -162,7 +162,7 @@ scripts in a primitive language invoking the powers of FM synthesis."
 (Compare to "ed is the standard editor"; the only problem was/is the
 young age of my program.)
 </p>
-<h3 id='2011-06-04'>2011-06-04: Early feature plateau</h3>
+<h3 id='d2011-06-04'>2011-06-04: Early feature plateau</h3>
 <p>A series of quick design tweaks and feature additions led up to an early
 feature plateau. A few early features were added after 06-04, but most was
 completed by then, and most of what was striven for afterwards was left
@@ -190,7 +190,7 @@ scope nesting <tt>&lt;...&gt;</tt> syntax was meant to be combined with it, to
 allow pushing/popping such scope in a more conventional way,
 as in <tt>&lt;-...&gt;</tt> where nesting ends after the <tt>&gt;</tt>.
 </p>
-<h3 id='2012-04-01'>2012-04-01: All the rest, then at rest</h3>
+<h3 id='d2012-04-01'>2012-04-01: All the rest, then at rest</h3>
 <p>All remaining syntax changes in the early versions were done by 01-23. That
 snapshot added support for letting modulator oscillators either have their time
 duration determined by the carrier (as earlier), or set so as to be limited to a
@@ -200,7 +200,7 @@ shorter time.
 release it at Gna! were visibly done. Further fixes and little design tweaks
 mark the 03-05 release and the 04-01 release.
 </p>
-<h2 id='2013'>2013&ndash;2014: Stagnation</h2>
+<h2 id='y2013'>2013&ndash;2014: Stagnation</h2>
 <p>The project stagnated after a time of mostly theoretical focus.
 <a href='ideas2012.html'>Old notes</a> on possible future work had
 accumulated, with far more held in mind than written down about
@@ -218,7 +218,7 @@ incomplete ideas for an intermediate redesign of the old system.
 <p>The old program design and language were seen as a dead end,
 but no substantial ideas for a rewrite developed.
 </p>
-<h2 id='2017'>2017&ndash;2020: Great clean-up</h2>
+<h2 id='y2017'>2017&ndash;2020: Great clean-up</h2>
 <p>The project was revived on November 27, 2017,
 with a focus torn between three paths:
 </p>
@@ -250,7 +250,7 @@ curves, and automatic downscaling of amplitude by the number of voices
 <p>Currently, some old ideas for future work remain from 2019 on the
 <a href="https://github.com/saugns/saugns/wiki">saugns GitHub wiki</a>.
 </p>
-<h3 id='2020-06-mgensys'>2020-06 "mgensys": Almost starting over</h3>
+<h3 id='mgensys-2020-06'>2020-06 "mgensys": Almost starting over</h3>
 <p>In early 2020, following more bugfixing, for half a year I forked off the
 <a href='design.html#roots'>more simply designed</a> early 2011 version from
 around the time the name changed from "mgensys". Some new ideas had begun to
@@ -273,7 +273,7 @@ the new "mgensys" (from smaller code updates to some design ideas).
 This is planned to lead to the new <i>v0.4.x</i>, once the
 design and feature synthesis is completed.
 </p>
-<h2 id='2021'>2021+: Reorienting</h2>
+<h2 id='y2021'>2021+: Reorienting</h2>
 <p>Having felt somewhat bored and aimless with the overall design,
 which I found a bit stale and limited, I mostly left it for a time,
 rethinking what's meaningful for the program to be...
