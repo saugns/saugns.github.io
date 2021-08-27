@@ -67,9 +67,9 @@ than the original developer.
 </p>
 <h3 id='d2011-01-21'>2011-01-21: Quick tests</h3>
 <p>The first snapshot is a quick test supporting playing the classic wave
-types: sine, triangle, square, saw. The script syntax uses <tt>D</tt> to
-set default values, <tt>W</tt> to insert a wait time, <tt>E</tt> to
-wait until playing done (until end), and <tt>S</tt> to insert a "sound":
+types: sine, triangle, square, saw. The script syntax uses <code>D</code> to
+set default values, <code>W</code> to insert a wait time, <code>E</code> to
+wait until playing done (until end), and <code>S</code> to insert a "sound":
 </p>
 <pre>
 # This is the first mgensys script made
@@ -94,8 +94,8 @@ Q
 </pre>
 <p>A quick second version the same day changes to the basic wave-table
 oscillator (one cycle per wave type) then kept. It also changes script
-syntax towards the direction of later versions. <tt>S</tt> sets a
-default value, <tt>W</tt> plays a wave, and <tt>/</tt> inserts a delay:
+syntax towards the direction of later versions. <code>S</code> sets a
+default value, <code>W</code> plays a wave, and <code>/</code> inserts a delay:
 </p>
 <pre>
 # This is the first mgensys script made
@@ -125,9 +125,9 @@ node has advanced past any delay before play.
 <p>On 02-13, label assignment and referencing was added to the syntax, so
 that sounds can be named and then changed further after a delay.
 By 02-16, scope level handling was added and a modulator list syntax,
-<tt>m&lt;...&gt;</tt>, was added for grouping modulator sounds for carrier
+<code>m&lt;...&gt;</code>, was added for grouping modulator sounds for carrier
 sounds. (The syntax for waiting until the end of prior sounds was also
-changed to <tt>|</tt>.) Basically correctly-sounding PM finally appeared in
+changed to <code>|</code>.) Basically correctly-sounding PM finally appeared in
 the 02-21 version, along with supporting relative frequencies for modulators.
 </p>
 <pre>
@@ -152,8 +152,9 @@ Q
 </pre>
 <h3 id='d2011-04-04'>2011-04-04: sgensys is the Sound GENeration SYStem</h3>
 <p>AM and FM support were added by 03-04, and the modulator list syntax was
-also changed for PM then: <tt>a!{...}</tt> for AM, <tt>f!{...}</tt> for FM,
-and <tt>m{...}</tt> for PM. Soon after, PM syntax became <tt>p!{...}</tt>.
+also changed for PM then: <code>a!{...}</code> for AM, <code>f!{...}</code>
+for FM, and <code>m{...}</code> for PM. Soon after, PM syntax became
+<code>p!{...}</code>.
 </p>
 <p>The 04-04 version changed sound generation to fill and use buffers or
 "blocks", instead of re-traversing the nodes on a sample by sample basis.
@@ -171,7 +172,7 @@ completed by then, and most of what was striven for afterwards was left
 unfinished.
 </p>
 <p>By 04-26, some fancy syntactic sugar was added in the form of the
-<tt>;</tt>-separator that allows grouping a series of changes for the
+<code>;</code>-separator that allows grouping a series of changes for the
 same sound in one place in a script, even if other events in the script
 alternate with some of those changes in the flow of time.
 </p>
@@ -181,22 +182,22 @@ was just after support for writing frequencies as notes in C-major scale was
 also added.
 </p>
 <p>A mixture of ideas were in the inconsistent syntax of early June.
-The letter <tt>O</tt> became used for an "operator" (oscillator) in a
+The letter <code>O</code> became used for an "operator" (oscillator) in a
 long-lived change. But the PM syntax was also replaced with a new scheme,
 basically meant to be developed further as a new modulator syntax in general,
-but then dropped and that change undone. For an oscillator, a <tt>-</tt> meant
-"link it to what follows", flattening the PM modulator list syntax. (A line
-break marked the end of nesting using one or more <tt>-</tt> in the absence of
-other nesting characters.) Furthermore, a
-scope nesting <tt>&lt;...&gt;</tt> syntax was meant to be combined with it, to
-allow pushing/popping such scope in a more conventional way,
-as in <tt>&lt;-...&gt;</tt> where nesting ends after the <tt>&gt;</tt>.
+but then dropped and that change undone. For an oscillator, a <code>-</code>
+meant "link it to what follows", flattening the PM modulator list syntax.
+(A line break marked the end of nesting using one or more <code>-</code>
+in the absence of other nesting characters.) Furthermore, a scope nesting
+<code>&lt;...&gt;</code> syntax was meant to be combined with it,
+to allow pushing/popping such scope in a more conventional way,
+as in <code>&lt;-...&gt;</code> where nesting ends after the <code>&gt;</code>.
 </p>
 <h3 id='d2012-04-01'>2012-04-01: All the rest, then at rest</h3>
 <p>All remaining syntax changes in the early versions were done by 01-23. That
 snapshot added support for letting modulator oscillators either have their time
-duration determined by the carrier (as earlier), or set so as to be limited to a
-shorter time.
+duration determined by the carrier (as earlier),
+or set so as to be limited to a shorter time.
 </p>
 <p>WAV file output was added in the 02-10 snapshot. By 02-26, preparations to
 release it at Gna! were visibly done. Further fixes and little design tweaks
@@ -232,7 +233,7 @@ with a focus torn between three paths:
 <p>The first of these ended up given most of the focus, until early 2021.
 For whatever reason, I found myself stuck moving in the other directions.
 The main exception is reworking the command-line interface, and expanding
-its options. Strings can be evaluated with "<tt>-e</tt>", after using new
+its options. Strings can be evaluated with <code>-e</code>, after using new
 low-level code spun off from the 2014 test lexer to scan the script text.
 Further, some smaller syntax changes made while still feeling torn on how
 it should ultimately look, don't significantly extend features.
@@ -243,7 +244,8 @@ language to SAU (Scriptable AUdio). The first currently tagged version is
 throughout v0.3.x, changes measured in lines often large between versions
 while features differ little. <i>v0.3.0</i> brought better audio mixing,
 3 added wave types (but 1 of them removed in <i>v0.3.3</i>, together with
-adding crude rounding "anti-aliasing" for '<tt>sqr</tt>' and '<tt>saw</tt>'),
+adding crude rounding "anti-aliasing"
+for <code>sqr</code> and <code>saw</code>),
 changes and additions to value ramp curves, and automatic downscaling of
 amplitude by the number of voices (easily added as voices were already
 counted).
@@ -262,7 +264,7 @@ with newer experience and code to draw on.
 <p>In this new-old "mgensys" program, which did not end up becoming
 saugns <i>v0.4.0</i>, noise generation was implemented, minor syntax
 tweaks done, and other features planned for. (This experimental redesign
-is kept in the branch named <tt>old-dev_202006</tt>.)
+is kept in the branch named <code>old-dev_202006</code>.)
 </p>
 <p>Eventually, I decided to bridge the feature and design gap the
 other way around. Further saugns <i>v0.3.x</i> versions debug and

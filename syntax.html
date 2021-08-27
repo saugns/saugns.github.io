@@ -50,17 +50,17 @@ be found in the <a href='https://github.com/saugns/saugns/blob/master/doc/README
 <p>In this case, frequency is set to 440 Hz, phase to 0% of the wave cycle,
 and amplitude to 0.5 (-6dB). The time duration will be 1 second.
 </p>
-<p>The "<tt>O</tt>" adds an oscillator (also called an "operator" in FM synth
-terminology). It is followed by a wave type value, in this case "<tt>sin</tt>"
-(there's also "<tt>tri</tt>", "<tt>sqr</tt>", "<tt>saw</tt>", and more).
+<p>The <code>O</code> adds an oscillator (also called an "operator" in FM synth
+terminology). It is followed by a wave type value, in this case <code>sin</code>
+(there's also <code>tri</code>, <code>sqr</code>, <code>saw</code>, and more).
 The other parameters are named, but not ordered, and any which are left out
 will be given default values. (All of them could be left out,
-for the shortest script which generates audio: "<tt>Osin</tt>"
+for the shortest script which generates audio: <code>Osin</code>
 beeps for 1 second.)
 </p>
-<p>A cosine can be generated using the "<tt>sin</tt>" wave type,
+<p>A cosine can be generated using the <code>sin</code> wave type,
 by setting phase to 25% of the wave cycle,
-using "<tt>p(1/4)</tt>" or "<tt>p0.25</tt>".
+using <code>p(1/4)</code> or <code>p0.25</code>.
 </p>
 <h3 id='modulation'>Using modulation</h3>
 <p>Oscillators can be used in a nested way,
@@ -80,14 +80,14 @@ and play for the same time (10 seconds).
 Modulators only run when their carriers do;
 their default time durations, unlike for carriers,
 is actually infinite, which means playing as long as the carrier does.
-(The "<tt>p+</tt>" means "add to the phase",
+(The <code>p+</code> means "add to the phase",
 and PM means adding modulator amplitudes to the phase.)
 </p>
-<p>For modulators, frequency can be specified using '<tt>r</tt>'
-(<i>relative frequency</i>) instead of '<tt>f</tt>'.
-The value assigned to '<tt>r</tt>' will be multiplied by
+<p>For modulators, frequency can be specified using <code>r</code>
+(<i>relative frequency</i>) instead of <code>f</code>.
+The value assigned to <code>r</code> will be multiplied by
 the carrier frequency in order to give the frequency of
-the modulator. For example, a modulator with "<tt>r(2/3)</tt>"
+the modulator. For example, a modulator with <code>r(2/3)</code>
 will maintain a frequency 2/3 times the frequency of the carrier.
 </p>
 <p>Frequency and amplitude can be given values which are computed
@@ -95,8 +95,8 @@ using FM or AM, respectively. See the section
 <a href='#modvalrange'>Modulation with value range</a>.
 </p>
 <h3 id='timing'>Timing</h3>
-<p>A "<tt>|</tt>" separates that before and that after in time,
-while "<tt>\</tt>" (followed by a time in seconds)
+<p>A <code>|</code> separates that before and that after in time,
+while <code>\</code> (followed by a time in seconds)
 adds delay independently of that.
 </p>
 <p>To generate two tones, separated in time,
@@ -117,7 +117,7 @@ Osin f440 t2 \1 f220
 <p>Parameters for an oscillator can also be changed
 after a time duration without affecting surrounding timing,
 adding a new time duration for which the new values apply.
-This uses the "<tt>;</tt>" separator:
+This uses the <code>;</code> separator:
 </p>
 <pre>
 Osin f440 t1
@@ -147,7 +147,7 @@ specifying carrier oscillators which play.
 The number may be written simply, or as an <a href='#numexp'>expression</a>
 which is evaluated to yield the number. A simple number can be written with
 or without a decimal point. Negative numbers require the use of parentheses,
-so as to enclose the minus (<tt>-</tt>) sign, as in "<tt>(-0.5)</tt>".
+so as to enclose the minus (<code>-</code>) sign, as in <code>(-0.5)</code>.
 </p>
 <p>Other types of values also exist. Parameters for amplitude, frequency,
 and panning support using <a href='#ramp'>value ramp</a> values for timed
@@ -164,41 +164,42 @@ several comment styles are supported.
 </p>
 <h3 id='numexp'>Numerical expressions</h3>
 <p>Within parentheses, numbers can be combined with arithmetic operators.
-The result is treated as a number. For example, "<tt>(1/2)</tt>"
-is another way of writing "<tt>0.5</tt>".
-Plus or minus signs (<tt>+</tt>, <tt>-</tt>) can only be added to numbers
-within parentheses. (Negative numbers require the use of parentheses.)
+The result is treated as a number. For example, <code>(1/2)</code>
+is another way of writing <code>0.5</code>.
+Plus or minus signs (<code>+</code>, <code>-</code>)
+can only be added to numbers within parentheses.
+(Negative numbers require the use of parentheses.)
 </p>
 <p>Individual numbers can be specified with or without a decimal point.
-If a decimal point is used, a leading "<tt>0</tt>" can be left out
-&ndash; as in "<tt>.25</tt>".
+If a decimal point is used, a leading <code>0</code> can be left out
+&ndash; as in <code>.25</code>.
 </p>
 <p>Supported arithmetic operators are:
-<tt>+</tt>, <tt>-</tt>, <tt>*</tt>, <tt>/</tt>,
-and <tt>^</tt> (to the power of).
+<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>,
+and <code>^</code> (to the power of).
 Conventional rules determine precedence
 when not made explicitly clear using parentheses.
 Nested parentheses can be used for multiplication in the customary way,
-e.g. "<tt>(2(3))</tt>" means "<tt>6</tt>".
+e.g. <code>(2(3))</code> means <code>6</code>.
 </p>
 <h3 id='comment'>Comment syntax</h3>
 <p>Several comment styles exist:
 </p>
 <ul>
-<li>"<tt>//</tt>" (C++-style comment) comments out the rest of a line.</li>
-<li>"<tt>/*</tt>" (C-style comment) comments out text until after the next "<tt>*/</tt>".</li>
-<li>"<tt>#!</tt>" (Shebang) comments out the rest of a line.</li>
-<li>"<tt>#Q</tt>" (Quit file) comments out the rest of the whole file.</li>
+<li><code>//</code> (C++-style comment) comments out the rest of a line.</li>
+<li><code>/*</code> (C-style comment) comments out text until the next <code>*/</code>. Does not nest.</li>
+<li><code>#!</code> (Shebang) comments out the rest of a line.</li>
+<li><code>#Q</code> (Quit file) comments out the rest of the whole file.</li>
 </ul>
 <h3 id='labelref'>Labels and referencing</h3>
 <p>The declaration of an oscillator/operator can be
-prefixed by "<tt>'label "</tt>, where <tt>label</tt> is a
+prefixed by <code>'label </code>, where <code>label</code> is a
 case-sensitive alphanumeric name. (Underscores can also be used.)
 That which is labeled can be referred to
-using the syntax "<tt>@label</tt>", to place
+using the syntax <code>@label</code>, to place
 changes to it in any time scope later in the script.
 </p>
-<p>Note that a "<tt>@label</tt>" reference placed in a nesting scope
+<p>Note that a <code>@label</code> reference placed in a nesting scope
 different from the original does not add the operator to the new
 nesting scope. (It will not be moved out from nor into a list by
 being referenced anywhere.) The time scope is however new and of
@@ -227,7 +228,7 @@ Osin f500 t5 p+[
 @name r(1/2) \1 r(1/3) \1 r(1/4) \1 r(1/5)
 </pre>
 <p>The section <a href='#timing'>Timing</a> describes more means of
-placing changes in time. The "<tt>;</tt>" separator is often a simpler
+placing changes in time. The <code>;</code> separator is often a simpler
 alternative, but can also be combined with label referencing:
 </p>
 <pre>
@@ -247,12 +248,12 @@ and the parameter can be assigned a value twice in order to provide both.
 <p>The ramp sub-parameters are as follows:
 </p>
 <ul>
-<li><tt>v</tt> (Target value.)</li>
-<li><tt>t</tt> (Time to reach target value. Defaults to time of oscillator.)</li>
-<li><tt>c</tt> (Curve type:
-	'<tt>hold</tt>', '<tt>lin</tt>', '<tt>exp</tt>', '<tt>log</tt>',
-	'<tt>esd</tt>', or '<tt>lsd</tt>'.
-	Defaults to '<tt>lin</tt>'.)</li>
+<li><code>v</code> (Target value.)</li>
+<li><code>t</code> (Time to reach target value. Defaults to time of oscillator.)</li>
+<li><code>c</code> (Curve type:
+	<code>hold</code>, <code>lin</code>, <code>exp</code>, <code>log</code>,
+	<code>esd</code>, or <code>lsd</code>.
+	Defaults to <code>lin</code>.)</li>
 </ul>
 <p>For example, the following tone begins at 20 Hz
 and rises exponentially to 20000 Hz, over 10 seconds:
@@ -261,19 +262,19 @@ and rises exponentially to 20000 Hz, over 10 seconds:
 <p>The exponential and logarithmic curves are
 polynomial approximations with definite beginnings and ends,
 rather than real exponential and logarithmic curves.
-(The '<tt>log</tt>' curve also skips the below-zero part
+(The <code>log</code> curve also skips the below-zero part
 of a real logarithmic curve, i.e. it really approximates
-the mathematical function "log(1 + x)".)
+the mathematical function <tt>log(1 + x)</tt>.)
 These approximations have been tuned by ear to sound "smooth" and natural.
 </p>
-<p>The '<tt>esd</tt>' curve exponentially saturates and decays,
+<p>The <code>esd</code> curve exponentially saturates and decays,
 like a capacitor &ndash; this means an upside-down decay for the increase
-(it increases like the '<tt>log</tt>' curve and
-decreases like the '<tt>exp</tt>' curve).
+(it increases like the <code>log</code> curve and
+decreases like the <code>exp</code> curve).
 This is natural-sounding behavior for envelope-like use.
-The '<tt>lsd</tt>' curve behaves the opposite,
+The <code>lsd</code> curve behaves the opposite,
 logarithmically saturating and decaying
-(increasing like '<tt>exp</tt>' and decreasing like '<tt>log</tt>').
+(increasing like <code>exp</code> and decreasing like <code>log</code>).
 </p>
 <h3 id='modvalrange'>Modulation with value range</h3>
 <p>Amplitude and frequency (absolute or relative) parameters support
@@ -298,9 +299,9 @@ Osin f200 a(1/4),(4/4)~[Oszh r(1/5)] t5
 defaults to 0. It can be specified without changing the first value, by
 leaving out the first value before the comma.
 </p>
-<p>After value(s) or by itself, "<tt>~[]</tt>" (tilde and square brackets)
+<p>After value(s) or by itself, <code>~[]</code> (tilde and square brackets)
 can be used to set a list of modulator operators specified within the
-"<tt>[]</tt>"; the list replaces any previous modulators set, and may be empty.
+<code>[]</code>; the list replaces any previous modulators set, and may be empty.
 </p>
 <p>Each such modulator will produce a result in a 0.0 to 1.0
 range, i.e. a positive signal, multiplied by its amplitude parameter

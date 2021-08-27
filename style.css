@@ -7,6 +7,11 @@ pre {
 	padding: 0.25em;
 	overflow: auto;
 }
+code {
+	font: 1em monospace;
+	border: 1px dotted gray;
+	padding: 1px 2px;
+}
 .center {
 	text-align: center;
 }

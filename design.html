@@ -30,7 +30,7 @@ content="saugns, SAU language, Scriptable AUdio, software design" />
 <h2 id='roots'>Roots: Early 2011 design</h2>
 <p>The program was developed from scratch, the language starting out as something simple enough for a trivial program to interpret.
 </p>
-<p>If a single big letter ('W') is used to start a wave oscillator, and a small letter followed by a number gives it a value for frequency ('f'), amplitude ('a'), or time duration ('t'), then parsing is trivial. No abstractions for lexing or syntax trees, etc., are necessary. For each oscillator, the parser can simply add a node to a list, and set values for the current node according to any parameter assignments which follow for that oscillator. After parsing is done, the resulting list of nodes specifies what to run and generate.
+<p>If a single big letter (<code>W</code>) is used to start a wave oscillator, and a small letter followed by a number gives it a value for frequency (<code>f</code>), amplitude (<code>a</code>), or time duration (<code>t</code>), then parsing is trivial. No abstractions for lexing or syntax trees, etc., are necessary. For each oscillator, the parser can simply add a node to a list, and set values for the current node according to any parameter assignments which follow for that oscillator. After parsing is done, the resulting list of nodes specifies what to run and generate.
 </p>
 <p>The list of nodes can be viewed as a sequential list of "events" to handle, which is basically the same as a list of instructions to follow in a program. To run it all, the list needs to be examined once to figure out what objects need to be allocated and prepared, and a second time when actually running the "program" it constitutes.
 </p>
