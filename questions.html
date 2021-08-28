@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+	<meta name='description'
+content="Answers to questions about the saugns program." />
+	<meta name='keywords'
+content="saugns, questions, answers" />
+	<link rel='stylesheet' href='style.css' type='text/css' title='Default' /><style type='text/css'>@import url("style.css");</style>
+<title>saugns Q&amp;A</title>
+</head>
+<body>
+<p><i>Back to <a href='index.html'>main page</a>.</i>
+</p>
+<h1>Answers to questions about saugns</h1>
+<p>This compiles both questions and other feedback
+to also cover other possible questions.
+</p>
+<ul>
+<li><a href='#Platforms'>Platforms &amp; modifications</a></li>
+<li><a href='#Re-use'>Re-using smaller parts</a></li>
+<li><a href='#Specific'>Specific questions</a><ul>
+	<li><a href='#Interactive'>Can it be used interactively?</a></li>
+	<li><a href='#Alternatives'>What main alternatives exist?</a></li>
+	</ul>
+</li>
+</ul>
+<h2 id='Platforms'>Platforms &amp; modifications</h2>
+<p><a href='index.html#saugns'>saugns</a> is mainly developed on
+x86/x86-64, because currently, such are the computers used by the
+main developer. However, there's no architecture-specific code in
+the program, and it reportedly works fine on Raspberry Pi 3, i.e.
+ARM. Generally, little-endian 32-bit and 64-bit architectures can
+work fine with the current code unless something has been missed.
+</p>
+<p>For big-endian, not knowing more yet, at a minimum WAV file
+output code must change so that output bytes are still little-endian.
+</p>
+<h3 id='OSes'>Operating systems</h3>
+<p>Tested operating systems include the four major BSDs (FreeBSD,
+OpenBSD, NetBSD, DragonFly), and various GNU/Linux distros. *nix,
+in general, may be the easiest to further port the program to.
+</p>
+<p>Written in C99, the program still works on 2010-ish 32-bit x86
+DragonFly with GCC 4, and other similarly old *nix systems.
+</p>
+<h2 id='Re-use'>Re-using smaller parts</h2>
+<p>Small parts of saugns, e.g. the oscillator code (for producing
+the audio at one "end" of what the program does), low-level "text
+file" buffer code (for parsing input at the other "end"), utility
+code at the lowest level (for example the mempool), do not depend
+on the bigger things which use them, and can be copied for re-use
+in other software fairly simply. Note that smaller components are
+usually written to fit how saugns uses them, and may turn out too
+simple or too specific for other needs.
+</p>
+<h2 id='Specific'>Specific questions</h2>
+<h3 id='Interactive'>Can it be used interactively?</h3>
+<p>Currently, no. Unless you count re-running after changing text
+as interactive use. There is no interactive prompt, no scheduler,
+and no MIDI input support. On the plus side, the program is fast,
+you don't have to wait for it to prepare the playing of a script.
+</p>
+<h3 id='Alternatives'>What main alternatives exist?</h3>
+<p>The most well-known among more full-featured alternatives are:
+<a href="https://csound.com/">csound</a>, <a href="http://rtcmix.org/">RTcmix</a>, <a href="https://supercollider.github.io/">SuperCollider</a>, and <a href="https://chuck.cs.princeton.edu/">ChucK</a>.
+</p>
+<p>Note that even the most minimalistic of these, ChucK, is much
+larger in lines of code than saugns.
+</p>
+</body>
+</html>

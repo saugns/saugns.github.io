@@ -22,17 +22,13 @@ the <a href='https://github.com/saugns/saugns/blob/master/doc/README.SAU'>doc/RE
 <p>Running the program with no arguments, or with <code>-h</code>,
 prints a concise list of arguments and invocation types supported.
 The same information, and a bit more, is provided with the accompanying
-<tt>saugns(1)</tt> man page.
-</p>
-<p>Note that this page is updated along with work proceeding on the git
-<a href='https://github.com/saugns/saugns'>master branch</a>
-(what you get with a `git clone https://github.com/saugns/saugns.git`).
+<code>saugns(1)</code> man page.
 </p>
 <h2>Playing scripts or strings</h2>
 <p>To simply play a script with the default sample rate:
 </p>
 <pre>saugns script</pre>
-<p>(Several filenames can be listed, or a <tt>*</tt> glob pattern used,
+<p>(Several filenames can be listed, or a <code>*</code> glob pattern used,
 to play several files one after the other.)
 </p>
 <p>To play a one-liner (in this example,
@@ -47,10 +43,10 @@ each of which plays as a separate script.)
 <pre>saugns -r 48000 script(s)</pre>
 <h3>Changing audio device</h3>
 <p>The audio device used for playback can be changed using the <code>AUDIODEV</code>
-environment variable, similarly to in other software supporting it.
+environment variable, similarly to in other software supporting it:
 </p>
 <pre>export AUDIODEV=value</pre>
-<p>Where instead of <code>value</code> something is inserted to
+<p>...where instead of <code>value</code> something is inserted to
 replace e.g. <code>default</code> for ALSA or sndio, or <code>/dev/dsp</code> for OSS.
 </p>
 <h2>Checking scripts</h2>
