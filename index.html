@@ -48,25 +48,25 @@ with the language.
 may generally work on 32-bit and 64-bit little-endian systems
 for those OSes without the need for changes.
 </p>
-<p>The <a href="https://github.com/saugns/saugns/blob/master/README">README</a> file (GitHub view) describes how to build and install it.
+<p>The <a href="https://github.com/saugns/saugns/blob/stable/README">README</a> file (GitHub view) describes how to build and install it.
 (Short version: For the 4 major BSDs, `<tt>make</tt>` is enough to get it built.)
 </p>
 <p>A more interesting test to run after building is the following,
 which produces 10 seconds of "engine rumble" using PM:
 </p>
-<pre>./saugns -e "Osin f137 t10 p+[Osin f32 p+[Osin f42]]"</pre>
+<pre>./saugns -e "Osin f137 t10 p+[Osin f32 p+[Osin r(4/3)]]"</pre>
 <p>A set of example and test scripts are included,
 along with a concise SAU language reference, as described in the README file.
 </p>
 <h3 id='saugns-licensing'>Licensing</h3>
 <p>saugns is distributed under the terms of the
-<a href="https://www.gnu.org/licenses/lgpl-4.0.en.html">GNU Lesser General Public License (LGPL), version 3</a> or later.
+<a href="https://www.gnu.org/licenses/lgpl-3.0.en.html">GNU Lesser General Public License (LGPL), version 3</a> or later.
 </p>
-<p>However, some source files are more permissively licensed. Mainly, files with various more general utility code or functionality are provided under the BSD-like ISC license.
+<p>However, some source files are marked as being more permissively licensed. Mainly, files with various more general utility code or functionality are provided under the BSD-like ISC license.
 </p>
 <h2 id='SAU'>SAU language</h2>
 <p><i>A brief overview of the syntax is available <a href='syntax.html'>here</a>.
-A compact language reference is included in the saugns <a href="https://github.com/saugns/saugns/blob/master/doc/README.SAU">doc/README.SAU</a> file (GitHub view).</i>
+A compact language reference is included in the saugns <a href="https://github.com/saugns/saugns/blob/stable/doc/README.SAU">doc/README.SAU</a> file (GitHub view).</i>
 </p>
 <p>SAU is a simple language for mathematical sound synthesis,
 without support for the use of pre-recorded samples.

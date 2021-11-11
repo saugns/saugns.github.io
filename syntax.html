@@ -20,7 +20,7 @@ It is meant to make things simple rather than cover everything.
 see the <a href='usage.html'>usage</a> page.)
 </p>
 <p>A concise language reference (as in listing of details) can
-be found in the <a href='https://github.com/saugns/saugns/blob/master/doc/README.SAU'>doc/README.SAU</a> file (GitHub view).
+be found in the <a href='https://github.com/saugns/saugns/blob/stable/doc/README.SAU'>doc/README.SAU</a> file (GitHub view).
 </p>
 <h2 id='contents'>Contents</h2>
 <ul>
@@ -83,8 +83,10 @@ and PM means adding modulator amplitudes to the phase.)
 (<i>relative frequency</i>) instead of <code>f</code>.
 The value assigned to <code>r</code> will be multiplied by
 the carrier frequency in order to give the frequency of
-the modulator. For example, a modulator with <code>r(2/3)</code>
-will maintain a frequency 2/3 times the frequency of the carrier.
+the modulator. For example, a modulator with <code>r(4/3)</code>
+will maintain a frequency 4/3 times the frequency of the carrier;
+changing the <code>f42</code> in the example above to that gives
+a somewhat different sound.
 </p>
 <p>Frequency and amplitude can be given values which are computed
 using oscillator outputs shifted to a range. See the section
@@ -159,24 +161,32 @@ of parameter value, supported in a nested way.
 several comment styles are supported.
 </p>
 <h3 id='numexp'>Numerical expressions</h3>
-<p>Within parentheses, numbers can be combined with arithmetic operators.
-The result is treated as a number. For example, <code>(1/2)</code>
-is another way of writing <code>0.5</code>.
+<p>Each number can be written with or without a decimal point.
+If a decimal point is used, a leading <code>0</code> can be left out,
+as in <code>.25</code>.
+</p>
+<p>Within parentheses, arithmetic operations
+in ordinary infix notation can be used, giving a number as a result.
+For example, <code>(1/2)</code> is another way of writing <code>0.5</code>.
 Plus or minus signs (<code>+</code>, <code>-</code>)
-can only be added to numbers within parentheses.
-(Negative numbers require the use of parentheses.)
-</p>
-<p>Individual numbers can be specified with or without a decimal point.
-If a decimal point is used, a leading <code>0</code> can be left out
-&ndash; as in <code>.25</code>.
-</p>
-<p>Supported arithmetic operators are:
+can only be added to numbers within parentheses, so
+negative numbers requires parentheses to be used, e.g. <code>(-1)</code>.
+Supported arithmetic operations are:
 <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>,
 and <code>^</code> (to the power of).
 Conventional rules determine precedence
 when not made explicitly clear using parentheses.
-Nested parentheses can be used for multiplication in the customary way,
+Nested parentheses can also be used for multiplication in the customary way,
 e.g. <code>(2(3))</code> means <code>6</code>.
+</p>
+<p>Some parameters support named constants specific to that type
+of value. For such a value, a constant name can be written
+in place of a number.
+</p>
+<p>A set of mathematical functions are also supported in expressions for
+all parameters, whether or not surrounding parentheses are used.
+Instead of writing a number, <code>name(number)</code> gives the result
+for the number using the function <code>name</code>. Functions include <code>exp</code>, <code>log</code>, <code>sqrt</code>, and a few others. A musically interesting function for frequency ratios and some other uses may be <code>met</code>, which produces the <a href="https://en.wikipedia.org/wiki/Metallic_mean">metallic means/ratios/constants</a> (the Wikipedia article has the formula used); for example, the <a href="https://en.wikipedia.org/wiki/Golden_ratio">golden ratio</a> value of 1.618... is the result of <code>met(1)</code>, and a modulator oscillator can have its <code>r</code> parameter set to that with <code>rmet(1)</code>. (The function can take any value, producing "metallic values" between the "proper" ones for the integers. Negative values also give how much the positive would be increased, less further from zero. Furthermore, met(-x) is equal to (1/met(x)).)
 </p>
 <h3 id='comment'>Comment syntax</h3>
 <p>Several comment styles exist:
@@ -248,7 +258,7 @@ and the parameter can be assigned a value twice in order to provide both.
 <li><code>t</code> (Time to reach target value. Defaults to time of oscillator.)</li>
 <li><code>c</code> (Curve type:
 	<code>hold</code>, <code>lin</code>, <code>exp</code>, <code>log</code>,
-	<code>esd</code>, or <code>lsd</code>.
+	<code>xpe</code>, <code>lge</code>, or <code>cos</code>.
 	Defaults to <code>lin</code>.)</li>
 </ul>
 <p>For example, the following tone begins at 20 Hz
@@ -263,14 +273,16 @@ of a real logarithmic curve, i.e. it really approximates
 the mathematical function <tt>log(1 + x)</tt>.)
 These approximations have been tuned by ear to sound "smooth" and natural.
 </p>
-<p>The <code>esd</code> curve exponentially saturates and decays,
+<p>The <code>xpe</code> curve exponentially saturates and decays,
 like a capacitor &ndash; this means an upside-down decay for the increase
 (it increases like the <code>log</code> curve and
 decreases like the <code>exp</code> curve).
 This is natural-sounding behavior for envelope-like use.
-The <code>lsd</code> curve behaves the opposite,
+The <code>lge</code> curve behaves the opposite,
 logarithmically saturating and decaying
 (increasing like <code>exp</code> and decreasing like <code>log</code>).
+</p>
+<p>The <code>cos</code> curve rises or falls like a cosine wave, generally percevied to be fairly similar to a linear increase or decrease. The change has a smoothly curved start and stop, and a steeper middle.
 </p>
 <h3 id='modvalrange'>Modulation with value range</h3>
 <p>Amplitude and frequency (and relative frequency) parameters support
@@ -297,7 +309,7 @@ Osin f250,500~[Osin f0.1] t10
 </p>
 <pre>
 // Vary amplitude between 1/4 and full, using a half-wave with 1/5 frequency
-Osin f200 a(1/4),(4/4)~[Oszh r(1/5)] t5
+Osin f200 a(1/4),(4/4)~[Ohrs r(1/5)] t5
 </pre>
 <p>The second value can also be set without changing the first value
 for the parameter, by writing nothing before the comma separating them.

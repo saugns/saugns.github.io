@@ -17,7 +17,7 @@ content="saugns, command-line, help" />
 <a href='index.html#saugns'>saugns</a> program,
 and some further notes. (For the script language
 syntax, see the <a href='syntax.html'>syntax</a> page, or
-the <a href='https://github.com/saugns/saugns/blob/master/doc/README.SAU'>doc/README.SAU</a> file (GitHub view).)
+the <a href='https://github.com/saugns/saugns/blob/stable/doc/README.SAU'>doc/README.SAU</a> file (GitHub view).)
 </p>
 <p>Running the program with no arguments, or with <code>-h</code>,
 prints a concise list of arguments and invocation types supported.
@@ -48,6 +48,8 @@ environment variable, similarly to in other software supporting it:
 <pre>export AUDIODEV=value</pre>
 <p>...where instead of <code>value</code> something is inserted to
 replace e.g. <code>default</code> for ALSA or sndio, or <code>/dev/dsp</code> for OSS.
+</p>
+<p>See the man page for notes on compatibility support for differently named environment variables specific to one or another system standard.
 </p>
 <h2>Checking scripts</h2>
 <p>To simply check if scripts parse cleanly (no errors or warnings),

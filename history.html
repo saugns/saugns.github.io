@@ -26,7 +26,7 @@ content="saugns, SAU language, Scriptable AUdio, project history" />
 	</ul>
 </li>
 <li><a href='#y2013'>2013&ndash;2014: Stagnation</a></li>
-<li><a href='#y2017'>2017&ndash;2020: Great clean-up</a><ul>
+<li><a href='#y2017'>2017&ndash;2020: Cleaning it up</a><ul>
 	<li><a href='#mgensys-2020-06'>2020-06 "mgensys": Almost starting over</a></li>
 	</ul>
 </li>
@@ -221,7 +221,7 @@ incomplete ideas for an intermediate redesign of the old system.
 <p>The old program design and language were seen as a dead end,
 but no substantial ideas for a rewrite developed.
 </p>
-<h2 id='y2017'>2017&ndash;2020: Great clean-up</h2>
+<h2 id='y2017'>2017&ndash;2020: Cleaning it up</h2>
 <p>The project was revived on November 27, 2017,
 with a focus torn between three paths:
 </p>
@@ -240,15 +240,13 @@ it should ultimately look, don't significantly extend features.
 </p>
 <p>In January 2019, the project and program was renamed to saugns and the
 language to SAU (Scriptable AUdio). The first currently tagged version is
-<i>v0.3.0</i>, released in July 2019. The clean-up work however continues
-throughout v0.3.x, changes measured in lines often large between versions
-while features differ little. <i>v0.3.0</i> brought better audio mixing,
-3 added wave types (but 1 of them removed in <i>v0.3.3</i>, together with
-adding crude rounding "anti-aliasing"
-for <code>sqr</code> and <code>saw</code>),
-changes and additions to value ramp curves, and automatic downscaling of
-amplitude by the number of voices (easily added as voices were already
-counted).
+<i>v0.3.0</i>, released in July 2019.
+<i>v0.3.0</i> brought better audio mixing, 3 added wave types,
+changes and additions to value ramp curves,
+and automatic downscaling of amplitude by the number of voices
+(easily added as voices were already counted).
+Further versions with varying changes to design and features, but mostly
+quite similar to use, continue throughout v0.3.x in 2019&ndash;2021.
 </p>
 <p>Currently, some old sketchy ideas for future work remain from 2019 on the
 <a href="https://github.com/saugns/saugns/wiki">saugns GitHub wiki</a>.
@@ -267,24 +265,31 @@ tweaks done, and other features planned for. (This experimental redesign
 is kept in the branch named <code>old-dev_202006</code>.)
 </p>
 <p>Eventually, I decided to bridge the feature and design gap the
-other way around. Further saugns <i>v0.3.x</i> versions debug and
-tweak, along with bringing across changes of increasing size from
-the new "mgensys" (from smaller code updates to some design ideas).
-This is planned to lead to the new <i>v0.4.x</i>, once the design
-and feature synthesis is completed.
+other way around. Further saugns v0.3.x versions debug and tweak,
+along with bringing across changes of increasing size from the new
+"mgensys" (from smaller code updates to some design ideas).
+This is planned to lead to the new v0.4.x, once design and feature
+synthesis is completed. Following more changes in direction...
 </p>
 <h2 id='y2021'>2021+: Reorienting</h2>
 <p>Having felt somewhat bored and aimless with the overall design,
 I left it for a half a year while rethinking what's meaningful for
 the program to be.
 </p>
-<p>A fuller and more experimental redesign may be up next... One experimental
-branch uses pre-integrated wave tables followed by differentiation
-in the oscillator for DPW-like box-filtering anti-aliasing for all
-waveforms (including FM and PM for sine waves). But very different
-designs are possible, and eventually I may abandon the wavetable approach
-entirely. I remember some early ideas for more flexibly wavetype-morphing
-oscillators which may make for more interesting synthesis if implemented,
+<p>A fuller and more experimental redesign may be up next... One step
+towards it is <i>v0.3.9</i> (after experimentation in
+the <code>old-dev_202109</code> branch), which reworks the oscillator to use
+<a href="https://stash.reaper.fm/28384/DifferentiatedPolynomialWaveTables.pdf"
+>anti-aliasing through pre-integrated wave tables</a> for a DPW-like result
+(6dB aliasing reduction per octave) for all waveforms and for FM and PM.
+The design is also reworked to peel off some complications. The numerical
+expression syntax is also extended through a tiny amount of code to support
+a set of built-in mathematical functions.
+</p>
+<p>Very different further (re)designs are possible. For audio generation,
+eventually I may abandon the wavetable approach entirely. I remember some
+early ideas I had for more flexibly wavetype-morphing oscillators but not
+worked on yet. It may make for more interesting synthesis if implemented,
 and if it's made to work without terrible aliasing noise.
 </p>
 </body>
