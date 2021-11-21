@@ -63,15 +63,16 @@ debug info listing of what the script does):
 <pre>saugns -cp script(s)</pre>
 <p>(The <code>-c</code> can be left out to also play.)
 </p>
-<h2>Rendering audio files</h2>
-<p>To render a 16-bit PCM WAV file with a chosen sample rate
-(without audible output, unless <code>-a</code> is also added):
+<h2>Writing audio files</h2>
+<p>To write a 16-bit stereo PCM WAV file
+named "a.wav" containing all of the audio from script(s):
+</p>
+<pre>saugns -o a.wav script(s)</pre>
+<p>By default, writing a file makes the program run silent instead of playing scripts. This can be changed by adding the <code>-a</code> (audible) option, to also produce output for system audio.
+</p>
+<p>Note that the default sample rate is 96000 Hz. It can be changed by using the <code>-r</code> option, as in the following example which uses CD quality sample rate. Note however that if you want to minimize aliasing distortion for sounds with too-wide frequency spectrums, it's best to instead write a WAV file with a higher sample rate and then use a separate tool to downsample with quality if you want a lower final sample rate.
 </p>
 <pre>saugns -r 44100 -o a.wav script(s)</pre>
-<p>(If several scripts are listed,
-the output from all of them will be added to the WAV file,
-in order.)
-</p>
 <p>If you need further format conversion or editing of WAV files,
 other tools will be needed. For example,
 <a href="http://sox.sourceforge.net/Main/HomePage">SoX</a> and

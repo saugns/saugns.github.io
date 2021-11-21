@@ -1,5 +1,11 @@
 p {
-	text-align: justify;
+	text-align: left;
+}
+h1, h2 {
+	border-bottom: 1px solid gray;
+}
+h4, h5, h6 {
+	text-align: center;
 }
 pre {
 	font: 1em monospace;

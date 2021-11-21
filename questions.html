@@ -42,7 +42,7 @@ OpenBSD, NetBSD, DragonFly), and various GNU/Linux distros. *nix,
 in general, may be the easiest to further port the program to.
 </p>
 <p>Written in C99, the program still works on 2010-ish 32-bit x86
-DragonFly with GCC 4, and other similarly old *nix systems.
+DragonFly with GCC 4, and other similar-ish *nix systems of that age.
 </p>
 <h2 id='Re-use'>Re-using smaller parts</h2>
 <p>Small parts of saugns, e.g. the oscillator code (for producing
@@ -58,10 +58,11 @@ simple or too specific for other needs.
 <h3 id='Real-time'>Can it be used with real-time control?</h3>
 <p>Currently no. There is no scheduling of input to allow control
 while the program is running. It can only be started and stopped.
+A main goal has been for the script files to be like audio files.
 </p>
 <h3 id='Alternatives'>What main alternatives exist?</h3>
 <p>The most well-known among more full-featured alternatives are:
-<a href="https://csound.com/">csound</a>, <a href="http://rtcmix.org/">RTcmix</a>, <a href="https://supercollider.github.io/">SuperCollider</a>, and <a href="https://chuck.cs.princeton.edu/">ChucK</a>.
+<a href="https://csound.com/">csound</a>, <a href="http://rtcmix.org/">RTcmix</a>, <a href="https://supercollider.github.io/">SuperCollider</a>, and <a href="https://chuck.cs.princeton.edu/">ChucK</a>. While saugns is simpler to use as a tone generator, those programs are designed to be used more as musicians tend to use software.
 </p>
 <p>Note that even the most minimalistic of these, ChucK, is much
 larger in lines of code than saugns.
