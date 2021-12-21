@@ -24,4 +24,8 @@ code {
 .center {
 	text-align: center;
 }
-
+.footer {
+	font-size: smaller;
+	text-align: right;
+	padding: 0.25em 0em;
+}
