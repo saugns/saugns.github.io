@@ -26,7 +26,11 @@ be found in the <a href='https://github.com/saugns/saugns/blob/stable/doc/README
 <ul>
 <li><a href='#output'>Generating sound</a><ul>
 	<li><a href='#modulation'>Using modulation</a></li>
-	<li><a href='#timing'>Timing</a></li>
+	<li><a href='#timing'>Timing</a><ul>
+		<li><a href='#subshift'>Subshifts &amp; silent time padding</a></li>
+		<li><a href='#compstep'>Compound steps for an object</a></li>
+		</ul>
+	</li>
 	<li><a href='#channels'>Channel mixing and panning</a></li>
 	</ul>
 </li>
@@ -95,35 +99,68 @@ using oscillator outputs shifted to a range. See the section
 </p>
 <h3 id='timing'>Timing</h3>
 <p>A <code>|</code> separates that before and that after in time,
-while <code>\</code> (followed by a time in seconds)
-adds delay independently of that.
+while <code>/</code> (followed by a time in seconds)
+adds delay independently of that. Those two things both apply for
+everything which follows in a script, though there's
+also timing modifiers which only apply more locally.
 </p>
 <p>To generate two tones, separated in time,
 and also insert an extra 2.5 seconds of silence in-between them:
 </p>
 <pre>
 Osin f440 t2
-|\2.5
-
+|/2.5
 Osin f220 t2
 </pre>
-<p>To change the frequency for an oscillator
-after inserting a 1 second delay:
+<h4 id='subshift'>Subshifts &amp; silent time padding</h4>
+<p>While a <code>/</code> <i>can</i> also be placed in the middle
+of a step for some object, splitting the time at which the values
+set for the object take effect, doing so also affects surrounding
+timing. This can be avoided by using a <code>\</code> instead, to
+split the current step in time and delay the remainder of it, but
+not delay any independent steps placed after it.
+</p>
+<p>For example, two oscillators can be inserted at the same time,
+while still changing the frequency for the first oscillator after
+a 1 second delay:
 </p>
 <pre>
 Osin f440 t2 \1 f220
+Osin f110
 </pre>
-<p>Parameters for an oscillator can also be changed
-after a time duration without affecting surrounding timing,
-adding a new time duration for which the new values apply.
-This uses the <code>;</code> separator:
+<p>If a <code>/</code> is used instead of a <code>\</code> above,
+then the second oscillator will also be inserted after a 1 second
+delay.
+</p>
+<p>Note that the setting of a time value explicitly for the first
+oscillator above is important, because a <code>\</code> otherwise
+inserts silent time padding (quite unlike <code>/</code>); in the
+following example, the tone begins playing after 1 second because
+default time becomes 0 before (but not after) the <code>\</code>:
 </p>
 <pre>
-Osin f440 t1
-; f220 t1
+Osin \1 f880
 </pre>
-<p>This can also be done for an oscillator within a list.
+<p>This is meant to create a sense of moving a whole step forward
+in time. Silent time padding may mainly be interesting to use for
+things placed in nested lists (to make another modulator start to
+play after a delay, say), when used by itself. But it may also be
+combined with the compound step syntax described next, for silent
+gaps in sequences of parameter updates for an object.
 </p>
+<h4 id='compstep'>Compound steps for an object</h4>
+<p>The <code>;</code> sub-step separator can also build a compound step for an object, with a total time duration which is simply the sum of those of all sub-steps, as they are laid out one directly after the next in time. The following example plays four tones in sequence, each for 1.5 seconds:
+</p>
+<pre>
+Osin t1.5 f100; f200; f300; f400
+</pre>
+<p>Here the time of the first sub-step becomes the default time of the next, which in turn becomes the default time of the next, etc. There is one exception to this for modulators, though, which is that the <i>last</i> sub-step is given "infinite" time by default, just like modulators generally have such a default (see further above).
+</p>
+<p>The <code>\</code> subshift syntax can easily be used to insert silent gaps between the normal play times of sub-steps, padding them with silence. For example, to add a 0.5 second gap between each change of tone in the current example:
+</p>
+<pre>
+Osin t1.5 f100; \0.5 f200; \0.5 f300; \0.5 f400
+</pre>
 <h3 id='channels'>Channel mixing and panning</h3>
 <p>SAU supports stereo audio, but oscillators pass mono signals between one another. Objects which are not used as modulators, whose output is mixed into the result, have an extra channel mixing parameter <code>c</code> which defaults to centered mixing, or <code>0.0</code>. It can be changed in order to pan sounds. For convenience, the constants <code>L</code> for hard left, <code>C</code> for center, and <code>R</code> for hard right, can be used as values. This works the same as entering the corresponding numbers <code>(-1.0)</code>, <code>0.0</code>, and <code>1.0</code>.
 </p>
@@ -213,26 +250,31 @@ Osin f500 t5 p+[
 	'name Osin r(1/1)
 ]
 
-\1
+/1
 @name r(1/2)
-\1
+/1
 @name r(1/3)
-\1
+/1
 @name r(1/4)
-\1
+/1
 @name r(1/5)
 </pre>
-<p>A shorter alternative for the second half is this:</p>
-<pre>
-\1
-@name r(1/2) \1 r(1/3) \1 r(1/4) \1 r(1/5)
-</pre>
-<p>The section <a href='#timing'>Timing</a> describes more means of
-placing changes in time. The <code>;</code> separator is often a simpler
-alternative, but can also be combined with label referencing:
+<p>Here the timing would also change for anything written
+below (in a longer script) with every <code>/1</code>.
+Each after the first <code>@name</code> can be avoided by
+using <code>\1</code> instead:
 </p>
 <pre>
-\1
+/1
+@name r(1/2) t1 \1 r(1/3) t1 \1 r(1/4) t1 \1 r(1/5)
+</pre>
+<p>The section <a href='#timing'>Timing</a> describes more means of
+placing changes in time. The <code>;</code> separator is often a neater
+alternative to label referencing (and allows replacing every
+<code>/1</code> in this example), but can also be combined with it:
+</p>
+<pre>
+/1
 @name r(1/2) t1
 ; r(1/3) t1
 ; r(1/4) t1
