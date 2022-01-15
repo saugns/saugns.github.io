@@ -78,11 +78,17 @@ Osin f137 t10 p+[
 <p>The oscillators with frequency 32 Hz and 42 Hz are modulators,
 linked in a chain which ends at the carrier (with frequency 137 Hz),
 and play for the same time (10 seconds).
-Modulators only run when their carriers do;
-their default time durations, unlike for carriers,
-is actually infinite, which means playing as long as the carrier does.
 (The <code>p+</code> means "add to the phase",
 and PM means adding modulator amplitudes to the phase.)
+</p>
+<p>Modulators only ever run when their carriers do;
+their default time durations are the special non-number
+value <code>l</code> (linked time), which means playing
+as long as the carrier does. (Linked time can also
+be explicitly set by writing <code>tl</code>.)
+Modulators can also have normal time lengths,
+and then time is limited both by that value
+and by the time of the carrier.
 </p>
 <p>For modulators, frequency can be specified using <code>r</code>
 (<i>relative frequency</i>) instead of <code>f</code>.
@@ -154,7 +160,7 @@ gaps in sequences of parameter updates for an object.
 <pre>
 Osin t1.5 f100; f200; f300; f400
 </pre>
-<p>Here the time of the first sub-step becomes the default time of the next, which in turn becomes the default time of the next, etc. There is one exception to this for modulators, though, which is that the <i>last</i> sub-step is given "infinite" time by default, just like modulators generally have such a default (see further above).
+<p>Here the time of the first sub-step becomes the default time of the next, which in turn becomes the default time of the next, etc. There is one exception to this for modulators, though, which is that the <i>last</i> sub-step is given the special time value <code>l</code> (linked time) by default, just like <a href='#modulation'>modulators</a> generally have such a default.
 </p>
 <p>The <code>\</code> subshift syntax can easily be used to insert silent gaps between the normal play times of sub-steps, padding them with silence. For example, to add a 0.5 second gap between each change of tone in the current example:
 </p>
@@ -229,21 +235,23 @@ for the number using the function <code>name</code>. Functions include <code>exp
 <li><code>#Q</code> (Quit file) comments out the rest of the whole file.</li>
 </ul>
 <h3 id='labelref'>Labels and referencing</h3>
-<p>The declaration of an oscillator/operator can be
-prefixed by <code>'label </code>, where <code>label</code> is a
-case-sensitive alphanumeric name. (Underscores can also be used.)
-That which is labeled can be referred to
-using the syntax <code>@label</code>, to place
-changes to it in any time scope later in the script.
+<p>The declaration of an object can be prefixed by <code>'name </code>
+to label the object "name". Each name written is a case-sensitive
+string with alphanumeric characters and/or underscores.
+Once labeled, the object can be referred back to by writing <code>@name</code>
+at any later point in the script. Adding such a <code>@name</code> reference
+for an object does not automatically set a new time duration for that object.
+(A new time value is set if any changes made to parameters include
+explicitly setting <code>t</code> (time), or if a step-splitting
+<a href='#timing'>timing</a> modifier is used.)
 </p>
-<p>Note that a <code>@label</code> reference placed in a nesting scope
-different from the original does not add the operator to the new
-nesting scope. (It will not be moved out from nor into a list by
-being referenced anywhere.) The time scope is however new and of
-the reference.
+<p>Note that a <code>@name</code> reference placed in a nesting scope
+different from the original (i.e. outside a list, or in a new list, etc.)
+does not move the object into the new nesting scope. It will not be added
+to, nor removed from, any list by being referenced anywhere.
+The time scope is however new and of the reference.
 </p>
-<p>For example, the modulator used in this PM example has its frequency
-relative to the carrier changed at one-second intervals:
+<p>For example, the <a href='#modulation'>modulator</a> used in this PM example is labeled "name", and is then accessed using its label in order to change its frequency relative to the carrier at one-second intervals:
 </p>
 <pre>
 Osin f500 t5 p+[
@@ -260,15 +268,15 @@ Osin f500 t5 p+[
 @name r(1/5)
 </pre>
 <p>Here the timing would also change for anything written
-below (in a longer script) with every <code>/1</code>.
-Each after the first <code>@name</code> can be avoided by
+below (in a longer script) with every <code>/1</code>;
+each after the first <code>@name</code> can be avoided by
 using <code>\1</code> instead:
 </p>
 <pre>
 /1
-@name r(1/2) t1 \1 r(1/3) t1 \1 r(1/4) t1 \1 r(1/5)
+@name r(1/2) \1 r(1/3) \1 r(1/4) \1 r(1/5)
 </pre>
-<p>The section <a href='#timing'>Timing</a> describes more means of
+<p>The <a href='#timing'>timing</a> section describes more means of
 placing changes in time. The <code>;</code> separator is often a neater
 alternative to label referencing (and allows replacing every
 <code>/1</code> in this example), but can also be combined with it:
