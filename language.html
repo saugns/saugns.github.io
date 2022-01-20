@@ -81,18 +81,23 @@ and play for the same time (10 seconds).
 (The <code>p+</code> means "add to the phase",
 and PM means adding modulator amplitudes to the phase.)
 </p>
-<p>Modulators only ever run when their carriers do;
-their default time durations are the special non-number
-value <code>l</code> (linked time), which means playing
-as long as the carrier does. (Linked time can also
-be explicitly set by writing <code>tl</code>.)
-Modulators can also have normal time lengths,
-and then time is limited both by that value
-and by the time of the carrier.
+<p>Modulators only ever run when their carriers do, and
+by default, if no time duration is set for a modulator,
+it will also be otherwise unlimited. But each modulator
+can also have a time duration in seconds of its own set
+in the same way as for a carrier, and then will run for
+the shortest of the times. (If the carrier time expires
+first, this will "pause" the modulator unless and until
+the time is extended, if that's done.) The special time
+which is default for modulators can also be set, as the
+non-number value <code>i</code> (implicit time), though
+only for modulators.
 </p>
-<p>For modulators, frequency can be specified using <code>r</code>
-(<i>relative frequency</i>) instead of <code>f</code>.
-The value assigned to <code>r</code> will be multiplied by
+<p>For modulators, frequency can be specified using the
+<code>r</code> (relative frequency) parameter instead of
+the usual <code>f</code> (frequency) parameter; whichever
+is most recently set will be used to get the frequency.
+A value assigned to <code>r</code> will be multiplied by
 the carrier frequency in order to give the frequency of
 the modulator. For example, a modulator with <code>r(4/3)</code>
 will maintain a frequency 4/3 times the frequency of the carrier;
@@ -124,25 +129,28 @@ of a step for some object, splitting the time at which the values
 set for the object take effect, doing so also affects surrounding
 timing. This can be avoided by using a <code>\</code> instead, to
 split the current step in time and delay the remainder of it, but
-not delay any independent steps placed after it.
+not delay any independent steps placed after it. This is called a
+subshift.
 </p>
 <p>For example, two oscillators can be inserted at the same time,
 while still changing the frequency for the first oscillator after
-a 1 second delay:
+a 1 second delay (it will play for 2 seconds, its time extended):
 </p>
 <pre>
-Osin f440 t2 \1 f220
+Osin f440 t1 \1 f220
 Osin f110
 </pre>
-<p>If a <code>/</code> is used instead of a <code>\</code> above,
-then the second oscillator will also be inserted after a 1 second
-delay.
+<p>Using a <code>\</code> typically moves or extends the time for
+the object concerned &ndash; automatically re-setting the time on
+each use. Unlike a <code>/</code>, a short time therefore doesn't
+run out after a too-long shift (though there may be a gap between
+the two times if the shift is that long).
 </p>
 <p>Note that the setting of a time value explicitly for the first
-oscillator above is important, because a <code>\</code> otherwise
-inserts silent time padding (quite unlike <code>/</code>); in the
-following example, the tone begins playing after 1 second because
-default time becomes 0 before (but not after) the <code>\</code>:
+oscillator above, <i>before</i> the <code>\</code>, is important;
+otherwise default time becomes 0 before it but not after it, with
+the effect of inserting silent padding instead of extending time.
+As in the following example, where the tone plays after 1 second:
 </p>
 <pre>
 Osin \1 f880
@@ -154,13 +162,19 @@ play after a delay, say), when used by itself. But it may also be
 combined with the compound step syntax described next, for silent
 gaps in sequences of parameter updates for an object.
 </p>
+<p>There's also another way to control the behavior of moving vs.
+extending, to disable or adjust the proportion of silent padding.
+When several <code>\</code> are used in series only the first can
+zero the time before it. So <code>\0 \1</code>, for example, will
+never move more than 0 seconds, and then will extend by 1 second.
+</p>
 <h4 id='compstep'>Compound steps for an object</h4>
 <p>The <code>;</code> sub-step separator can also build a compound step for an object, with a total time duration which is simply the sum of those of all sub-steps, as they are laid out one directly after the next in time. The following example plays four tones in sequence, each for 1.5 seconds:
 </p>
 <pre>
 Osin t1.5 f100; f200; f300; f400
 </pre>
-<p>Here the time of the first sub-step becomes the default time of the next, which in turn becomes the default time of the next, etc. There is one exception to this for modulators, though, which is that the <i>last</i> sub-step is given the special time value <code>l</code> (linked time) by default, just like <a href='#modulation'>modulators</a> generally have such a default.
+<p>Here the time of the first sub-step becomes the default time of the next, which in turn becomes the default time of the next, etc. There is one exception to this for modulators, though, which is that the <i>last</i> sub-step is given the special time value <code>i</code> (implicit time) by default, just like <a href='#modulation'>modulators</a> generally have such a default.
 </p>
 <p>The <code>\</code> subshift syntax can easily be used to insert silent gaps between the normal play times of sub-steps, padding them with silence. For example, to add a 0.5 second gap between each change of tone in the current example:
 </p>
@@ -269,8 +283,10 @@ Osin f500 t5 p+[
 </pre>
 <p>Here the timing would also change for anything written
 below (in a longer script) with every <code>/1</code>;
-each after the first <code>@name</code> can be avoided by
-using <code>\1</code> instead:
+their use for inserting time delays can be replaced with
+<a href='#subshift'>subshift</a> <code>\1</code>s instead,
+which combine with the <code>@name</code> reference without
+inserting any leading silence:
 </p>
 <pre>
 /1
@@ -278,8 +294,7 @@ using <code>\1</code> instead:
 </pre>
 <p>The <a href='#timing'>timing</a> section describes more means of
 placing changes in time. The <code>;</code> separator is often a neater
-alternative to label referencing (and allows replacing every
-<code>/1</code> in this example), but can also be combined with it:
+alternative to label referencing, but can also be combined with it:
 </p>
 <pre>
 /1
