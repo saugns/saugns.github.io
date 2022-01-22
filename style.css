@@ -24,8 +24,16 @@ code {
 .center {
 	text-align: center;
 }
+.nav {
+	font-style: italic;
+	margin: 1em 0em;
+}
+.header p {
+	font-style: italic;
+	padding-left: 40px;
+}
 .footer {
 	font-size: smaller;
 	text-align: right;
-	padding: 0.25em 0em;
+	margin: 1em 0em;
 }
