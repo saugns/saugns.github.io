@@ -56,19 +56,24 @@ leaving extra debugging and clean-up work for later years.
 <p>The program was first called "mgensys" and then renamed "sgensys".
 Two sgensys versions were released in 2012 at Gna!, with OSS
 system audio support and WAV file output support. Historical
-versions, including other old snapshots, precede modern work in the
-<a href="https://github.com/saugns/saugns">git repository</a>.
-</p>
-<p>These historical versions never had any known users other
+versions, including other old snapshots, are included in and
+precede newer work in the git repository, which can be found
+on <a href="https://github.com/saugns/saugns">GitHub</a>, <a href="https://codeberg.org/sau/saugns">Codeberg</a>, or <a href="https://framagit.org/sau/saugns">Framagit</a>.
+(The development style for new work has involved a whole lot
+of rebasing, but old snapshots prior to 2017 are included in
+the history. For newer work, older versions are preserved in
+the history of <a href="https://framagit.org/sau/saugns/-/tags">tags</a> and snapshot branches.)
+The old, historical versions never had any known users other
 than the original developer.
 </p>
 <p>Various sketchy ideas for further development
-<a href='ideas2012.html'>remain</a> from this period.
+<a href='ideas2012.html'>remain</a> from this 2011&ndash;2012 period.
 </p>
 <h3 id='d2011-01-21'>2011-01-21: Quick tests</h3>
 <p>The first snapshot is a quick test supporting playing the classic wave
-types: sine, triangle, square, saw. The script syntax uses <code>D</code> to
-set default values, <code>W</code> to insert a wait time, <code>E</code> to
+types: sine, triangle, square, saw. The script syntax is different from
+later variations, and uses <code>D</code> to set default values,
+<code>W</code> to insert a wait time, <code>E</code> to
 wait until playing done (until end), and <code>S</code> to insert a "sound":
 </p>
 <pre>
@@ -92,10 +97,11 @@ Ssqr   f420 t1         E
 Ssqr   f440 t1.5       E
 Q
 </pre>
-<p>A quick second version the same day changes to the basic wave-table
-oscillator (one cycle per wave type) then kept. It also changes script
-syntax towards the direction of later versions. <code>S</code> sets a
-default value, <code>W</code> plays a wave, and <code>/</code> inserts a delay:
+<p>A quick second version the same day changes the syntax, and switches
+to the basic wave-table oscillator (one cycle per wave type) then kept.
+In three longer-lived changes, <code>S</code> sets a default value,
+<code>W</code> plays a wave of a given type,
+and <code>/</code> inserts a delay:
 </p>
 <pre>
 # This is the first mgensys script made
@@ -117,9 +123,10 @@ Wsin   f420 t1         E
 Wsin   f440 t1.5       E
 Q
 </pre>
-<p>"Wait nodes" were replaced by timing calculations using a delay time in each
-sound-generating node, and only reaching later nodes after time for the current
-node has advanced past any delay before play.
+<p>"Wait nodes" were replaced by timing calculations using a
+"wait before using this node" delay time in each sound-generating node.
+The sound generation processes as many nodes as it reaches before having
+to wait before taking on the latest new node (and in turn any after).
 </p>
 <h3 id='d2011-02-21'>2011-02-21: PM synthesis achieved</h3>
 <p>On 02-13, label assignment and referencing was added to the syntax, so
@@ -172,14 +179,16 @@ completed by then, and most of what was striven for afterwards was left
 unfinished.
 </p>
 <p>By 04-26, some fancy syntactic sugar was added in the form of the
-<code>;</code>-separator that allows grouping a series of changes for the
-same sound in one place in a script, even if other events in the script
-alternate with some of those changes in the flow of time.
+<code>;</code>-separator (still around as the <a href='language.html#compstep'>compound step</a> language feature) that allows
+grouping a series of changes for the same sound in one place in a script,
+even if other things also done in the script alternate with some of those
+changes in the flow of time.
 </p>
 <p>By 05-08, basic support for value ramps (linear, and curves using a
 polynomial chosen by ear for "exponential and logarithmic") was added. That
 was just after support for writing frequencies as notes in C-major scale was
-also added.
+also added (a simple-enough addition, but of questionable utility for music
+in its current form).
 </p>
 <p>A mixture of ideas were in the inconsistent syntax of early June.
 The letter <code>O</code> became used for an "operator" (oscillator) in a
@@ -239,7 +248,7 @@ Further, some smaller syntax changes made while still feeling torn on how
 it should ultimately look, don't significantly extend features.
 </p>
 <p>In January 2019, the project and program was renamed to saugns and the
-language to SAU (Scriptable AUdio). The first currently tagged version is
+language to SAU (Scriptable AUdio). The first of the <a href="https://framagit.org/sau/saugns/-/tags">tagged versions</a> is
 <i>v0.3.0</i>, released in July 2019.
 <i>v0.3.0</i> brought better audio mixing, 3 added wave types,
 changes and additions to value ramp curves,
@@ -249,7 +258,7 @@ Further versions with varying changes to design and features, but mostly
 quite similar to use, continue throughout v0.3.x in 2019&ndash;2021.
 </p>
 <p>Currently, some old sketchy ideas for future work remain from 2019 on the
-<a href="https://github.com/saugns/saugns/wiki">saugns GitHub wiki</a>.
+<a href="https://github.com/saugns/saugns/wiki">saugns GitHub project wiki</a>.
 </p>
 <h3 id='mgensys-2020-06'>2020-06 "mgensys": Almost starting over</h3>
 <p>In early 2020, following more bugfixing, for half a year I forked off the
@@ -277,7 +286,7 @@ I left it for a half a year while rethinking what's meaningful for
 the program to be.
 </p>
 <p>A fuller and more experimental redesign may be up next... One step
-towards it is <i>v0.3.9</i> (after experimentation in
+towards it is <i><a href="https://framagit.org/sau/saugns/-/tags/v0.3.9">v0.3.9</a></i> (after experimentation in
 the <code>old-dev_202109</code> branch), which reworks the oscillator to use
 <a href="https://stash.reaper.fm/28384/DifferentiatedPolynomialWaveTables.pdf"
 >anti-aliasing through pre-integrated wave tables</a> for a DPW-like result
