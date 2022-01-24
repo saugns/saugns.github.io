@@ -25,8 +25,17 @@ prints a concise list of arguments and invocation types supported.
 The same information, and a bit more, is provided with the accompanying
 <code>saugns(1)</code> man page.
 </p>
-<h2>Playing scripts or strings</h2>
-<p>To simply play a script with the default sample rate:
+<ul>
+<li><a href='#playing'>Playing scripts or strings</a><ul>
+	<li><a href='#AUDIODEV'>Changing audio device</a></li>
+	</ul>
+</li>
+<li><a href='#checking'>Checking scripts</a></li>
+<li><a href='#writing'>Writing audio files</a></li>
+<li><a href='#shebang'>Files with shebangs</a></li>
+</ul>
+<h2 id='playing'>Playing scripts or strings</h2>
+<p>To simply play a script, using the default sample rate (96000 Hz):
 </p>
 <pre>saugns script</pre>
 <p>(Several filenames can be listed, or a <code>*</code> glob pattern used,
@@ -42,9 +51,9 @@ each of which plays as a separate script.)
 <p>Sample rate in Hz can be changed using the <code>-r</code> option:
 </p>
 <pre>saugns -r 48000 script(s)</pre>
-<h3>Changing audio device</h3>
-<p>The audio device used for playback can be changed using the <code>AUDIODEV</code>
-environment variable, similarly to in other software supporting it:
+<h3 id='AUDIODEV'>Changing audio device</h3>
+<p>The option of which audio device name or path is used (for ALSA, OSS, etc.) by saugns can be changed by setting the <code>AUDIODEV</code>
+environment variable, similarly to how other software supports this option:
 </p>
 <pre>export AUDIODEV=value</pre>
 <p>...where instead of <code>value</code> something is inserted to
@@ -52,7 +61,7 @@ replace e.g. <code>default</code> for ALSA or sndio, or <code>/dev/dsp</code> fo
 </p>
 <p>See the man page for notes on compatibility support for differently named environment variables specific to one or another system standard.
 </p>
-<h2>Checking scripts</h2>
+<h2 id='checking'>Checking scripts</h2>
 <p>To simply check if scripts parse cleanly (no errors or warnings),
 use the <code>-c</code> option:
 </p>
@@ -64,7 +73,7 @@ debug info listing of what the script does):
 <pre>saugns -cp script(s)</pre>
 <p>(The <code>-c</code> can be left out to also play.)
 </p>
-<h2>Writing audio files</h2>
+<h2 id='writing'>Writing audio files</h2>
 <p>To write a 16-bit stereo PCM WAV file
 named "a.wav" containing all of the audio from script(s):
 </p>
@@ -79,6 +88,16 @@ other tools will be needed. For example,
 <a href="http://sox.sourceforge.net/Main/HomePage">SoX</a> and
 <a href="http://www.eca.cx/ecasound/index.php">Ecasound</a> are
 capable command-line tools (unrelated to this project).
+</p>
+<h2 id='shebang'>Files with shebangs</h2>
+<p>As with shell scripts and various other types of scripts, a Unix shebang can be used for SAU scripts. Placing <code>#!</code> at the very beginning of a script, followed by the full path to the installed saugns binary, makes the file run using saugns when the file is used by itself as if it were a program. This also requires the script file to have the execute permission set (as in <code>chmod +x filename</code>).
+</p>
+<p>This is generally most useful for creating sound-playing files &ndash; and saugns gets going producing audio very fast when such a file is launched. The shebang line on top can optionally include e.g. a specific playback sample rate to use for the script, as it does in the following example (where 48000 Hz is set).
+</p>
+<pre>
+#!/usr/local/bin/saugns -r48000
+</pre>
+<p>Of course, other arguments could be included after the path to saugns to instead make the script do something like (also) print info about itself, or write to some WAV file path included in the shebang line.
 </p>
 <div class='footer'>Text available under a version of <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons BY-SA 4.0" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>.
 </div>
