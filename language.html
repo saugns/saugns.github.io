@@ -110,18 +110,22 @@ using oscillator outputs shifted to a range. See the section
 <a href='#modvalrange'>Modulation with value range</a>.
 </p>
 <h3 id='timing'>Timing</h3>
-<p>A <code>|</code> separates that before and that after in time,
-while <code>/</code> (followed by a time in seconds)
-adds delay independently of that. Those two things both apply for
-everything which follows in a script, though there's
-also timing modifiers which only apply more locally.
+<p>A <code>/</code> (followed by a time in seconds) adds a delay
+to what follows. The time separator <code>|</code> adjusts delay
+for what follows so that it exactly matches the remaining duration
+(play time) for the things before. They can be used either alone
+or together, though when combined, the order of use will matter.
+</p>
+<p>Those two things both apply for everything which follows in a
+script, though there's also timing modifiers which only apply more
+locally.
 </p>
 <p>To generate two tones, separated in time,
 and also insert an extra 2.5 seconds of silence in-between them:
 </p>
 <pre>
 Osin f440 t2
-|/2.5
+| /2.5
 Osin f220 t2
 </pre>
 <h4 id='subshift'>Subshifts &amp; silent time padding</h4>
