@@ -32,7 +32,7 @@ Back to <a href='index.html'>main page</a>.
 	<li><a href='#mgensys-2020-06'>2020-06 "mgensys": Almost starting over</a></li>
 	</ul>
 </li>
-<li><a href='#y2021'>2021+: Reorienting</a></li>
+<li><a href='#y2021'>2021&ndash;2022+: Reorienting</a></li>
 </ul>
 <h2 id='y2011'>2011&ndash;2012: Beginning</h2>
 <p>The program was originally developed in 2011-2012. Meant to
@@ -283,22 +283,22 @@ along with bringing across changes of increasing size from the new
 This is planned to lead to the new v0.4.x, once design and feature
 synthesis is completed. Following more changes in direction...
 </p>
-<h2 id='y2021'>2021+: Reorienting</h2>
+<h2 id='y2021'>2021&ndash;2022+: Reorienting</h2>
 <p>Having felt somewhat bored and aimless with the overall design,
-I left it for a half a year while rethinking what's meaningful for
-the program to be.
+I left it for half a year while rethinking what's meaningful for
+the program to be. Over time, alongside a few smaller steps toward
+fuller redesign, I've developed further ideas for audio generation
+features to add and experiment with later on.
 </p>
-<p>A fuller and more experimental redesign may be up next... One step
-towards it is <i><a href="https://framagit.org/sau/saugns/-/tags/v0.3.9">v0.3.9</a></i> (after experimentation in
-the <code>old-dev_202109</code> branch), which reworks the oscillator to use
+<p>A redone oscillator, using
 <a href="https://stash.reaper.fm/28384/DifferentiatedPolynomialWaveTables.pdf"
->anti-aliasing through pre-integrated wave tables</a> for a DPW-like result
-(6dB aliasing reduction per octave) for all waveforms and for FM and PM.
-The design is also reworked to peel off some complications. The numerical
-expression syntax is also extended through a tiny amount of code to support
-a set of built-in mathematical functions.
+>anti-aliasing through pre-integrated wave tables</a>, came in
+<i><a href="https://framagit.org/sau/saugns/-/tags/v0.3.9">v0.3.9</a></i>
+for a DPW-like result (6dB aliasing reduction per octave, but for all waveforms and for FM and PM), following experimentation in the <code>old-dev_202109</code> branch. The numerical expression syntax was also extended, through a very small code addition, to support a set of built-in mathematical functions.
 </p>
-<p>Very different further (re)designs are possible. For audio generation,
+<p>That version and the next, <i><a href="https://framagit.org/sau/saugns/-/tags/v0.3.10">v0.3.10</a></i>, peel off unnecessary complications added in earlier v0.3.x versions. <i>v0.3.10</i> further fixed a big old remaining timing bug from 2011 (and some smaller ones), and reworked the <a href='language.html#timing'>timing syntax</a>.
+</p>
+<p>Very different further (re)designs are possible. For wave oscillators,
 eventually I may abandon the wavetable approach entirely. I remember some
 early ideas I had for more flexibly wavetype-morphing oscillators but not
 worked on yet. It may make for more interesting synthesis if implemented,
