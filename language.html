@@ -25,8 +25,11 @@ be found in the <a href='https://github.com/saugns/saugns/blob/stable/doc/README
 </p>
 <h2 id='contents'>Contents</h2>
 <ul>
-<li><a href='#output'>Generating sound</a><ul>
-	<li><a href='#modulation'>Using modulation</a></li>
+<li><a href='#output'>Generating audio</a><ul>
+	<li><a href='#modulation'>Using modulation</a><ul>
+		<li><a href='#fpm'>Frequency-linked PM</a></li>
+		</ul>
+	</li>
 	<li><a href='#timing'>Timing</a><ul>
 		<li><a href='#subshift'>Subshifts &amp; silent time padding</a></li>
 		<li><a href='#compstep'>Compound steps for an object</a></li>
@@ -45,7 +48,7 @@ be found in the <a href='https://github.com/saugns/saugns/blob/stable/doc/README
 </li>
 <li><a href='#supercollider'>Compared to SuperCollider</a></li>
 </ul>
-<h2 id='output'>Generating sound</h2>
+<h2 id='output'>Generating audio</h2>
 <p>To generate a single pure tone in the SAU language:
 </p>
 <pre>Osin f440 p0 a0.5 t1</pre>
@@ -81,6 +84,9 @@ linked in a chain which ends at the carrier (with frequency 137 Hz),
 and play for the same time (10 seconds).
 (The <code>p+</code> means "add to the phase",
 and PM means adding modulator amplitudes to the phase.)
+Above, the amplitudes are all left at the default 1.0;
+those of modulators determine what is often called the
+modulation index or "depth" of modulation.
 </p>
 <p>Modulators only ever run when their carriers do, and
 by default, if no time duration is set for a modulator,
@@ -106,8 +112,36 @@ changing the <code>f42</code> in the example above to that gives
 a somewhat different sound.
 </p>
 <p>Frequency and amplitude can be given values which are computed
-using oscillator outputs shifted to a range. See the section
-<a href='#modvalrange'>Modulation with value range</a>.
+using oscillator outputs shifted to a range. This includes "real FM",
+as well as the modulations of amplitude called amplitude and ring
+modulation. See the section
+<a href='#modvalrange'>Modulation with value range</a> for more.
+</p>
+<h4 id='fpm'>Frequency-linked PM</h4>
+<p>There's two different ways to connect a PM (phase modulation) input
+to a carrier, normal PM (<code>p+[...]</code>) as described above, and
+frequency-linked PM (<code>p+f[...]</code>) which multiplies modulator
+amplitudes by the carrier frequency (scaled down so that 632.45... Hz,
+the geometric mean of the 20&ndash;20000 Hz human hearing range, makes
+level "normal"). The best PM type to use depends on the intended sound
+as the carrier pitch varies. Both modulator types can be linked to the
+same carrier.
+</p>
+<p>Changing the frequency of a carrier changes how fast its phase moves
+independently of any PM. When the PM signal also remains the same while
+frequency is changed, this changes the proportion of the two sources of
+phase movement for the carrier. For example, this affects how a vibrato
+effect from PM will sound as the carrier plays at different pitches; at
+higher pitch, e.g. twice the frequency, the PM has only half the impact
+<i>relative</i> to it. Frequency-linked PM makes a constant "impact" by
+multiplying the carrier frequency into the PM signal.
+</p>
+<p>However, when modulator frequency is set relative (<code>r</code>) to a
+carrier as a multiplier for its frequency, it's normal PM that sounds more
+equal in intensity as the carrier pitch varies. With the combining of both
+types of linkage to the carrier frequency, higher-pitched sounds stand out
+more sharply, as the modulation input energy increases two ways instead of
+only one way.
 </p>
 <h3 id='timing'>Timing</h3>
 <p>A <code>/</code> (followed by a time in seconds) adds a delay
@@ -349,7 +383,8 @@ logarithmically saturating and decaying
 <p>The <code>cos</code> curve rises or falls like a cosine wave, generally percevied to be fairly similar to a linear increase or decrease. The change has a smoothly curved start and stop, and a steeper middle.
 </p>
 <h3 id='modvalrange'>Modulation with value range</h3>
-<p>Amplitude and frequency (and relative frequency) parameters support
+<p>Amplitude (<code>a</code>) and frequency (<code>f</code>)
+(and relative frequency <code>r</code>) parameters support
 modulation of the parameter values within a bounded value range.
 (For amplitude, whether this modulation is called amplitude
 modulation (AM) or ring modulation (RM) is a matter of the value
@@ -360,8 +395,10 @@ more generally for the full range of variation in the software, but for
 clarity it's best to note that classic AM and RM are both special cases.)
 </p>
 <p>The two bounds of the value range come from the two (!) values of the
-parameter, the normal value generally used, and a second value which is
+parameter: the normal value generally used, and a second value which is
 only used for this type of modulation and which defaults to 0.0.
+(The second value can also be <a href="#ramp">ramped or swept</a>
+like the first, with the same syntax used in place of a number.)
 </p>
 <p>A simple FM example:
 </p>
