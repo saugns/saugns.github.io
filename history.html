@@ -290,13 +290,12 @@ the program to be. Over time, alongside a few smaller steps toward
 fuller redesign, I've developed further ideas for audio generation
 features to add and experiment with later on.
 </p>
-<p>A redone oscillator, using
-<a href="https://stash.reaper.fm/28384/DifferentiatedPolynomialWaveTables.pdf"
->anti-aliasing through pre-integrated wave tables</a>, came in
-<i><a href="https://framagit.org/sau/saugns/-/tags/v0.3.9">v0.3.9</a></i>
-for a DPW-like result (6dB aliasing reduction per octave, but for all waveforms and for FM and PM), following experimentation in the <code>old-dev_202109</code> branch. The numerical expression syntax was also extended, through a very small code addition, to support a set of built-in mathematical functions.
+<p>Beginning with <a href="https://framagit.org/sau/saugns/-/tags/v0.3.9">v0.3.9</a>, older v0.3.x complications were peeled off without removing functionality, and some low-hanging syntax extension-and-reworking fruit was picked up, beginning with extending numerical expressions with a (very) small set of built-in mathematical functions. <i><a href="https://framagit.org/sau/saugns/-/tags/v0.3.10">v0.3.10</a></i> fixed a big old remaining timing bug from 2011 (and some smaller ones), and reworked the <a href='language.html#timing'>timing syntax</a>. <i><a href="https://framagit.org/sau/saugns/-/tags/v0.3.10b">v0.3.10b</a></i> added <a href='language.html#fpm'>frequency-linked PM</a>.
 </p>
-<p>That version and the next, <i><a href="https://framagit.org/sau/saugns/-/tags/v0.3.10">v0.3.10</a></i>, peel off unnecessary complications added in earlier v0.3.x versions. <i>v0.3.10</i> further fixed a big old remaining timing bug from 2011 (and some smaller ones), and reworked the <a href='language.html#timing'>timing syntax</a>.
+<p>A redone oscillator using
+<a href="https://stash.reaper.fm/28384/DifferentiatedPolynomialWaveTables.pdf"
+>anti-aliasing through pre-integrated wave tables</a> also came in <i>v0.3.9</i>,
+for a DPW-like result (6dB aliasing reduction per octave, but for all waveforms and for FM and PM), following experimentation in the <code>old-dev_202109</code> branch. A regression (ability to handle large PM amplitudes well) was fixed in <i>v0.3.10b</i>, using fancier look-up table interpolation. That type of oscillator seems to end up too computationally complex to be worth it, and other options may be explored later.
 </p>
 <p>Very different further (re)designs are possible. For wave oscillators,
 eventually I may abandon the wavetable approach entirely. I remember some
