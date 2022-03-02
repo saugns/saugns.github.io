@@ -167,29 +167,35 @@ Osin f220 t2
 of a step for some object, splitting the time at which the values
 set for the object take effect, doing so also affects surrounding
 timing. This can be avoided by using a <code>\</code> instead, to
-split the current step in time and delay the remainder of it, but
-not delay any independent steps placed after it. This is called a
-subshift.
+split the current step in time and delay the remainder of it by a
+number of seconds, but not affect independent steps placed after.
+This is called a subshift.
 </p>
 <p>For example, two oscillators can be inserted at the same time,
 while still changing the frequency for the first oscillator after
-a 1 second delay (it will play for 2 seconds, its time extended):
+a 1 second delay. It will play for 3 seconds, as its time re-sets
+to the default value of the previous value, 2 seconds again. (For
+related syntax which more simply fits each wait time to the prior
+duration, see <a href='#compstep'>Compound steps</a> below.)
 </p>
 <pre>
-Osin f440 t1 \1 f220
+Osin f440 t2 \1 f220
 Osin f110
 </pre>
 <p>Using a <code>\</code> typically moves or extends the time for
 the object concerned &ndash; automatically re-setting the time on
-each use. Unlike a <code>/</code>, a short time therefore doesn't
-run out after a too-long shift (though there may be a gap between
-the two times if the shift is that long).
+each use if a new <code>t</code> value is not provided. Unlike on
+use of<code>/</code>, a long shift therefore doesn't make a short
+time run out (though there may be a gap between the two times, if
+the shift is long enough).
 </p>
 <p>Note that the setting of a time value explicitly for the first
 oscillator above, <i>before</i> the <code>\</code>, is important;
-otherwise default time becomes 0 before it but not after it, with
-the effect of inserting silent padding instead of extending time.
-As in the following example, where the tone plays after 1 second:
+otherwise the peculiar behavior is to insert a pause or "rest" by
+making the default time 0 before the <code>\</code> but not after
+it. The silence, or silent time padding, makes for moving, rather
+than extending, the non-silent time duration. As in the following
+example, where the tone plays after 1 second, for a default time:
 </p>
 <pre>
 Osin \1 f880
