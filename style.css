@@ -15,25 +15,63 @@ pre {
 	border: 1px solid gray;
 	padding: 0.25em;
 	overflow: auto;
+	margin: 0.25em;
 }
 code {
 	font: 1em monospace;
 	border: 1px dotted gray;
 	padding: 1px 2px;
 }
-.center {
-	text-align: center;
+blockquote {
+	background: whitesmoke;
+	margin: 1em 40px;
+	padding: 0.5em;
 }
-.nav {
+blockquote blockquote {
+	background: white;
+	border-left: 1em solid lightgray;
+	margin: 0.5em;
+}
+blockquote p:first-child {
+	margin-top: 0;
+}
+blockquote p:last-child {
+	margin-bottom: 0;
+}
+table {
+	border-collapse: collapse;
+	border: 2px ridge darkgray;
+	margin: 0 0.5em 0.5em 0.5em;
+}
+caption {
+	margin-top: 0.5em;
+}
+tr {
+	background: whitesmoke;
+}
+tr:nth-child(odd) {
+	background: gainsboro;
+}
+th, td {
+	border: 1px solid gray;
+	padding: 0.25em;
+}
+th {
+	padding: 0.5em;
+}
+nav, .nav {
 	font-style: italic;
 	margin: 1em 0em;
 }
-.header p {
+header p, .header p {
 	font-style: italic;
 	padding-left: 40px;
 }
-.footer {
+footer, .footer {
 	font-size: smaller;
 	text-align: right;
 	margin: 1em 0em;
+}
+.center {
+	text-align: center;
 }
