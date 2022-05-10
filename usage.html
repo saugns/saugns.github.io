@@ -29,11 +29,16 @@ The same information, and a bit more, is provided with the accompanying
 <h2 id='contents'>Contents</h2>
 <ul>
 <li><a href='#playing'>Playing scripts or strings</a><ul>
-	<li><a href='#AUDIODEV'>Changing audio device</a></li>
+	<li><a href='#AUDIODEV'>Changing system audio device</a></li>
+	<li><a href='#mono'>Stereo or mono downmix?</a></li>
 	</ul>
 </li>
 <li><a href='#checking'>Checking scripts</a></li>
-<li><a href='#writing'>Writing audio files</a></li>
+<li><a href='#writing'>Writing audio files</a><ul>
+	<li><a href='#fileformats'>Other file formats</a></li>
+	</ul>
+</li>
+<li><a href='#stdout'>Piping raw audio to stdout</a></li>
 <li><a href='#shebang'>Files with shebangs</a></li>
 </ul>
 </div>
@@ -54,8 +59,8 @@ each of which plays as a separate script.)
 <p>Sample rate in Hz can be changed using the <code>-r</code> option:
 </p>
 <pre>saugns -r 48000 script(s)</pre>
-<h3 id='AUDIODEV'>Changing audio device</h3>
-<p>The option of which audio device name or path is used (for ALSA, OSS, etc.) by saugns can be changed by setting the <code>AUDIODEV</code>
+<h3 id='AUDIODEV'>Changing system audio device</h3>
+<p>The option of which system audio device name or path is used (for ALSA, OSS, etc.) by saugns can be changed by setting the <code>AUDIODEV</code>
 environment variable, similarly to how other software supports this option:
 </p>
 <pre>export AUDIODEV=value</pre>
@@ -63,6 +68,9 @@ environment variable, similarly to how other software supports this option:
 replace e.g. <code>default</code> for ALSA or sndio, or <code>/dev/dsp</code> for OSS.
 </p>
 <p>See the man page for notes on compatibility support for differently named environment variables specific to one or another system standard.
+</p>
+<h3 id='mono'>Stereo or mono downmix?</h3>
+<p>By default, both system audio output and any other output(s) are stereo, whether or not any sounds in a script differ between the channels. (See the SAU <a href='language.html#channels'>channel</a> features for how to place things in stereo.) This can be changed by adding the <code>--mono</code> option, to downmix all outputs to mono.
 </p>
 <h2 id='checking'>Checking scripts</h2>
 <p>To simply check if scripts parse cleanly (no errors or warnings),
@@ -86,11 +94,52 @@ named "a.wav" containing all of the audio from script(s):
 <p>Note that the default sample rate is 96000 Hz. It can be changed by using the <code>-r</code> option, as in the following example which uses CD quality sample rate. Note however that if you want to minimize aliasing distortion for sounds with too-wide frequency spectrums, it's best to instead write a WAV file with a higher sample rate and then use a separate tool to downsample with quality if you want a lower final sample rate.
 </p>
 <pre>saugns -r 44100 -o a.wav script(s)</pre>
+<p>The <a href='#mono'><code>--mono</code> option</a> can be added to downmix to mono and write a mono file. For WAV files containing only mono sounds, this halves the space usage. (But external compression tools and formats, like flac, can losslessly compress away stereo duplication anyway.)
+</p>
+<h3 id='fileformats'>Other file formats</h3>
+<p>It's also possible to produce AU files by using <code>-</code>
+(for stdout) as the filename, as a special case. When streaming a
+file, only AU among the well-recognized simple formats allows the
+length to be unspecified in the header &ndash; at least portably.
+As WAV is more common, it remains the format used in other cases.
+</p>
+<pre>saugns -o - script(s) &gt; a.au</pre>
 <p>If you need further format conversion or editing of WAV files,
-other tools will be needed. For example,
+AU files or streams, or raw audio data, other tools will be needed.
+For example,
 <a href="http://sox.sourceforge.net/Main/HomePage">SoX</a> and
 <a href="http://www.eca.cx/ecasound/index.php">Ecasound</a> are
-capable command-line tools (unrelated to this project).
+both capable command-line tools (unrelated to this project).
+It's also possible to send audio data to those and other tools
+<a href='#stdout'>raw over stdout</a> instead of with a format.
+</p>
+<p>AU over stdout is the most convenient way to interface with some external
+programs without using temporary files. For example, SoX can recognize audio
+format settings (number of bits, channels, sample rate) using the AU header,
+instead of having to duplicate those as command-line arguments, as is needed
+when piping raw audio over stdout. It's easy to use to e.g. write to a flac:
+(SoX supports many formats and can pick one to use by the filename entered.)
+</p>
+<pre>saugns -o - script(s) | sox - a.flac</pre>
+<h2 id='stdout'>Piping raw audio to stdout</h2>
+<p>For interfacing with other programs that accept raw 16-bit audio data,
+the <code>--stdout</code> option can be added to copy audio to stdout. If
+options for <a href='#playing'>playing scripts</a> are used, system audio
+is still on by default. But if <a href='#writing'>writing a WAV file</a>,
+running muted is still the default. This can as usual be changed with the
+options to run audible (<code>-a</code>) and run muted (<code>-m</code>).
+</p>
+<p>When system audio output is produced, the copying to stdout is done in
+parallel, at the same limited pace. This may be desirable for programs to
+visualize an audio stream, for example for a live spectrogram. But if the
+program running in parallel takes too much CPU time to do its work, there
+is the risk of stuttering. Experimenting to see how well it works for the
+system and configuration is best.
+</p>
+<p>An alternative to raw data exists, for sending audio with an AU format
+header over stdout. This uses the file output option <code>-o</code> with
+<a href='#fileformats'><code>-</code> as the filename</a>. Both cannot be
+used at the same time.
 </p>
 <h2 id='shebang'>Files with shebangs</h2>
 <p>As with shell scripts and various other types of scripts, a Unix shebang can be used for SAU scripts. Placing <code>#!</code> at the very beginning of a script, followed by the full path to the installed saugns binary, makes the file run using saugns when the file is used by itself as if it were a program. This also requires the script file to have the execute permission set (as in <code>chmod +x filename</code>).
