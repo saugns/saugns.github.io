@@ -34,7 +34,11 @@ Back to <a href='index.html'>main page</a>.
 	<li><a href='#mgensys-2020-06'>2020-06 "mgensys": Almost starting over</a></li>
 	</ul>
 </li>
-<li><a href='#y2021'>2021&ndash;2022+: Reorienting</a></li>
+<li><a href='#y2021'>2021&ndash;2022+: Reorienting</a><ul>
+	<li><a href='#numexp2021'>2021-11: Extending numerical expressions</a></li>
+	<li><a href='#cliext2022'>2022-05: More command-line interoperability</a></li>
+	</ul>
+</li>
 </ul>
 </div>
 <h2 id='y2011'>2011&ndash;2012: Beginning</h2>
@@ -293,7 +297,7 @@ the program to be. Over time, alongside a few smaller steps toward
 fuller redesign, I've developed further ideas for audio generation
 features to add and experiment with later on.
 </p>
-<p>Beginning with <a href="https://framagit.org/sau/saugns/-/tags/v0.3.9">v0.3.9</a>, older v0.3.x complications were peeled off without removing functionality, and some low-hanging syntax extension-and-reworking fruit was picked up, beginning with extending numerical expressions with a (very) small set of built-in mathematical functions. <i><a href="https://framagit.org/sau/saugns/-/tags/v0.3.10">v0.3.10</a></i> fixed a big old remaining timing bug from 2011 (and some smaller ones), and reworked the <a href='language.html#timing'>timing syntax</a>. <i><a href="https://framagit.org/sau/saugns/-/tags/v0.3.10b">v0.3.10b</a></i> added <a href='language.html#fpm'>frequency-linked PM</a>.
+<p>By the time of <i><a href="https://framagit.org/sau/saugns/-/tags/v0.3.9">v0.3.9</a></i>, some older v0.3.x complications were peeled off without removing functionality, and some low-hanging syntax extension-and-reworking fruit was picked up in its place, beginning with extending numerical expressions with a (very) small set of named, built-in mathematical functions. Concerning other types of syntax, <i><a href="https://framagit.org/sau/saugns/-/tags/v0.3.10">v0.3.10</a></i> fixed a big old remaining timing bug from 2011 (and some smaller ones), and reworked the <a href='language.html#timing'>timing syntax</a>. On variations of modulation, <i><a href="https://framagit.org/sau/saugns/-/tags/v0.3.10b">v0.3.10b</a></i> also added <a href='language.html#fpm'>frequency-linked PM</a>.
 </p>
 <p>A redone oscillator using
 <a href="https://stash.reaper.fm/28384/DifferentiatedPolynomialWaveTables.pdf"
@@ -305,6 +309,14 @@ eventually I may abandon the wavetable approach entirely. I remember some
 early ideas I had for more flexibly wavetype-morphing oscillators but not
 worked on yet. It may make for more interesting synthesis if implemented,
 and if it's made to work without terrible aliasing noise.
+</p>
+<h3 id='numexp2021'>2021-11: Extending numerical expressions</h3>
+<p>From very early versions, numerical expressions in the language work like a parse-time calculator with conventional infix syntax (except for some long-lived bugs and flaws). Fancier uses of this saw little use, as there's only so much to be done with basic arithmetic &ndash; until I finally added some named functions after a decade in <i>v0.3.9</i> (and then later more in the way of stateful parse-time actions).
+</p>
+<p>Half a year after this, I decided to try extending the extension, for more types of function &ndash; the most interesting additions being <code>rand()</code>, <code>seed(x)</code>, and <code>time()</code>, which allow making both predictably and unpredictably randomized scripts. (Attaching state to the parse-time numerical processing seems an interesting way to add flexibility, which does not require adding any new syntax elements elsewhere.)
+</p>
+<h3 id='cliext2022'>2022-05: More command-line interoperability</h3>
+<p>In what more ways can the program be used? After checking out some live audio stream visualizing programs, I decided to add <a href='usage.html#stdout'>more options</a> to make saugns easy to use with programs that accept audio over stdin in general.
 </p>
 <div class='footer'>Text available under version 4.0 of <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons BY-SA" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>.
 </div>

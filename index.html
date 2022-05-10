@@ -36,20 +36,22 @@ it implements the <a href='#SAU'>SAU</a> (Scriptable AUdio) language
 </div>
 <div class='header'>
 <h2 id='saugns'>saugns program</h2>
-<p>Command-line usage examples are <a href='usage.html'>here</a>.
+<p>More on command-line usage <a href='usage.html'>here</a>.
 </p>
 </div>
 <p>saugns (the Scriptable AUdio GeNeration System) is a
 command-line program which reads SAU (Scriptable AUdio)
 scripts or strings and produces audio. Output can be to
-system audio, and/or a 16-bit PCM WAV file.
+system audio, and/or a 16-bit PCM WAV file, an AU file
+or stream, or raw audio sent to stdout (for interfacing
+with other applications).
 </p>
 <p>The program is written in C and on the lightweight side,
 without any dependencies beyond the standard C library and
 support for system audio on the given
 <a href='questions.html#Platforms'>platform</a>.
-While currently smaller than 100KB once built, it may grow
-with the language.
+While currently smaller than 100 KB when built on my systems,
+it may grow with the language.
 </p>
 <p>Mainly tested on x86/x86-64 on *BSD and Linux systems, but
 may generally work on 32-bit and 64-bit little-endian systems
@@ -58,10 +60,17 @@ for those OSes without the need for changes.
 <p>The <a href="https://github.com/saugns/saugns/blob/stable/README.md">README</a> file (GitHub view) describes how to build and install it.
 (Short version: For the 4 major BSDs, `<tt>make</tt>` is enough to get it built.)
 </p>
+<h3 id='simple-tests'>Simple tests</h3>
+<p>The program built, a 1-second 440 Hz test tone can be produced by simply running:
+</p>
+<pre>./saugns -e "Osin"</pre>
 <p>A more interesting test to run after building is the following,
 which produces 10 seconds of "engine rumble" using PM:
 </p>
 <pre>./saugns -e "Osin f137 t10 p+[Osin f32 p+[Osin r(4/3)]]"</pre>
+<p>Or how about three 1-second random PM timbres?
+</p>
+<pre>./saugns -e "/seed(time()) Osin p+[Osin rrand(); rrand(); rrand()]"</pre>
 <p>A set of example and test scripts are included,
 along with a concise SAU language reference, as described in the README file.
 </p>
