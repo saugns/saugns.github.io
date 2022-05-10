@@ -40,7 +40,10 @@ be found in the <a href='https://github.com/saugns/saugns/blob/stable/doc/README
 	</ul>
 </li>
 <li><a href='#values'>Values and expressions</a><ul>
-	<li><a href='#numexp'>Numerical expressions</a></li>
+	<li><a href='#numexp'>Numerical expressions</a><ul>
+		<li><a href='#mathfunc'>Mathematical functions</a></li>
+		</ul>
+	</li>
 	<li><a href='#comment'>Comment syntax</a></li>
 	<li><a href='#labelref'>Labels and referencing</a></li>
 	<li><a href='#ramp'>Value ramps</a></li>
@@ -263,16 +266,31 @@ several comment styles are supported.
 If a decimal point is used, a leading <code>0</code> can be left out,
 as in <code>.25</code>.
 </p>
+<table style="float:right; max-width:50%">
+<tr>
+	<th>Operation</th><th>Description</th>
+</tr>
+<tr>
+	<td><code>^</code></td>
+	<td>To the power of (right-associative)</td>
+</tr>
+<tr>
+	<td><code>*</code> <code>/</code> <code>%</code></td>
+	<td>Multiplication, division, remainder</td>
+</tr>
+<tr>
+	<td><code>+</code> <code>-</code></td>
+	<td>Addition, subtraction</td>
+</tr>
+</table>
 <p>Within parentheses, arithmetic operations
 in ordinary infix notation can be used, giving a number as a result.
 For example, <code>(1/2)</code> is another way of writing <code>0.5</code>.
 Plus or minus signs (<code>+</code>, <code>-</code>)
 can only be added to numbers within parentheses, so
 negative numbers requires parentheses to be used, e.g. <code>(-1)</code>.
-Supported arithmetic operations are:
-<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>,
-and <code>^</code> (to the power of).
-Conventional rules determine precedence
+</p>
+<p>Conventional rules determine precedence
 when not made explicitly clear using parentheses.
 Nested parentheses can also be used for multiplication in the customary way,
 e.g. <code>(2(3))</code> means <code>6</code>.
@@ -281,10 +299,77 @@ e.g. <code>(2(3))</code> means <code>6</code>.
 of value. For such a value, a constant name can be written
 in place of a number.
 </p>
-<p>A set of mathematical functions are also supported in expressions for
+<h4 id='mathfunc'>Mathematical functions</h4>
+<p>A set of mathematical functions are supported in expressions for
 all parameters, whether or not surrounding parentheses are used.
-Instead of writing a number, <code>name(number)</code> gives the result
-for the number using the function <code>name</code>. Functions include <code>exp</code>, <code>log</code>, <code>sqrt</code>, and a few others. A musically interesting function for frequency ratios and some other uses may be <code>met</code>, which produces the <a href="https://en.wikipedia.org/wiki/Metallic_mean">metallic means/ratios/constants</a> (the Wikipedia article has the formula used); for example, the <a href="https://en.wikipedia.org/wiki/Golden_ratio">golden ratio</a> value of 1.618... is the result of <code>met(1)</code>, and a modulator oscillator can have its <code>r</code> parameter set to that with <code>rmet(1)</code>. (The function can take any value, producing "metallic values" between the "proper" ones for the integers. Negative values also give how much the positive would be increased, less further from zero. Furthermore, met(-x) is equal to (1/met(x)).)
+Writing <code>name(value)</code> gives the result of applying the
+function <code>name</code> to the value. A few functions give a
+value without being provided any, like <code>rand()</code>, which
+returns a new pseudo-random value from 0.0 to 1.0 each time it is called.
+</p>
+<table style="float:right; max-width:50%">
+<tr>
+	<th>Symbol</th><th>Description</th>
+</tr>
+<tr>
+	<td><code>abs(x)</code></td>
+	<td>Absolute value.</td>
+</tr>
+<tr>
+	<td><code>cos(x)</code></td>
+	<td>Cosine of value.</td>
+</tr>
+<tr>
+	<td><code>exp(x)</code></td>
+	<td>Base-e exponential value.</td>
+</tr>
+<tr>
+	<td><code>log(x)</code></td>
+	<td>Natural logarithmic value.</td>
+</tr>
+<tr>
+	<td><code>met(x)</code></td>
+	<td>Metallic value, e.g. <code>met(1)</code> gives the golden ratio.
+	Positive integers give the series of metallic ratios.
+	Other values are also allowed: fractional, 0 giving 1
+	and negative (gives how much the positive value would
+	be increased, approaching zero further from zero).
+	Note that <code>met(-x)</code> is also equal to <code>(1/met(x))</code>.</td>
+</tr>
+<tr>
+	<td><code>pi</code></td>
+	<td>3.1415...</td>
+</tr>
+<tr>
+	<td><code>rand()</code></td>
+	<td>Pseudo-random number in range 0-1. The value sequence
+	from a series of calls restarts each new script unit.</td>
+</tr>
+<tr>
+	<td><code>seed(x)</code></td>
+	<td>Reset the <code>rand()</code> value sequence with a passed number.
+	(Every bit counts; different expressions for the same
+	number, with e.g. rounding may give different seeds.)
+	Returns 0 so that e.g. <code>/seed(100)</code> will only reseed.</td>
+</tr>
+<tr>
+	<td><code>sin(x)</code></td>
+	<td>Sine of value.</td>
+</tr>
+<tr>
+	<td><code>sqrt(x)</code></td>
+	<td>Square root.</td>
+</tr>
+<tr>
+	<td><code>time()</code></td>
+	<td>Get a system timestamp number changed each second.
+	It can be used for seeding in a randomized script.
+	(Note that the exact value is platform-dependent.)</td>
+</tr>
+</table>
+<p>A musically interesting function for frequency ratios and some other uses may be <code>met(x)</code>, which produces the <a href="https://en.wikipedia.org/wiki/Metallic_mean">metallic means/ratios/constants</a> (the Wikipedia article has the formula used); for example, the <a href="https://en.wikipedia.org/wiki/Golden_ratio">golden ratio</a> value of 1.618... is the result of <code>met(1)</code>, and a modulator oscillator can have its <code>r</code> parameter set to that with <code>rmet(1)</code>. This function makes it easy to produce more complex frequency spectrums with FM or PM by providing more irrational numbers in response to simpler ones typed. (The function can take any value, also producing "metallic values" between the "proper" ones for the integers. Negative values also give how much the positive would be increased, which is less further from zero.)
+</p>
+<p>Most functions return values meant to be assigned to something &ndash; like a parameter for an object, or a value for a <a href='#timing'>delay time modifier</a> &ndash; or to be passed on to other functions. Unlike other functions, the <code>seed(x)</code> function does not return a value meant to do anything, just 0. How to use it? Instead of making a frivolous parameter assignment simply in order to use it so that it produces its side effect (re-seeding random number generation), a tidy convention is to call it following a delay-slash, <code>/seed(...)</code>. Given the number 0, the delay-slash will do nothing. This can be placed anywhere in the top scope of a script, including at the beginning of the script.
 </p>
 <h3 id='comment'>Comment syntax</h3>
 <p>Several comment styles exist:
