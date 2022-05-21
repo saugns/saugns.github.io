@@ -46,7 +46,7 @@ be found in the <a href='https://github.com/saugns/saugns/blob/stable/doc/README
 	</li>
 	<li><a href='#comment'>Comment syntax</a></li>
 	<li><a href='#labelref'>Labels and referencing</a></li>
-	<li><a href='#ramp'>Value ramps</a></li>
+	<li><a href='#ramp'>Value ramps or sweeps</a></li>
 	<li><a href='#modvalrange'>Modulation with value range</a></li>
 	</ul>
 </li>
@@ -435,46 +435,72 @@ alternative to label referencing, but can also be combined with it:
 ; r(1/4) t1
 ; r(1/5)
 </pre>
-<h3 id='ramp'>Value ramps</h3>
-<p>To ramp, or "sweep", a parameter value towards a goal,
-a set of value ramp arguments can be given instead of the usual number.
+<h3 id='ramp'>Value ramps or sweeps</h3>
+<p>To ramp, or sweep, a parameter towards a goal value,
+a set of value ramp arguments can be given within <code>{}</code>
+in place of the usual one numerical argument.
 (This is currently supported for amplitude, frequency, and channel mixing
 parameters.) The usual number is used as the starting value for the trajectory,
 and the parameter can be assigned a value twice in order to provide both.
 </p>
-<p>The ramp sub-parameters are as follows:
-</p>
-<ul>
-<li><code>v</code> (Target value.)</li>
-<li><code>t</code> (Time to reach target value. Defaults to time of oscillator.)</li>
-<li><code>c</code> (Curve type:
-	<code>hold</code>, <code>lin</code>, <code>exp</code>, <code>log</code>,
-	<code>xpe</code>, <code>lge</code>, or <code>cos</code>.
-	Defaults to <code>lin</code>.)</li>
-</ul>
 <p>For example, the following tone begins at 20 Hz
 and rises exponentially to 20000 Hz, over 10 seconds:
 </p>
-<pre>Osin f20 f{v20000 cexp} t10 a0.25</pre>
-<p>The exponential and logarithmic curves are
-polynomial approximations with definite beginnings and ends,
-rather than real exponential and logarithmic curves.
-(The <code>log</code> curve also skips the below-zero part
-of a real logarithmic curve, i.e. it really approximates
-the mathematical function <tt>log(1 + x)</tt>.)
-These approximations have been tuned by ear to sound "smooth" and natural.
+<pre>Osin f20 f{v20000 rexp} t10 a0.25</pre>
+<p>Here, <code>r</code> is a subparameter which changes the ramp shape (the default being a linear ramp). Note that the ramp shapes are not the same as any mathematical functions with the same names. Each fills in points between the beginning (usual number) and the end value (<code>v</code>) in some way.
 </p>
-<p>The <code>xpe</code> curve exponentially saturates and decays,
-like a capacitor &ndash; this means an upside-down decay for the increase
-(it increases like the <code>log</code> curve and
-decreases like the <code>exp</code> curve).
-This is natural-sounding behavior for envelope-like use.
-The <code>lge</code> curve behaves the opposite,
-logarithmically saturating and decaying
-(increasing like <code>exp</code> and decreasing like <code>log</code>).
+<table style="float:right; max-width:50%">
+<tr>
+	<th>Shape</th><th>Description</th>
+</tr>
+<tr>
+	<td><code>hold</code></td>
+	<td>Hold old value until time.</td>
+</tr>
+<tr>
+	<td><code>lin</code></td>
+	<td>Linear trajectory over time.</td>
+</tr>
+<tr>
+	<td><code>exp</code></td>
+	<td>Steep <code>exp(x)-1</code>-like increase or decrease.</td>
+</tr>
+<tr>
+	<td><code>log</code></td>
+	<td>Steep <code>log(x+1)</code>-like increase or decrease.</td>
+</tr>
+<tr>
+	<td><code>xpe</code></td>
+	<td>Exponential envelope shape (saturate or decay).</td>
+</tr>
+<tr>
+	<td><code>lge</code></td>
+	<td>Logarithmic envelope shape (saturate or decay).</td>
+</tr>
+<tr>
+	<td><code>sin</code></td>
+	<td>Sine-like smooth ends trajectory over time.</td>
+</tr>
+</table>
+<p>The ramp sub-parameters are as follows. The default values often allow one or two of them to be left out.
 </p>
-<p>The <code>cos</code> curve rises or falls like a cosine wave, generally percevied to be fairly similar to a linear increase or decrease. The change has a smoothly curved start and stop, and a steeper middle.
-</p>
+<dl>
+	<dt><code>r</code></dt>
+	<dd>Ramp fill shape (default <code>lin</code>).
+	The <code>exp</code> and <code>log</code> shapes use ear-tuned polynomial
+	approximations with definite beginnings and ends,
+	designed to sound natural for frequency sweeping,
+	and symmetric one to the other. The <code>xpe</code> shape increases
+	like <code>log</code> and decreases like <code>exp</code>, much like a capacitor
+	charges and discharges, natural-sounding for an envelope;
+	and <code>lge</code> increases like <code>exp</code> and decreases like <code>log</code>.
+	The <code>sin</code> shape sounds similar to <code>lin</code>, except it has a
+	smoothly curved start and stop, and a steeper middle.</dd>
+	<dt><code>t</code></dt>
+	<dd>Time to reach goal (default is the external <code>t</code> duration).</dd>
+	<dt><code>v</code></dt>
+	<dd>Goal (go-to) value, assigned to the parameter after time.</dd>
+</dl>
 <h3 id='modvalrange'>Modulation with value range</h3>
 <p>Amplitude (<code>a</code>) and frequency (<code>f</code>)
 (and relative frequency <code>r</code>) parameters support
