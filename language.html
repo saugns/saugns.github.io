@@ -72,6 +72,8 @@ beeps for 1 second.)
 by setting phase to 25% of the wave cycle,
 using <code>p(1/4)</code> or <code>p0.25</code>.
 </p>
+<p>The numbers here are simple examples of <a href='#numexp'>numerical expressions</a>. Positive numbers are the simplest to write. Fancier things are also possible, including randomized values.
+</p>
 <h3 id='modulation'>Using modulation</h3>
 <p>Oscillators can be used in a nested way,
 as in this example which uses PM (phase modulation):
@@ -115,6 +117,8 @@ the modulator. For example, a modulator with <code>r(4/3)</code>
 will maintain a frequency 4/3 times the frequency of the carrier;
 changing the <code>f42</code> in the example above to that gives
 a somewhat different sound.
+</p>
+<p><a href="#ramp">Ramping or sweeping</a> parameters like amplitude or frequency is a little like using modulation features, except that the source of the change is not an oscillator, but simply a one-off timed trajectory. Modulation can become more interesting when that's done to parameters altering the result.
 </p>
 <p>Frequency and amplitude can be given values which are computed
 using oscillator outputs shifted to a range. This includes "real FM",
@@ -283,20 +287,22 @@ Osin t1.5 f100; f200; f300; f400
 Osin t1.5 f100; \0.5 f200; \0.5 f300; \0.5 f400
 </pre>
 <h3 id='channels'>Channel mixing and panning</h3>
-<p>SAU supports stereo audio, but oscillators pass mono signals between one another. Objects which are not used as modulators, whose output is mixed into the result, have an extra channel mixing parameter <code>c</code> which defaults to centered mixing, or <code>0.0</code>. It can be changed in order to pan sounds. For convenience, the constants <code>L</code> for hard left, <code>C</code> for center, and <code>R</code> for hard right, can be used as values. This works the same as entering the corresponding numbers <code>(-1.0)</code>, <code>0.0</code>, and <code>1.0</code>.
+<p>SAU supports stereo audio, but oscillators pass mono signals between one another. Objects which are not used as modulators, whose output is mixed into the result, have an extra channel mixing parameter <code>c</code> which defaults to centered mixing, or <code>0.0</code>. It can be changed in order to pan sounds. For convenience, the constants <code>L</code> for hard left, <code>C</code> for center, and <code>R</code> for hard right, can be used as values; this works the same as entering the corresponding numbers <code>(-1.0)</code>, <code>0.0</code>, and <code>1.0</code>.
 </p>
-<p>For example, to play a tone starting at the left and moving to the right over 3 seconds (using a <a href='#ramp'>value ramp</a>):
+<p>For example, to play a tone starting at the left and moving linearly to the right over 3 seconds using a <a href='#ramp'>value ramp</a>:
 </p>
 <pre>
 Osin f440 cL c{vR t3} t3
 </pre>
+<p>The inner <code>t3</code> above is actually optional, since the outer sets its default to that.
+</p>
 <p>It's possible to pan harder than hard left and hard right; going "too far" in either direction simply amplifies what's added to that channel while giving what's added to the other a negative amplitude.
 </p>
 <h2 id='values'>Values and expressions</h2>
 <p>For most parameters, a single number is a value; see
 <a href='#numexp'>numerical expressions</a> below for how to write them.
-Other types of values also exist. Some parameters support
-timed <a href='#ramp'>value ramping or sweeping</a>.
+More complex types of values which include numbers also exist.
+Some parameters support timed <a href='#ramp'>value ramping or sweeping</a>.
 </p>
 <p>For all types of modulation, the <i>list</i> of oscillators is used
 as a type of parameter value, supported in a nested way. Frequency and
@@ -484,8 +490,9 @@ alternative to label referencing, but can also be combined with it:
 <p>To ramp, or sweep, a parameter towards a goal value,
 a set of value ramp arguments can be given within <code>{}</code>
 in place of the usual one numerical argument.
-(This is currently supported for amplitude, frequency, and channel mixing
-parameters.) The usual number is used as the starting value for the trajectory,
+This is currently supported for amplitude, frequency, and
+<a href='#channels'>channel mixing</a> parameters.
+The usual number is used as the starting value for the trajectory,
 and the parameter can be assigned a value twice in order to provide both.
 </p>
 <p>For example, the following tone begins at 20 Hz
