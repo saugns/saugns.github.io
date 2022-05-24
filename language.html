@@ -33,8 +33,8 @@ be found in the <a href='https://github.com/saugns/saugns/blob/stable/doc/README
 		</ul>
 	</li>
 	<li><a href='#timing'>Timing</a><ul>
-		<li><a href='#subshift'>Subshifts &amp; silent time padding</a></li>
 		<li><a href='#compstep'>Compound steps for an object</a></li>
+		<li><a href='#subshift'>Subshifts &amp; silent time padding</a></li>
 		</ul>
 	</li>
 	<li><a href='#channels'>Channel mixing and panning</a></li>
@@ -118,7 +118,7 @@ will maintain a frequency 4/3 times the frequency of the carrier;
 changing the <code>f42</code> in the example above to that gives
 a somewhat different sound.
 </p>
-<p><a href="#ramp">Ramping or sweeping</a> parameters like amplitude or frequency is a little like using modulation features, except that the source of the change is not an oscillator, but simply a one-off timed trajectory. Modulation can become more interesting when that's done to parameters altering the result.
+<p><a href='#ramp'>Ramping or sweeping</a> parameters like amplitude or frequency is a little like using modulation features, except that the source of the change is not an oscillator, but simply a one-off timed trajectory. Modulation can become more interesting when that's done to parameters altering the result.
 </p>
 <p>Frequency and amplitude can be given values which are computed
 using oscillator outputs shifted to a range. This includes "real FM",
@@ -167,7 +167,7 @@ clarity it's best to note that classic AM and RM are both special cases.)
 <p>The two bounds of the value range come from the two (!) values of the
 parameter: the normal value generally used, and a second value which is
 only used for this type of modulation and which defaults to 0.0.
-(The second value can also be <a href="#ramp">ramped or swept</a>
+(The second value can also be <a href='#ramp'>ramped or swept</a>
 like the first, with the same syntax used in place of a number.)
 Separating the two values is a minus <code>-</code>, used as a dash &ndash;
 not a numerical minus, which <a href='#numexp'>would have to</a> be written
@@ -204,15 +204,15 @@ the range when the absolute value is not 1.0, but this is allowed
 for the sake of flexibility.
 </p>
 <h3 id='timing'>Timing</h3>
-<p>A <code>/</code> (followed by a time in seconds) adds a delay
-to what follows. The time separator <code>|</code> adjusts delay
-for what follows so that it exactly matches the remaining duration
-(play time) for the things before. They can be used either alone
-or together, though when combined, the order of use will matter.
+<p>Things in a script all have the same time placement, i.e. they begin or take effect at the same time, unless the time position is changed. Playing several things at the same time is easy &ndash; just write one thing after the next &ndash; while there's several ways to arrange them differently than that.
 </p>
-<p>Those two things both apply for everything which follows in a
-script, though there's also timing modifiers which only apply more
-locally.
+<p>A <code>/</code>, followed by a time in seconds, adds a delay
+to everything after; it's the global forward-shift option, added
+between two parts of a script. The time separator <code>|</code>
+is related and adjusts the delay added to everything after so it
+exactly matches the duration, or play time, remaining for things
+before it. (When both of these options are used together,
+the order of use is important.)
 </p>
 <p>To generate two tones, separated in time,
 and also insert an extra 2.5 seconds of silence in-between them:
@@ -222,50 +222,73 @@ Osin f440 t2
 | /2.5
 Osin f220 t2
 </pre>
-<h4 id='subshift'>Subshifts &amp; silent time padding</h4>
-<p>While a <code>/</code> <i>can</i> also be placed in the middle
-of a step for some object, splitting the time at which the values
-set for the object take effect, doing so also affects surrounding
-timing. This can be avoided by using a <code>\</code> instead, to
-split the current step in time and delay the remainder of it by a
-number of seconds, but not affect independent steps placed after.
-This is called a subshift.
+<p>While those two timing modifiers apply to everything which follows
+after in a script, there's other options which only apply more locally,
+described below.
 </p>
-<p>For example, two oscillators can be inserted at the same time,
-while still changing the frequency for the first oscillator after
-a 1 second delay. It will play for 3 seconds, as its time re-sets
-to the default value of the previous value, 2 seconds again. (For
-related syntax which more simply fits each wait time to the prior
-duration, see <a href='#compstep'>Compound steps</a> below.)
+<h4 id='compstep'>Compound steps for an object</h4>
+<p>The <code>,</code> sub-step separator splits and extends the duration of a step for some object into two parts, one directly after the other. Parameter changes written after it will take place just after the time duration of the preceding part, and the following part will in turn have a new time duration. It can be used any number of times in a row, timing only changing locally within the compound step built this way.
+</p>
+<p>It's often the simplest way of arranging a series of timed changes for an object. The following example plays four tones in sequence, each for 1.5 seconds:
+</p>
+<pre>
+Osin t1.5 f100, f200, f300, f400
+</pre>
+<p>Here all four time durations are 1.5 seconds, for 6 seconds in total, because the default time for the 2nd part is copied from the 1st, and that of the 3rd is copied from the 2nd, etc. That's the rule, though there is one exception for it for <a href='#modulation'>modulators</a>; just like modulators generally have the special time value <code>i</code> (implicit time) by default, for modulators the <i>last</i> sub-step has that as the default time, so that using <code>,</code> does not unexpectedly shorten the time.
+</p>
+<p>Silent gaps can also be inserted within a compound step, adding to the duration, using the <code>\</code> subshift syntax described more generally in the next section. A <code>\</code> and a time in seconds written just after a <code>,</code> adds a local time delay inside the compound step, analogous to using the more global <code>|</code> and <code>/</code>-syntaxes together. For example, to add a 0.5 second silent gap between each change of tone in the current example:
+</p>
+<pre>
+Osin t1.5 f100, \0.5 f200, \0.5 f300, \0.5 f400
+</pre>
+<h4 id='subshift'>Subshifts &amp; silent time padding</h4>
+<p>The subshift <code>\</code>-syntax is another alternative to
+the more global <code>/</code>-syntax, and similarly allows any
+time in seconds to be entered as a delay time &ndash; but only
+for the current step for some object. It behaves much like the
+<a href='#compstep'>compound step</a> sub-step <code>,</code>-separator,
+and is another way to split a step and forward-shift the later
+part in time. The main use is to move a (sub-)step forward and
+leave a silent gap at the old position, but it can also extend
+the duration without leaving a silent gap.
+</p>
+<p>Using a <code>\</code> always automatically resets the time on
+each use if a new <code>t</code> value is not provided. Unlike on
+use of<code>/</code>, a long shift therefore doesn't simply leave
+a short time expired; if it moves past sound to silence, then the
+silence may also be followed by sound with a new play time added.
+</p>
+<p>It's possible to use only <code>\</code> with the same effect
+as <code>,</code> while doing so may be more messy. For example,
+with two oscillators inserted at the same time, for the first of
+them. Time should be explicitly set before the <code>\</code> is
+used, thereafter play time for the first oscillator will extend,
+rather than move; it will play for 3 seconds rather than 2, with
+the time reset to the previous value, 2 seconds, after 1 second.
 </p>
 <pre>
 Osin f440 t2 \1 f220
 Osin f110
 </pre>
-<p>Using a <code>\</code> typically moves or extends the time for
-the object concerned &ndash; automatically re-setting the time on
-each use if a new <code>t</code> value is not provided. Unlike on
-use of<code>/</code>, a long shift therefore doesn't make a short
-time run out (though there may be a gap between the two times, if
-the shift is long enough).
-</p>
 <p>Note that the setting of a time value explicitly for the first
 oscillator above, <i>before</i> the <code>\</code>, is important;
 otherwise the peculiar behavior is to insert a pause or "rest" by
 making the default time 0 before the <code>\</code> but not after
-it. The silence, or silent time padding, makes for moving, rather
-than extending, the non-silent time duration. As in the following
-example, where the tone plays after 1 second, for a default time:
+it (where the old default time is copied, if no new time is set).
+Changing the order to <code>\1 t2</code>, the first 1 second will
+be blank for the first oscillator, and it will only play the last
+2 seconds with 220 Hz (never with 440 Hz). Another example, where
+a tone plays after 1 second (for the usual default time) follows:
 </p>
 <pre>
 Osin \1 f880
 </pre>
-<p>This is meant to create a sense of moving a whole step forward
-in time. Silent time padding may mainly be interesting to use for
-things placed in nested lists (to make another modulator start to
-play after a delay, say), when used by itself. But it may also be
-combined with the compound step syntax described next, for silent
-gaps in sequences of parameter updates for an object.
+<p>Here nothing is missing and the delay is intended. Such use of
+silent time padding may mainly be interesting inside nested lists
+(to make another modulator start to play after a delay, say) when
+used by itself. Combined with the <code>,</code>-separator syntax
+it can create silent gaps inside a sequence of parameter updates,
+locally for some object.
 </p>
 <p>There's also another way to control the behavior of moving vs.
 extending, to disable or adjust the proportion of silent padding.
@@ -273,19 +296,6 @@ When several <code>\</code> are used in series only the first can
 zero the time before it. So <code>\0 \1</code>, for example, will
 never move more than 0 seconds, and then will extend by 1 second.
 </p>
-<h4 id='compstep'>Compound steps for an object</h4>
-<p>The <code>;</code> sub-step separator can also build a compound step for an object, with a total time duration which is simply the sum of those of all sub-steps, as they are laid out one directly after the next in time. The following example plays four tones in sequence, each for 1.5 seconds:
-</p>
-<pre>
-Osin t1.5 f100; f200; f300; f400
-</pre>
-<p>Here the time of the first sub-step becomes the default time of the next, which in turn becomes the default time of the next, etc. There is one exception to this for modulators, though, which is that the <i>last</i> sub-step is given the special time value <code>i</code> (implicit time) by default, just like <a href='#modulation'>modulators</a> generally have such a default.
-</p>
-<p>The <code>\</code> subshift syntax can easily be used to insert silent gaps between the normal play times of sub-steps, padding them with silence. For example, to add a 0.5 second gap between each change of tone in the current example:
-</p>
-<pre>
-Osin t1.5 f100; \0.5 f200; \0.5 f300; \0.5 f400
-</pre>
 <h3 id='channels'>Channel mixing and panning</h3>
 <p>SAU supports stereo audio, but oscillators pass mono signals between one another. Objects which are not used as modulators, whose output is mixed into the result, have an extra channel mixing parameter <code>c</code> which defaults to centered mixing, or <code>0.0</code>. It can be changed in order to pan sounds. For convenience, the constants <code>L</code> for hard left, <code>C</code> for center, and <code>R</code> for hard right, can be used as values; this works the same as entering the corresponding numbers <code>(-1.0)</code>, <code>0.0</code>, and <code>1.0</code>.
 </p>
@@ -482,9 +492,9 @@ alternative to label referencing, but can also be combined with it:
 <pre>
 /1
 @name r(1/2) t1
-; r(1/3) t1
-; r(1/4) t1
-; r(1/5)
+, r(1/3) t1
+, r(1/4) t1
+, r(1/5)
 </pre>
 <h3 id='ramp'>Value ramps or sweeps</h3>
 <p>To ramp, or sweep, a parameter towards a goal value,
