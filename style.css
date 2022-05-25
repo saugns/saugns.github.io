@@ -79,6 +79,7 @@ header p, .header p {
 	padding-left: 40px;
 }
 footer, .footer {
+	clear: both;
 	font-size: smaller;
 	text-align: right;
 	margin: 1em 0em;
