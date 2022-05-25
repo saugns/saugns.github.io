@@ -45,7 +45,7 @@ description, which also goes back before the tagged versions.
 </div>
 <h2 id='tags'>Git tags</h2>
 <p>Release notes are included in the plain
-<a href="https://framagit.org/sau/saugns/-/tags">git tags</a>. The current versions are...
+<a href="https://framagit.org/sau/saugns/-/tags">git tags</a>. Diffing between the versions is best done using the git command-line tool. The current tagged versions are...
 </p>
 <h3 id='tags-v0.3.x'>v0.3.x</h3>
 <ul>
@@ -62,18 +62,19 @@ description, which also goes back before the tagged versions.
 	<li><a href="https://framagit.org/sau/saugns/-/tags/v0.3.10">v0.3.10</a>, <a href="https://framagit.org/sau/saugns/-/tags/v0.3.10b">v0.3.10b</a></li>
 </ul>
 <h2 id='syntax'>Syntax changes</h2>
-<p>Below is a shorter summary of only the changes that impact how scripts are written. This list may be updated ahead of new versions being tagged. The oldest tagged version <i>v0.3.0</i> is compared to the historical (last 2012) <tt>sgensys-20120401.tgz</tt> version.
+<p>Below is a shorter summary of only the changes that impact how scripts in <a href='language.html'>the language</a> are written. This list may be updated ahead of new versions being tagged. The oldest tagged version <i>v0.3.0</i> is compared to the historical (last 2012) <tt>sgensys-20120401.tgz</tt> version.
 </p>
 <h3 id='syntax-v0.3.11'>v0.3.11</h3>
 <ul>
 <li>For modulation with value range, change delimiters between the values from <code>X,Y~[...]</code> to <code>X-Y[...]</code>.</li>
-<li>Rename compound step <code>;</code>-separator to <code>,</code>. Add optional <code>;</code>-terminator for any step.</li>
+<li>Rename <a href='language.html#compstep'>compound step</a> <code>;</code>-separator to <code>,</code>. Add optional <code>;</code>-terminator for any step.</li>
 <li>Ramp syntax.<ul>
 	<li>Rename <code>c</code> before ramp name to <code>r</code>.</li>
 	<li>Rename ramp <code>cos</code> to <code>sin</code>.</li>
 	</ul>
 </li>
 <li>Numerical expressions.<ul>
+	<li>Add <code>%</code> remainder operation. Make <code>^</code> (to the power of) right-associative.</li>
 	<li>Add functions <code>cos(x)</code>, <code>rand()</code>, <code>seed(x)</code>, <code>sin(x)</code>, <code>time()</code>.</li>
 	<li>Add constant <code>pi</code>.</li>
 	</ul>
@@ -118,7 +119,7 @@ description, which also goes back before the tagged versions.
 </ul>
 <h3 id='syntax-v0.3.7'>v0.3.7</h3>
 <ul>
-<li>Replace panning <code>P</code> keyword with channel mixing parameter <code>c</code> and <code>S c</code> default, with named constants <code>C</code>, <code>L</code>, <code>R</code>.</li>
+<li>Replace panning <code>P</code> keyword with <a href='language.html#channels'>channel mixing</a> parameter <code>c</code> and <code>S c</code> default, with named constants <code>C</code>, <code>L</code>, <code>R</code>.</li>
 </ul>
 <h3 id='syntax-v0.3.6'>v0.3.6</h3>
 <ul>

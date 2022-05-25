@@ -21,7 +21,7 @@ instead see the <a href='usage.html'>usage</a> page.
 </p>
 <p>The below is meant to explain the big picture more than cover all details.
 A concise language reference listing details more completely can
-be found in the <a href='https://github.com/saugns/saugns/blob/stable/doc/README.SAU'>doc/README.SAU</a> file (GitHub view).
+be found in the <a href='https://github.com/saugns/saugns/blob/stable/doc/README.SAU'>doc/README.SAU</a> file (GitHub view). Syntax changes and feature additions to the language are <a href='changes.html#syntax'>listed here</a>.
 </p>
 <div class='toc'>
 <h2 id='contents'>Contents</h2>
@@ -568,13 +568,17 @@ and rises exponentially to 20000 Hz, over 10 seconds:
 while <a href="https://supercollider.github.io/">SuperCollider</a> is a main
 example of a language and system providing everything and the kitchen sink
 with a more conventional-looking language syntax. Maybe even more importantly,
-systems like SuperCollider are meant for live experimenting. SAU is meant for
-easily written and ran scripts with finite timing.
+systems like SuperCollider are meant for live coding and experimenting
+with an interactive interpreter. SAU doesn't currently have a live coding
+implementation, but it's very easy to write and test short scripts which have
+finite timing &ndash; it's an aim to make it simple to use by writing, running,
+and tweaking scripts.
 </p>
 <p>In SAU, data cannot currently be held or combined without
 specifying carrier oscillators which play. While some simple
 things are simpler in SAU (including playing with modulation
 types), expressiveness drops beyond doing individual sounds.
+Furthermore, only some varieties of synthesis are supported.
 </p>
 <p>In SuperCollider, a most basic thing, generating a sine wave, looks as follows. Note that it doesn't actually play it, which requires a few additional details.
 </p>
