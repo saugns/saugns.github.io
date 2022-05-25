@@ -50,7 +50,6 @@ be found in the <a href='https://github.com/saugns/saugns/blob/stable/doc/README
 	<li><a href='#ramp'>Value ramps or sweeps</a></li>
 	</ul>
 </li>
-<li><a href='#supercollider'>Compared to SuperCollider</a></li>
 </ul>
 </div>
 <h2 id='output'>Generating audio</h2>
@@ -563,34 +562,6 @@ and rises exponentially to 20000 Hz, over 10 seconds:
 	<dt><code>v</code></dt>
 	<dd>Goal (go-to) value, assigned to the parameter after time.</dd>
 </dl>
-<h2 id='supercollider'>Compared to SuperCollider</h2>
-<p>SAU is simple and lacks many features,
-while <a href="https://supercollider.github.io/">SuperCollider</a> is a main
-example of a language and system providing everything and the kitchen sink
-with a more conventional-looking language syntax. Maybe even more importantly,
-systems like SuperCollider are meant for live coding and experimenting
-with an interactive interpreter. SAU doesn't currently have a live coding
-implementation, but it's very easy to write and test short scripts which have
-finite timing &ndash; it's an aim to make it simple to use by writing, running,
-and tweaking scripts.
-</p>
-<p>In SAU, data cannot currently be held or combined without
-specifying carrier oscillators which play. While some simple
-things are simpler in SAU (including playing with modulation
-types), expressiveness drops beyond doing individual sounds.
-Furthermore, only some varieties of synthesis are supported.
-</p>
-<p>In SuperCollider, a most basic thing, generating a sine wave, looks as follows. Note that it doesn't actually play it, which requires a few additional details.
-</p>
-<pre>SinOsc.ar(440, 0, 0.5);</pre>
-<p>In SAU, the closest-looking equivalent is:
-</p>
-<pre>Osin f440 p0 a0.5</pre>
-<p>By itself, this is a carrier oscillator which will play for
-the default time of 1 second. It could also be included in
-a list of modulators, and will then be linked to a carrier
-and play when the carrier does.
-</p>
 <div class='footer'>Text available under version 4.0 of <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons BY-SA" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>.
 </div>
 </body>
