@@ -30,6 +30,7 @@ it implements the <a href='#SAU'>SAU</a> (Scriptable AUdio) language
 <li><a href='usage.html'>Command-line usage</a></li>
 <li><a href='language.html'>SAU language overview</a></li>
 <li><a href='questions.html'>Answers to questions</a></li>
+<li><a href='changes.html'>Version change logs</a></li>
 <li><a href='design.html'>Design and main ideas</a></li>
 <li><a href='history.html'>History of the project</a></li>
 </ul>
@@ -92,24 +93,27 @@ A more detail-oriented language reference is in the saugns <a href="https://gith
 without support for the use of pre-recorded samples.
 While developed with the aim of becoming useful for writing
 electronic music, the language still has significant limitations,
-and the audio generated is retro-ish in its qualities.
+and the audio generated is somewhat retro-ish in its qualities.
 It is however easy to use for experimenting with sounds.
 </p>
-<p>A collection of basic wave types are supported, as well as AM/RM,
-FM, and PM (the "FM" of most commercial synthesizers). An arbitrary
+<p>Currently, the only type of audio generator is the oscillator.
+A set of wave types are supported, as well as AM/RM, FM,
+and PM (the "FM" of most commercial synthesizers). An arbitrary
 number of oscillators can be used.
-</p>
-<p>Compared to older and more well-known audio synthesis languages,
-SAU is simpler (and less developed/full-featured) and more focused
-on FM/PM. There are differences in basic ideas concerning the language,
-which will be reflected in further development.
 </p>
 <p>The long-term goal is for the syntax both to describe complex sounds
 in a simple way, and, especially, for it to make it simple to write
 long and intricate sequences of sounds &ndash; music &ndash; both
 tersely and in a way easy to mentally map and keep track of. The former
 may be the easier part; the latter requires greater expressiveness
-than the language has at present.
+than the language has at present. The road towards something more
+full-featured is different than that taken by most languages.
+But the planning is only half-formulated, and ideas are welcome,
+as long as they allow for something reasonably simple.
+</p>
+<h3 id='syntax-changes'>Syntax changes</h3>
+<p>The SAU language sometimes changes between versions of the saugns program.
+Changes are listed both in the version tags and in a shorter <a href='changes.html#syntax'>syntax change log</a>.
 </p>
 <div class='header'>
 <h2 id='project'>Project and plans</h2>
