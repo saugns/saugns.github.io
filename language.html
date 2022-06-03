@@ -35,6 +35,7 @@ be found in the <a href='https://github.com/saugns/saugns/blob/stable/doc/README
 	<li><a href='#timing'>Timing</a><ul>
 		<li><a href='#compstep'>Compound steps for an object</a></li>
 		<li><a href='#subshift'>Subshifts &amp; silent time padding</a></li>
+		<li><a href='#timenest'>Combined with nesting</a></li>
 		</ul>
 	</li>
 	<li><a href='#channels'>Channel mixing and panning</a></li>
@@ -295,6 +296,22 @@ When several <code>\</code> are used in series only the first can
 zero the time before it. So <code>\0 \1</code>, for example, will
 never move more than 0 seconds, and then will extend by 1 second.
 </p>
+<h4 id='timenest'>Combined with nesting</h4>
+<p>The flow of time and the nesting of scopes are like two dimensions in which things are arranged &ndash; which corresponds to how the text in a script looks. When objects are placed inside of lists for nesting, as when adding <a href='#modulation'>modulators</a>, the same time placement is used for the contents of the list as for where the list is assigned. In turn, inside of a list, a step written for an object can have sub-steps (using <code>,</code> and/or <code>\</code> as described above), making for timing offsets which then apply for further lists assigned there in particular within the list.
+</p>
+<p>Currently, the global timing <code>/</code> and <code>|</code> syntax is not allowed inside of modulator lists, only at the top scope (where they are also the most useful). A way to use them at the level of a subscope block may be added in the future, as an alternative to using only <code>\</code> and <code>,</code> (which only apply to the current individual object and that which is nested below).
+</p>
+<p>Here's an example of both timing and nesting which builds up a richer and richer noise, using PM, second by second.
+</p>
+<pre>
+Osin f400 t1, p+[
+	Osin \0 r(3/4) \1 p+[Osin f500 a(1/5), a(1/4), a(1/3), a(1/2), a(1/1)]
+	Osin \2 r(3/5)
+	Osin \4 r(3/6) \1 p+[Osin f300 a(1/5), a(1/4), a(1/3), a(1/2), a(1/1)]
+	Osin \6 r(3/7)
+	Osin \8 r(3/8) \1 p+[Osin f100 a(1/5), a(1/4), a(1/3), a(1/2), a(1/1)]
+] t10, f800 t4
+</pre>
 <h3 id='channels'>Channel mixing and panning</h3>
 <p>SAU supports stereo audio, but oscillators pass mono signals between one another. Objects which are not used as modulators, whose output is mixed into the result, have an extra channel mixing parameter <code>c</code> which defaults to centered mixing, or <code>0.0</code>. It can be changed in order to pan sounds. For convenience, the constants <code>L</code> for hard left, <code>C</code> for center, and <code>R</code> for hard right, can be used as values; this works the same as entering the corresponding numbers <code>(-1.0)</code>, <code>0.0</code>, and <code>1.0</code>.
 </p>
