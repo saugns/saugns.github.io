@@ -406,6 +406,11 @@ returns a new pseudo-random value from 0.0 to 1.0 each time it is called.
 	from a series of calls restarts each new script unit.</td>
 </tr>
 <tr>
+	<td><code>rint(x)</code></td>
+	<td>Round value to the nearest integer. Halfway cases are
+	rounded to the nearest even integer.</td>
+</tr>
+<tr>
 	<td><code>seed(x)</code></td>
 	<td>Reset the <code>rand()</code> value sequence with a passed number.
 	(Every bit counts; different expressions for the same
@@ -523,6 +528,10 @@ and rises exponentially to 20000 Hz, over 10 seconds:
 	<td>Linear trajectory over time.</td>
 </tr>
 <tr>
+	<td><code>sin</code></td>
+	<td>Sine-like smooth ends trajectory over time.</td>
+</tr>
+<tr>
 	<td><code>exp</code></td>
 	<td>Steep <code>exp(x)-1</code>-like increase or decrease.</td>
 </tr>
@@ -537,10 +546,6 @@ and rises exponentially to 20000 Hz, over 10 seconds:
 <tr>
 	<td><code>lge</code></td>
 	<td>Logarithmic envelope shape (saturate or decay).</td>
-</tr>
-<tr>
-	<td><code>sin</code></td>
-	<td>Sine-like smooth ends trajectory over time.</td>
 </tr>
 </table>
 <p>The ramp sub-parameters are as follows. The default values often allow one or two of them to be left out.

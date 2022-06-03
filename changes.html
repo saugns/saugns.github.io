@@ -67,15 +67,16 @@ description, which also goes back before the tagged versions.
 <h3 id='syntax-v0.3.11'>v0.3.11</h3>
 <ul>
 <li>For modulation with value range, change delimiters between the values from <code>X,Y~[...]</code> to <code>X-Y[...]</code>.</li>
-<li>Rename <a href='language.html#compstep'>compound step</a> <code>;</code>-separator to <code>,</code>. Add optional <code>;</code>-terminator for any step.</li>
+<li>Rename <a href='language.html#compstep'>compound step</a> <code>;</code>-separator to <code>,</code>.</li>
+<li>Newlines no longer end steps at the top scope, the new rules simpler and more consistent. Add optional <code>;</code>-terminator for any step.</li>
 <li>Ramp syntax.<ul>
 	<li>Rename <code>c</code> before ramp name to <code>r</code>.</li>
-	<li>Rename ramp <code>cos</code> to <code>sin</code>.</li>
+	<li>Rename ramp <code>cos</code> to <code>sin</code> (and use more accurate polynomial).</li>
 	</ul>
 </li>
 <li>Numerical expressions.<ul>
 	<li>Add <code>%</code> remainder operation. Make <code>^</code> (to the power of) right-associative.</li>
-	<li>Add functions <code>cos(x)</code>, <code>rand()</code>, <code>seed(x)</code>, <code>sin(x)</code>, <code>time()</code>.</li>
+	<li>Add functions <code>cos(x)</code>, <code>rand()</code>, <code>rint(x)</code>, <code>seed(x)</code>, <code>sin(x)</code>, <code>time()</code>.</li>
 	<li>Add constant <code>pi</code>.</li>
 	</ul>
 </li>
