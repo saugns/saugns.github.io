@@ -309,6 +309,17 @@ Osin f400 t1; p[
 	Osin ;8 r(3/8) ;1 p[Osin f100 a1/5; a1/4; a1/3; a1/2; a1/1]
 ] t10; f800 t4
 </pre>
+<p>A timed series of changes for an object can, of course, also include smoothly <a href='#ramp'>ramped values</a>. Here is a modification of the PM "engine rumble" example which produces something differently-sounding, morphing over time as the innermost oscillator has its frequency ratio swept towards a series of new values &ndash; along with a little silent gap in the middle.
+</p>
+<pre>
+Osin f137 t11 p[
+	Osin f32 p[
+		Osin r50*1.0 r{g50*0.1}; r{g50*0.2}; r{g50*0.25} t2.0
+		; t1.5; t0.0; ;1.0 r{g50*0.75 t1} t2; r{g50*0.0} t0.5
+		; r{g50*2.0} t2.0
+	]
+]
+</pre>
 <h3 id='channels'>Channel mixing and panning</h3>
 <p>SAU supports stereo audio, but oscillators pass mono signals between one another. Objects which are not used as modulators, whose output is mixed into the result, have an extra channel mixing parameter <code>c</code> which defaults to centered mixing, or <code>0.0</code>. It can be changed in order to pan sounds. For convenience, the constants <code>L</code> for hard left, <code>C</code> for center, and <code>R</code> for hard right, can be used as values; this works the same as entering the corresponding numbers <code>(-1.0)</code>, <code>0.0</code>, and <code>1.0</code>.
 </p>
