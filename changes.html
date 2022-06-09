@@ -66,15 +66,18 @@ description, which also goes back before the tagged versions.
 </p>
 <h3 id='syntax-v0.3.11'>v0.3.11</h3>
 <ul>
-<li>For modulation with value range, change delimiters between the values from <code>X,Y~[...]</code> to <code>X-Y[...]</code>.</li>
-<li>Rename <a href='language.html#compstep'>compound step</a> <code>;</code>-separator to <code>,</code>.</li>
-<li>Newlines no longer end steps at the top scope, the new rules simpler and more consistent. Add optional <code>;</code>-terminator for any step.</li>
+<li>For modulation with value range, change delimiters between the values from <code>X,Y~[...]</code> to <code>XwY[...]</code>.</li>
+<li>For phase modulation (normal and frequency-linked) remove <code>+</code> after <code>p</code> and place to set phase value.</li>
+<li>Rename <code>\number</code> subshift to <code>;number</code> gapshift, since the two <code>;</code> <a href='language.html#compstep'>compound step</a> syntaxes go together.</li>
+<li>Newlines no longer end steps at the top scope, the new rules simpler and more consistent.</li>
 <li>Ramp syntax.<ul>
+	<li>Rename <code>v</code> for goal value to <code>g</code>.</li>
 	<li>Rename <code>c</code> before ramp name to <code>r</code>.</li>
 	<li>Rename ramp <code>cos</code> to <code>sin</code> (and use more accurate polynomial).</li>
 	</ul>
 </li>
 <li>Numerical expressions.<ul>
+	<li>Allow arithmetic and number signs outside parentheses. (Undoes <i>v0.3.0</i> change, restoring old feature.)</li>
 	<li>Add <code>%</code> remainder operation. Make <code>^</code> (to the power of) right-associative.</li>
 	<li>Add functions <code>cos(x)</code>, <code>rand()</code>, <code>rint(x)</code>, <code>seed(x)</code>, <code>sin(x)</code>, <code>time()</code>.</li>
 	<li>Add constant <code>pi</code>.</li>
@@ -85,7 +88,7 @@ description, which also goes back before the tagged versions.
 <ul>
 <li>Timing syntax. (Also a big-issue fix for <code>;</code>.)<ul>
 	<li>Rename forward-shift <code>\</code> to <code>/</code>. Remove special value with literal <code>t</code>.</li>
-	<li>Replace <code>s</code> silent time padding parameter with new, more flexible <code>\</code> <a href='language.html#subshift'>subshift syntax</a>.</li>
+	<li>Replace <code>s</code> silent time padding parameter with new, more flexible <code>\</code> <a href='language.html#gapshift'>subshift syntax</a>.</li>
 	<li>Make <code>|</code> reset, not add, delay to add for next step to prior duration.</li>
 	<li>Remove special value for <code>t</code> parameter with literal <code>*</code>.</li>
 	</ul>
@@ -159,7 +162,7 @@ description, which also goes back before the tagged versions.
 	</ul>
 </li>
 <li>Amplitude handling.<ul>
-	<li>Enable downscaling of output amplitude by voice count by default. Using <code>S a</code> disables it.</li>
+	<li>Add downscaling of output amplitude by voice count by default. Using <code>S a</code> disables it.</li>
 	<li>Allow <code>a</code> (amplitude) parameter for AM and FM modulators.</li>
 	</ul>
 </li>

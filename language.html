@@ -34,7 +34,7 @@ be found in the <a href='https://github.com/saugns/saugns/blob/stable/doc/README
 	</li>
 	<li><a href='#timing'>Timing</a><ul>
 		<li><a href='#compstep'>Compound steps for an object</a></li>
-		<li><a href='#subshift'>Subshifts &amp; silent time padding</a></li>
+		<li><a href='#gapshift'>Gapshifts &amp; silent time padding</a></li>
 		<li><a href='#timenest'>Combined with nesting</a></li>
 		</ul>
 	</li>
@@ -70,7 +70,7 @@ beeps for 1 second.)
 </p>
 <p>A cosine can be generated using the <code>sin</code> wave type,
 by setting phase to 25% of the wave cycle,
-using <code>p(1/4)</code> or <code>p0.25</code>.
+using <code>p1/4</code> or <code>p0.25</code>.
 </p>
 <p>The numbers here are simple examples of <a href='#numexp'>numerical expressions</a>. Positive numbers are the simplest to write. Fancier things are also possible, including randomized values.
 </p>
@@ -80,8 +80,8 @@ as in this example which uses PM (phase modulation):
 </p>
 <pre>
 // Generate 10 seconds of "engine rumble"
-Osin f137 t10 p+[
-	Osin f32 p+[
+Osin f137 t10 p[
+	Osin f32 p[
 		Osin f42
 	]
 ]
@@ -89,7 +89,7 @@ Osin f137 t10 p+[
 <p>The oscillators with frequency 32 Hz and 42 Hz are modulators,
 linked in a chain which ends at the carrier (with frequency 137 Hz),
 and play for the same time (10 seconds).
-(The <code>p+</code> means "add to the phase",
+(The <code>p</code> is for phase,
 and PM means adding modulator amplitudes to the phase.)
 Above, the amplitudes are all left at the default 1.0;
 those of modulators determine what is often called the
@@ -128,8 +128,8 @@ modulation. See the section
 </p>
 <h4 id='fpm'>Frequency-linked PM</h4>
 <p>There's two different ways to connect a PM (phase modulation) input
-to a carrier, normal PM (<code>p+[...]</code>) as described above, and
-frequency-linked PM (<code>p+f[...]</code>) which multiplies modulator
+to a carrier, normal PM (<code>p[...]</code>) as described above, and
+frequency-linked PM (<code>pf[...]</code>) which multiplies modulator
 amplitudes by the carrier frequency (scaled down so that 632.45... Hz,
 the geometric mean of the 20&ndash;20000 Hz human hearing range, makes
 level "normal"). The best PM type to use depends on the intended sound
@@ -169,25 +169,24 @@ parameter: the normal value generally used, and a second value which is
 only used for this type of modulation and which defaults to 0.0.
 (The second value can also be <a href='#ramp'>ramped or swept</a>
 like the first, with the same syntax used in place of a number.)
-Separating the two values is a minus <code>-</code>, used as a dash &ndash;
-not a numerical minus, which <a href='#numexp'>would have to</a> be written
-inside of parentheses.
+Separating the two values is the letter <code>w</code>, which is
+short for "wave envelope".
 </p>
 <p>A simple FM example (where frequency is varied between 250 Hz and 500 Hz, using a 0.1 Hz sine wave):
 </p>
 <pre>
-Osin f250-500[Osin f0.1] t10
+Osin f250w500[Osin f0.1] t10
 </pre>
 <p>A simple AM example (where amplitude is varied between 1/4 and full, using a half-rectified sine wave with 1/5 frequency):
 </p>
 <pre>
-Osin f200 a(1/4)-(4/4)[Ohrs r(1/5)] t5
+Osin f200 a1/4w4/4[Ohrs r(1/5)] t5
 </pre>
 <p>The second value can also be set without changing the first value
-for the parameter, by writing nothing before the minus-dash
+for the parameter, by writing nothing before the <code>w</code>
 separating them. It's also possible to leave out the second value, or both.
 </p>
-<p>After <code>-</code> and optionally value(s), <code>[]</code> (tilde and
+<p>After <code>w</code> and optionally value(s), <code>[]</code> (tilde and
 square brackets) can be used to set a list of modulator operators specified
 within the <code>[]</code>; the list replaces any previous set,
 and may be empty.
@@ -206,8 +205,8 @@ for the sake of flexibility.
 <h3 id='timing'>Timing</h3>
 <p>Things in a script all have the same time placement, i.e. they begin or take effect at the same time, unless the time position is changed. Playing several things at the same time is easy &ndash; just write one thing after the next &ndash; while there's several ways to arrange them differently than that.
 </p>
-<p>A <code>/</code>, followed by a time in seconds, adds a delay
-to everything after; it's the global forward-shift option, added
+<p>A <code>/number</code>, with "number" a time in seconds, adds
+a delay to everything after; it's the global forward-shift option, added
 between two parts of a script. The time separator <code>|</code>
 is related and adjusts the delay added to everything after so it
 exactly matches the duration, or play time, remaining for things
@@ -227,90 +226,88 @@ after in a script, there's other options which only apply more locally,
 described below.
 </p>
 <h4 id='compstep'>Compound steps for an object</h4>
-<p>The <code>,</code> sub-step separator splits and extends the duration of a step for some object into two parts, one directly after the other. Parameter changes written after it will take place just after the time duration of the preceding part, and the following part will in turn have a new time duration. It can be used any number of times in a row, timing only changing locally within the compound step built this way.
+<p>The <code>;</code> sub-step separator splits and extends the duration of a step for some object into two parts, one directly after the other. Parameter changes written after it will take place just after the time duration of the preceding part, and the following part will in turn have a new time duration. It can be used any number of times in a row, timing only changing locally within the compound step built this way.
 </p>
 <p>It's often the simplest way of arranging a series of timed changes for an object. The following example plays four tones in sequence, each for 1.5 seconds:
 </p>
 <pre>
-Osin t1.5 f100, f200, f300, f400
+Osin t1.5 f100; f200; f300; f400
 </pre>
-<p>Here all four time durations are 1.5 seconds, for 6 seconds in total, because the default time for the 2nd part is copied from the 1st, and that of the 3rd is copied from the 2nd, etc. That's the rule, though there is one exception for it for <a href='#modulation'>modulators</a>; just like modulators generally have the special time value <code>i</code> (implicit time) by default, for modulators the <i>last</i> sub-step has that as the default time, so that using <code>,</code> does not unexpectedly shorten the time.
+<p>Here all four time durations are 1.5 seconds, for 6 seconds in total, because the default time for the 2nd part is copied from the 1st, and that of the 3rd is copied from the 2nd, etc. That's the rule, though there is one exception for it for <a href='#modulation'>modulators</a>; just like modulators generally have the special time value <code>i</code> (implicit time) by default, for modulators the <i>last</i> sub-step has that as the default time, so that using <code>;</code> does not unexpectedly shorten the time.
 </p>
-<p>Silent gaps can also be inserted within a compound step, adding to the duration, using the <code>\</code> subshift syntax described more generally in the next section. A <code>\</code> and a time in seconds written just after a <code>,</code> adds a local time delay inside the compound step, analogous to using the more global <code>|</code> and <code>/</code>-syntaxes together. For example, to add a 0.5 second silent gap between each change of tone in the current example:
+<p>Silent gaps can also be inserted within a compound step, adding to the duration, using the <code>;number</code> gapshift syntax described more generally in the next section. A <code>;number</code> written just after a <code>;</code> adds a local time delay "number" of seconds long inside the compound step, analogous to using the more global <code>|</code> and <code>/number</code>-syntaxes together. For example, to add a 0.5 second silent gap between each change of tone in the current example:
 </p>
 <pre>
-Osin t1.5 f100, \0.5 f200, \0.5 f300, \0.5 f400
+Osin t1.5 f100;;0.5 f200;;0.5 f300;;0.5 f400
 </pre>
-<h4 id='subshift'>Subshifts &amp; silent time padding</h4>
-<p>The subshift <code>\</code>-syntax is another alternative to
-the more global <code>/</code>-syntax, and similarly allows any
+<h4 id='gapshift'>Gapshifts &amp; silent time padding</h4>
+<p>The gapshift <code>;number</code>-syntax looks somewhat like
+the more global <code>/number</code>-syntax, similarly allowing
 time in seconds to be entered as a delay time &ndash; but only
 for the current step for some object. It behaves much like the
-<a href='#compstep'>compound step</a> sub-step <code>,</code>-separator,
+<a href='#compstep'>compound step</a> numberless <code>;</code>
 and is another way to split a step and forward-shift the later
 part in time. The main use is to move a (sub-)step forward and
 leave a silent gap at the old position, but it can also extend
 the duration without leaving a silent gap.
 </p>
-<p>Using a <code>\</code> always automatically resets the time on
+<p>Using <code>;number</code> always resets time for the new part
 each use if a new <code>t</code> value is not provided. Unlike on
-use of<code>/</code>, a long shift therefore doesn't simply leave
+use of<code>/number</code>, a long shift doesn't simply move past
 a short time expired; if it moves past sound to silence, then the
 silence may also be followed by sound with a new play time added.
 </p>
-<p>It's possible to use only <code>\</code> with the same effect
-as <code>,</code> while doing so may be more messy. For example,
+<p>It's possible to use only <code>;number</code> in place of the
+numberless <code>;</code>, but it may be more messy. For example,
 with two oscillators inserted at the same time, for the first of
-them. Time should be explicitly set before the <code>\</code> is
+them. Time should be explicitly set before the <code>;1</code> is
 used, thereafter play time for the first oscillator will extend,
 rather than move; it will play for 3 seconds rather than 2, with
 the time reset to the previous value, 2 seconds, after 1 second.
 </p>
 <pre>
-Osin f440 t2 \1 f220
+Osin f440 t2 ;1 f220
 Osin f110
 </pre>
 <p>Note that the setting of a time value explicitly for the first
-oscillator above, <i>before</i> the <code>\</code>, is important;
+oscillator above, <i>before</i> the <code>;1</code>, is important;
 otherwise the peculiar behavior is to insert a pause or "rest" by
-making the default time 0 before the <code>\</code> but not after
-it (where the old default time is copied, if no new time is set).
-Changing the order to <code>\1 t2</code>, the first 1 second will
+making default time 0 before the <code>;number</code> while after
+it, the old default time is copied if a new time isn't set there.
+Changing the order to <code>;1 t2</code>, the first 1 second will
 be blank for the first oscillator, and it will only play the last
 2 seconds with 220 Hz (never with 440 Hz). Another example, where
 a tone plays after 1 second (for the usual default time) follows:
 </p>
 <pre>
-Osin \1 f880
+Osin ;1 f880
 </pre>
 <p>Here nothing is missing and the delay is intended. Such use of
 silent time padding may mainly be interesting inside nested lists
 (to make another modulator start to play after a delay, say) when
-used by itself. Combined with the <code>,</code>-separator syntax
-it can create silent gaps inside a sequence of parameter updates,
-locally for some object.
+used by itself.
 </p>
 <p>There's also another way to control the behavior of moving vs.
 extending, to disable or adjust the proportion of silent padding.
-When several <code>\</code> are used in series only the first can
-zero the time before it. So <code>\0 \1</code>, for example, will
+When several <code>;</code> are used in series only the first can
+zero the time before it. So <code>;0 ;1</code>, for example, will
 never move more than 0 seconds, and then will extend by 1 second.
 </p>
 <h4 id='timenest'>Combined with nesting</h4>
-<p>The flow of time and the nesting of scopes are like two dimensions in which things are arranged &ndash; which corresponds to how the text in a script looks. When objects are placed inside of lists for nesting, as when adding <a href='#modulation'>modulators</a>, the same time placement is used for the contents of the list as for where the list is assigned. In turn, inside of a list, a step written for an object can have sub-steps (using <code>,</code> and/or <code>\</code> as described above), making for timing offsets which then apply for further lists assigned there in particular within the list.
+<p>The flow of time and the nesting of scopes are like two dimensions in which things are arranged &ndash; which corresponds to how the text in a script looks. When objects are placed inside of lists for nesting, as when adding <a href='#modulation'>modulators</a>, the same time placement is used for the contents of the list as for where the list is assigned. In turn, inside of a list, a step written for an object can have sub-steps (using <code>;</code> and/or <code>;number</code> as described above), making for timing offsets which then apply for further lists assigned there in particular within the list.
 </p>
-<p>Currently, the global timing <code>/</code> and <code>|</code> syntax is not allowed inside of modulator lists, only at the top scope (where they are also the most useful). A way to use them at the level of a subscope block may be added in the future, as an alternative to using only <code>\</code> and <code>,</code> (which only apply to the current individual object and that which is nested below).
+<p>Currently, the global timing <code>/number</code> and <code>|</code> syntax is not allowed inside of modulator lists, only at the top scope (where they are also the most useful). A way to use them at the level of a subscope block may be added in the future, as an alternative to using only the compound step syntax (which only applies to the current individual object and that which is nested below).
 </p>
 <p>Here's an example of both timing and nesting which builds up a richer and richer noise, using PM, second by second.
 </p>
 <pre>
-Osin f400 t1, p+[
-	Osin \0 r(3/4) \1 p+[Osin f500 a(1/5), a(1/4), a(1/3), a(1/2), a(1/1)]
-	Osin \2 r(3/5)
-	Osin \4 r(3/6) \1 p+[Osin f300 a(1/5), a(1/4), a(1/3), a(1/2), a(1/1)]
-	Osin \6 r(3/7)
-	Osin \8 r(3/8) \1 p+[Osin f100 a(1/5), a(1/4), a(1/3), a(1/2), a(1/1)]
-] t10, f800 t4
+Osin f400 t1; p[
+	Osin ;0 r(3/4) ;1 p[Osin f500 a1/5; a1/4; a1/3; a1/2; a1/1]
+	Osin ;2 r(3/5)
+	Osin ;4 r(3/6) ;1 p[Osin f300 a1/5; a1/4; a1/3; a1/2; a1/1]
+	Osin ;6 r(3/7)
+	Osin ;8 r(3/8) ;1 p[Osin f100 a1/5; a1/4; a1/3; a1/2; a1/1]
+] t10; f800 t4
 </pre>
 <h3 id='channels'>Channel mixing and panning</h3>
 <p>SAU supports stereo audio, but oscillators pass mono signals between one another. Objects which are not used as modulators, whose output is mixed into the result, have an extra channel mixing parameter <code>c</code> which defaults to centered mixing, or <code>0.0</code>. It can be changed in order to pan sounds. For convenience, the constants <code>L</code> for hard left, <code>C</code> for center, and <code>R</code> for hard right, can be used as values; this works the same as entering the corresponding numbers <code>(-1.0)</code>, <code>0.0</code>, and <code>1.0</code>.
@@ -318,7 +315,7 @@ Osin f400 t1, p+[
 <p>For example, to play a tone starting at the left and moving linearly to the right over 3 seconds using a <a href='#ramp'>value ramp</a>:
 </p>
 <pre>
-Osin f440 cL c{vR t3} t3
+Osin f440 cL c{gR t3} t3
 </pre>
 <p>The inner <code>t3</code> above is actually optional, since the outer sets its default to that.
 </p>
@@ -341,15 +338,11 @@ several comment styles are supported.
 <h3 id='numexp'>Numerical expressions</h3>
 <p>Each number can be written with or without a decimal point.
 If a decimal point is used, a leading <code>0</code> can be left out,
-as in <code>.25</code>. Negative numbers, e.g. <code>(-1)</code>, can
-only be written within parentheses, as the plus and minus signs
-(<code>+</code>, <code>-</code>) are only recognized as such
-inside of parentheses. Symbols for arithmetic operations are
-also recognized as such inside of parentheses, but not outside.
+as in <code>.25</code>.
 </p>
 <table style="float:right; max-width:50%">
 <tr>
-	<th>Operation</th><th>Description</th>
+	<th>Symbol</th><th>Description</th>
 </tr>
 <tr>
 	<td><code>^</code></td>
@@ -364,17 +357,22 @@ also recognized as such inside of parentheses, but not outside.
 	<td>Addition, subtraction</td>
 </tr>
 </table>
-<p>Within parentheses, ordinary infix notation can be used for calculations.
-For example, <code>(1/2)</code> is another way of writing <code>0.5</code>.
+<p>Number signs and arithmetic operation symbols can be used in infix
+expressions, together with numbers and named constants and functions.
 The rules are fairly simple and conventional, including precedence as in the
-table shown. Nested parentheses can be used freely, and also allow for
+table shown. Nested parentheses can be used freely. Parentheses also allow
 multiplication in the customary way,
-e.g. <code>(2(3))</code> means <code>6</code>.
+e.g. <code>2(3)</code> means <code>6</code>.
+But unless a numerical expression is written within parentheses,
+it cannot contain any whitespace, as it ends the expression.
+For example, <code>-1</code> is fine, but <code>- 1</code>
+is a dangling minus followed by a dangling number 1,
+if not inside parentheses as <code>(- 1)</code>.
+</p>
+<p>The ability to write almost any expression, sans whitespace, without any surrounding parentheses is for convenience. For example, writing rational numbers with a division, e.g. <code>1/2</code>, is often useful in scripts and this keeps it short. However, in some cases parentheses are required to keep apart mathematical names and surrounding alphanumeric characters which may optionally be added <i>after</i> a main parameter name as part of a larger expression.
 </p>
 <p>Some parameters support named constants specific to that type
-of value. For such a value, a constant name can be written
-in place of a number. There's also functions and constants
-common to all parameter values.
+of value; unlike other names, they are capital one-letter names.
 </p>
 <h4 id='mathfunc'>Mathematical functions</h4>
 <p>A set of mathematical functions are supported in expressions for
@@ -386,7 +384,7 @@ returns a new pseudo-random value from 0.0 to 1.0 each time it is called.
 </p>
 <table style="float:right; max-width:50%">
 <tr>
-	<th>Symbol</th><th>Description</th>
+	<th>Name</th><th>Description</th>
 </tr>
 <tr>
 	<td><code>abs(x)</code></td>
@@ -482,40 +480,47 @@ The time scope is however new and of the reference.
 <p>For example, the <a href='#modulation'>modulator</a> used in this PM example is labeled "name", and is then accessed using its label in order to change its frequency relative to the carrier at one-second intervals:
 </p>
 <pre>
-Osin f500 t5 p+[
-	'name Osin r(1/1)
+Osin f500 t5 p[
+	'name Osin r1/1
 ]
 
 /1
-@name r(1/2)
+@name r1/2
 /1
-@name r(1/3)
+@name r1/3
 /1
-@name r(1/4)
+@name r1/4
 /1
-@name r(1/5)
+@name r1/5
 </pre>
 <p>Here the timing would also change for anything written
-below (in a longer script) with every <code>/1</code>;
-their use for inserting time delays can be replaced with
-<a href='#subshift'>subshift</a> <code>\1</code>s instead,
-which combine with the <code>@name</code> reference without
-inserting any leading silence:
+afterwards (in a longer script) with every <code>/1</code>.
+The <a href='#timing'>timing</a> section describes more means of
+placing changes in time. The numberless <code>;</code>-separator
+is often a neater alternative to label referencing,
+but can also be combined with it. (Here it uses the
+<code>t</code> value of each preceding part to only
+locally delay the sub-step which follows it.)
 </p>
 <pre>
 /1
-@name r(1/2) \1 r(1/3) \1 r(1/4) \1 r(1/5)
+@name r1/2 t1
+; r1/3 t1
+; r1/4 t1
+; r1/5
 </pre>
-<p>The <a href='#timing'>timing</a> section describes more means of
-placing changes in time. The <code>;</code> separator is often a neater
-alternative to label referencing, but can also be combined with it:
+<p>In some cases, it's shorter and simpler to use the numbered form
+of the <code>;</code>-separator, called a <a href='#gapshift'>gapshift</a>.
+Like the first example, this skips the use of <code>t</code> to set how long
+to wait between parts. Each <code>/1</code> is replaced by a <code>;1</code>
+for a continuing <code>@name</code> reference. A gapshift combines with such
+references without making the first part silent, because the initial use of
+<code>@name</code> never <i>automatically</i> sets a new time duration,
+unlike later sub-steps, and unlike freshly added objects.
 </p>
 <pre>
 /1
-@name r(1/2) t1
-, r(1/3) t1
-, r(1/4) t1
-, r(1/5)
+@name r1/2 ;1 r1/3 ;1 r1/4 ;1 r1/5
 </pre>
 <h3 id='ramp'>Value ramps or sweeps</h3>
 <p>To ramp, or sweep, a parameter towards a goal value,
@@ -529,7 +534,7 @@ and the parameter can be assigned a value twice in order to provide both.
 <p>For example, the following tone begins at 20 Hz
 and rises exponentially to 20000 Hz, over 10 seconds:
 </p>
-<pre>Osin f20 f{v20000 rexp} t10 a0.25</pre>
+<pre>Osin f20 f{g20000 rexp} t10 a0.25</pre>
 <p>Here, <code>r</code> is a subparameter which changes the ramp shape (the default being a linear ramp). Note that the ramp shapes are not the same as any mathematical functions with the same names. Each fills in points between the beginning (usual number) and the end value (<code>v</code>) in some way.
 </p>
 <table style="float:right; max-width:50%">
@@ -568,6 +573,9 @@ and rises exponentially to 20000 Hz, over 10 seconds:
 <p>The ramp sub-parameters are as follows. The default values often allow one or two of them to be left out.
 </p>
 <dl>
+	<dt><code>g</code></dt>
+	<dd>Goal (go-to) value, assigned to the parameter after time.
+	This value has no default and must be provided.</dd>
 	<dt><code>r</code></dt>
 	<dd>Ramp fill shape (default <code>lin</code>).
 	The <code>exp</code> and <code>log</code> shapes use ear-tuned polynomial
@@ -581,8 +589,6 @@ and rises exponentially to 20000 Hz, over 10 seconds:
 	smoothly curved start and stop, and a steeper middle.</dd>
 	<dt><code>t</code></dt>
 	<dd>Time to reach goal (default is the external <code>t</code> duration).</dd>
-	<dt><code>v</code></dt>
-	<dd>Goal (go-to) value, assigned to the parameter after time.</dd>
 </dl>
 <div class='footer'>Text available under version 4.0 of <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons BY-SA" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>.
 </div>

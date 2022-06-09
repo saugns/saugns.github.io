@@ -68,10 +68,10 @@ for those OSes without the need for changes.
 <p>A more interesting test to run after building is the following,
 which produces 10 seconds of "engine rumble" using PM:
 </p>
-<pre>./saugns -e "Osin f137 t10 p+[Osin f32 p+[Osin r(4/3)]]"</pre>
+<pre>./saugns -e "Osin f137 t10 p[Osin f32 p[Osin r(4/3)]]"</pre>
 <p>Or how about three 1-second random PM timbres?
 </p>
-<pre>./saugns -e "/seed(time()) Osin p+[Osin rrand(), rrand(), rrand()]"</pre>
+<pre>./saugns -e "/seed(time()) Osin p[Osin rrand(); rrand(); rrand()]"</pre>
 <p>A set of example and test scripts are included,
 along with a concise SAU language reference, as described in the README file.
 </p>
