@@ -66,8 +66,8 @@ description, which also goes back before the tagged versions.
 </p>
 <h3 id='syntax-v0.3.11'>v0.3.11</h3>
 <ul>
-<li>For modulation with value range, change delimiters between the values from <code>X,Y~[...]</code> to <code>XwY[...]</code>.</li>
-<li>For phase modulation (normal and frequency-linked) remove <code>+</code> after <code>p</code> and place to set phase value.</li>
+<li>For modulation with value range, change delimiters between the parts from <code>X,Y~[...]</code> to <code>Xw,Y[...]</code>.</li>
+<li>For phase modulation (normal and frequency-amplified) remove <code>+</code> after <code>p</code> and place to set phase value.</li>
 <li>Rename <code>\number</code> subshift to <code>;number</code> gapshift, since the two <code>;</code> <a href='language.html#compstep'>compound step</a> syntaxes go together.</li>
 <li>Newlines no longer end steps at the top scope, the new rules simpler and more consistent.</li>
 <li>Ramp syntax.<ul>
@@ -80,7 +80,7 @@ description, which also goes back before the tagged versions.
 	<li>Allow arithmetic and number signs outside parentheses. (Undoes <i>v0.3.0</i> change, restoring old feature.)</li>
 	<li>Add <code>%</code> remainder operation. Make <code>^</code> (to the power of) right-associative.</li>
 	<li>Add functions <code>cos(x)</code>, <code>rand()</code>, <code>rint(x)</code>, <code>seed(x)</code>, <code>sin(x)</code>, <code>time()</code>.</li>
-	<li>Add constant <code>pi</code>.</li>
+	<li>Add constants <code>mf</code>, <code>pi</code>.</li>
 	</ul>
 </li>
 </ul>
@@ -162,7 +162,7 @@ description, which also goes back before the tagged versions.
 	</ul>
 </li>
 <li>Amplitude handling.<ul>
-	<li>Add downscaling of output amplitude by voice count by default. Using <code>S a</code> disables it.</li>
+	<li>Add downscaling of output amplitude by voice count, enabled by default. Using <code>S a</code> disables it.</li>
 	<li>Allow <code>a</code> (amplitude) parameter for AM and FM modulators.</li>
 	</ul>
 </li>
