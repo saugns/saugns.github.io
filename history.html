@@ -38,6 +38,7 @@ For lists of changes between versions, the <a href='changes.html'>changes page</
 <li><a href='#y2021'>2021&ndash;2022+: Reorienting</a><ul>
 	<li><a href='#numexp2021'>2021-11: Extending numerical expressions</a></li>
 	<li><a href='#cliext2022'>2022-05: More command-line interoperability</a></li>
+	<li><a href='#syntax2022'>2022-06: Rethinking symbols and their use in the syntax</a></li>
 	</ul>
 </li>
 </ul>
@@ -167,6 +168,8 @@ Wsin f137 t.5 m&lt;Wsin f932 m&lt;Wsin f42&gt;&gt; |
 Wsin f137 t2 m&lt;Wsin f1032 m&lt;Wsin f42&gt;&gt;
 Q
 </pre>
+<p>Actually, before PM was correctly done, by 02-16 I had accidentally hit upon <a href='language.html#fpm'>frequency-amplified PM</a>, except that it was not properly scaled. While I remember finding the sound a bit interesting, I didn't keep it as a feature, only a decade later adding it as such and coming up with a name for it.
+</p>
 <h3 id='d2011-04-04'>2011-04-04: "sgensys is the Sound GENeration SYStem"</h3>
 <p>AM/RM and FM support were added by 03-04, and the modulator list syntax was
 also changed for PM then: <code>a!{...}</code> for AM/RM, <code>f!{...}</code>
@@ -194,11 +197,12 @@ grouping a series of changes for the same sound in one place in a script,
 even if other things also done in the script alternate with some of those
 changes in the flow of time.
 </p>
-<p>By 05-08, basic support for value ramps (linear, and curves using a
-polynomial chosen by ear for "exponential and logarithmic") was added. That
-was just after support for writing frequencies as notes in C-major scale was
-also added (a simple-enough addition, but of questionable utility for music
-in its current form).
+<p>By 05-08, an early version of support for
+<a href='language.html#ramp'>value ramps</a> was added (linear curve, and
+"exponential and logarithmic" curves using a polynomial I arrived at by ear,
+still used). That was just after support for writing frequencies as notes in
+C-major scale was also added (a simple-enough addition, but of questionable
+utility for music in its current form).
 </p>
 <p>A mixture of ideas were in the inconsistent syntax of early June.
 The letter <code>O</code> became used for an "operator" (oscillator) in a
@@ -312,12 +316,17 @@ worked on yet. It may make for more interesting synthesis if implemented,
 and if it's made to work without terrible aliasing noise.
 </p>
 <h3 id='numexp2021'>2021-11: Extending numerical expressions</h3>
-<p>From very early versions, numerical expressions in the language work like a parse-time calculator with conventional infix syntax (except for some long-lived bugs and flaws). Fancier uses of this saw little use, as there's only so much to be done with basic arithmetic &ndash; until I finally added some named functions after a decade in <i>v0.3.9</i> (and then later more in the way of stateful parse-time actions).
+<p>From very early versions, numerical expressions in the language <a href='design.html#trunk-numexpr'>work like a parse-time calculator</a> with conventional infix syntax (except for some long-lived bugs and flaws). Fancier uses of this saw little use, as there's only so much to be done with basic arithmetic &ndash; until I finally added some named functions after a decade in <i>v0.3.9</i> (and then later more in the way of stateful parse-time actions).
 </p>
 <p>Half a year after this, I decided to try extending the extension, for more types of function &ndash; the most interesting additions being <code>rand()</code>, <code>seed(x)</code>, and <code>time()</code>, which allow making both predictably and unpredictably randomized scripts. (Attaching state to the parse-time numerical processing seems an interesting way to add flexibility, which does not require adding any new syntax elements elsewhere.)
 </p>
 <h3 id='cliext2022'>2022-05: More command-line interoperability</h3>
-<p>In what more ways can the program be used? After checking out some live audio stream visualizing programs, I decided to add <a href='usage.html#stdout'>more options</a> to make saugns easy to use with programs that accept audio over stdin in general.
+<p>In what more ways can the program be used? After checking out some live audio stream visualizing programs, I decided to add <a href='usage.html#stdout'>more options</a> to make saugns easy to use with programs that accept audio over stdin in general. Extending that to piping non-raw audio, I ran into the problem with WAV files (the standard does not really support unknown lengths) and decided to solve it by implementing <a href='https://en.wikipedia.org/wiki/Au_file_format'>the AU format</a> too; while not as widely supported by modern *nix software in the early 2020s, when it does work, it does work flawlessly.
+</p>
+<h3 id='syntax2022'>2022-06: Rethinking symbols and their use in the syntax</h3>
+<p>Writing more scripts and experimenting again with changing details of the syntax, in <i><a href="https://framagit.org/sau/saugns/-/tags/v0.3.11">v0.3.11</a></i> I decided to reduce the number of special symbols used outside of numerical expressions a little and re-enable the pre-2018-cleanup feature of full numerical expressions without surrounding parentheses. The new naming scheme used should handle adding more features without resulting in a mess, while keeping parsing simple.
+</p>
+<p>I've concluded that when in doubt and unable to decide what's best &ndash; for example with how the SAU language syntax should look &ndash; then adding more features, then working out how to elegantly build around and on top of it, gives a basis for moving past the doubt. From the start in 2011, really, new features have often driven thinking leading to design choices; without new features to design around, most of the theory and thought has nothing to be rooted in.
 </p>
 <div class='footer'>Text available under version 4.0 of <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons BY-SA" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>.
 </div>
