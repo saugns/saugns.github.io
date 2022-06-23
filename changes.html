@@ -25,20 +25,20 @@ description, which also goes back before the tagged versions.
 	<li><a href='#tags-v0.3.x'>v0.3.x</a></li>
 	</ul>
 </li>
-<li><a href='#syntax'>Syntax changes</a><ul>
-	<li><a href='#syntax-v0.3.11'>v0.3.11</a></li>
-	<li><a href='#syntax-v0.3.10'>v0.3.10</a><ul>
-		<li><a href='#syntax-v0.3.10b'>v0.3.10b</a></li>
+<li><a href='#saulang'>SAU language changes</a><ul>
+	<li><a href='#saulang-v0.3.11'>v0.3.11</a></li>
+	<li><a href='#saulang-v0.3.10'>v0.3.10</a><ul>
+		<li><a href='#saulang-v0.3.10b'>v0.3.10b</a></li>
 		</ul>
 	</li>
-	<li><a href='#syntax-v0.3.9'>v0.3.9</a></li>
-	<li><a href='#syntax-v0.3.8'>v0.3.8</a></li>
-	<li><a href='#syntax-v0.3.7'>v0.3.7</a></li>
-	<li><a href='#syntax-v0.3.6'>v0.3.6</a></li>
-	<li><a href='#syntax-v0.3.3'>v0.3.3</a></li>
-	<li><a href='#syntax-v0.3.2'>v0.3.2</a></li>
-	<li><a href='#syntax-v0.3.1'>v0.3.1</a></li>
-	<li><a href='#syntax-v0.3.0'>v0.3.0</a></li>
+	<li><a href='#saulang-v0.3.9'>v0.3.9</a></li>
+	<li><a href='#saulang-v0.3.8'>v0.3.8</a></li>
+	<li><a href='#saulang-v0.3.7'>v0.3.7</a></li>
+	<li><a href='#saulang-v0.3.6'>v0.3.6</a></li>
+	<li><a href='#saulang-v0.3.3'>v0.3.3</a></li>
+	<li><a href='#saulang-v0.3.2'>v0.3.2</a></li>
+	<li><a href='#saulang-v0.3.1'>v0.3.1</a></li>
+	<li><a href='#saulang-v0.3.0'>v0.3.0</a></li>
 	</ul>
 </li>
 </ul>
@@ -62,10 +62,10 @@ description, which also goes back before the tagged versions.
 	<li><a href="https://framagit.org/sau/saugns/-/tags/v0.3.10">v0.3.10</a>, <a href="https://framagit.org/sau/saugns/-/tags/v0.3.10b">v0.3.10b</a></li>
 	<li><a href="https://framagit.org/sau/saugns/-/tags/v0.3.11">v0.3.11</a></li>
 </ul>
-<h2 id='syntax'>Syntax changes</h2>
+<h2 id='saulang'>SAU language changes</h2>
 <p>Below is a shorter summary of only the changes that impact how scripts in <a href='language.html'>the language</a> are written. This list may be updated ahead of new versions being tagged. The oldest tagged version <i>v0.3.0</i> is compared to the historical (last 2012) <tt>sgensys-20120401.tgz</tt> version.
 </p>
-<h3 id='syntax-v0.3.11'>v0.3.11</h3>
+<h3 id='saulang-v0.3.11'>v0.3.11</h3>
 <ul>
 <li>For modulation with value range, change delimiters between the parts from <code>X,Y~[...]</code> to <code>Xw,Y[...]</code>.</li>
 <li>For phase modulation (normal and frequency-amplified) remove <code>+</code> after <code>p</code> and place to set phase value.</li>
@@ -78,14 +78,14 @@ description, which also goes back before the tagged versions.
 	</ul>
 </li>
 <li>Numerical expressions.<ul>
-	<li>Allow arithmetic and number signs outside parentheses. (Undoes <i>v0.3.0</i> change, restoring old feature.)</li>
+	<li>Allow arithmetic and number signs outside parentheses. (Undoes part of a <i>v0.3.0</i> change, restoring old feature.)</li>
 	<li>Add <code>%</code> remainder operation. Make <code>^</code> (to the power of) right-associative.</li>
 	<li>Add functions <code>cos(x)</code>, <code>rand()</code>, <code>rint(x)</code>, <code>seed(x)</code>, <code>sin(x)</code>, <code>time()</code>.</li>
 	<li>Add constants <code>mf</code>, <code>pi</code>.</li>
 	</ul>
 </li>
 </ul>
-<h3 id='syntax-v0.3.10'>v0.3.10</h3>
+<h3 id='saulang-v0.3.10'>v0.3.10</h3>
 <ul>
 <li>Timing syntax. (Also a big-issue fix for <code>;</code>.)<ul>
 	<li>Rename forward-shift <code>\</code> to <code>/</code>. Remove special value with literal <code>t</code>.</li>
@@ -96,11 +96,11 @@ description, which also goes back before the tagged versions.
 </li>
 <li>Add phase named constant <code>G</code> for golden angle.</li>
 </ul>
-<h4 id='syntax-v0.3.10b'>v0.3.10b</h4>
+<h4 id='saulang-v0.3.10b'>v0.3.10b</h4>
 <ul>
 <li>Add new <code>p+f[...]</code> syntax, for <a href='language.html#fpm'>frequency-linked PM</a>.</li>
 </ul>
-<h3 id='syntax-v0.3.9'>v0.3.9</h3>
+<h3 id='saulang-v0.3.9'>v0.3.9</h3>
 <ul>
 <li>Wave types.<ul>
 	<li>Rename <code>sha</code> to <code>ahs</code>, <code>szh</code> to <code>hrs</code>, and <code>ssr</code> to <code>srs</code>.</li>
@@ -118,31 +118,31 @@ description, which also goes back before the tagged versions.
 	</ul>
 </li>
 </ul>
-<h3 id='syntax-v0.3.8'>v0.3.8</h3>
+<h3 id='saulang-v0.3.8'>v0.3.8</h3>
 <ul>
 <li>Nesting syntax. Rename undocumented generic <code>[...]</code> to <code>&lt;...&gt;</code>, still only for testing and further development.</li>
 </ul>
-<h3 id='syntax-v0.3.7'>v0.3.7</h3>
+<h3 id='saulang-v0.3.7'>v0.3.7</h3>
 <ul>
 <li>Replace panning <code>P</code> keyword with <a href='language.html#channels'>channel mixing</a> parameter <code>c</code> and <code>S c</code> default, with named constants <code>C</code>, <code>L</code>, <code>R</code>.</li>
 </ul>
-<h3 id='syntax-v0.3.6'>v0.3.6</h3>
+<h3 id='saulang-v0.3.6'>v0.3.6</h3>
 <ul>
 <li>Nesting syntax. Add undocumented generic subscope <code>[...]</code> for testing and further development.</li>
 </ul>
-<h3 id='syntax-v0.3.3'>v0.3.3</h3>
+<h3 id='saulang-v0.3.3'>v0.3.3</h3>
 <ul>
 <li>Wave types. Remove <code>shh</code>. Use rounded corner shaped <code>sqr</code>, <code>saw</code>.</li>
 </ul>
-<h3 id='syntax-v0.3.2'>v0.3.2</h3>
+<h3 id='saulang-v0.3.2'>v0.3.2</h3>
 <ul>
 <li>Comment syntax. Replace line comment <code>#</code> with <code>#!</code>, remainder of file comment <code>Q</code> with <code>#Q</code>.</li>
 </ul>
-<h3 id='syntax-v0.3.1'>v0.3.1</h3>
+<h3 id='saulang-v0.3.1'>v0.3.1</h3>
 <ul>
 <li>AM and FM modulator list syntax, and related parameter values. Expressions like <code>fX f!Y[...]</code> change to <code>fX,Y~[...]</code>.</li>
 </ul>
-<h3 id='syntax-v0.3.0'>v0.3.0</h3>
+<h3 id='saulang-v0.3.0'>v0.3.0</h3>
 <ul>
 <li>Nesting syntax.<ul>
 	<li>List of operators and steps for them.

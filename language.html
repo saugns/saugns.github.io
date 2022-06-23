@@ -21,7 +21,7 @@ instead see the <a href='usage.html'>usage</a> page.
 </p>
 <p>The below is meant to explain the big picture more than cover all details.
 A concise language reference listing details more completely can
-be found in the <a href='https://github.com/saugns/saugns/blob/stable/doc/README.SAU'>doc/README.SAU</a> file (GitHub view). Syntax changes and feature additions to the language are <a href='changes.html#syntax'>listed here</a>.
+be found in the <a href='https://github.com/saugns/saugns/blob/stable/doc/README.SAU'>doc/README.SAU</a> file (GitHub view). Syntax changes, feature additions, and other tweaks to the language are <a href='changes.html#saulang'>listed here</a>.
 </p>
 <div class='toc'>
 <h2 id='contents'>Contents</h2>
@@ -441,15 +441,15 @@ as in <code>.25</code>.
 expressions, together with numbers and named constants and functions.
 The rules are fairly simple and conventional, including precedence as in the
 table shown. Nested parentheses can be used freely. Parentheses also allow
-multiplication in the customary way,
-e.g. <code>2(3)</code> means <code>6</code>.
+shorthand multiplication when written after something to multiply with,
+e.g. <code>2(3)</code> means <code>2*(3)</code>, i.e. <code>6</code>.
 But unless a numerical expression is written within parentheses,
 it cannot contain any whitespace, as it ends the expression.
 For example, <code>-1</code> is fine, but <code>- 1</code>
 is a dangling minus followed by a dangling number 1,
 if not inside parentheses as <code>(- 1)</code>.
 </p>
-<p>The ability to write almost any expression, sans whitespace, without any surrounding parentheses is for convenience. For example, writing rational numbers with a division, e.g. <code>1/2</code>, is often useful in scripts and this keeps it short. However, in some cases parentheses are required to keep apart mathematical names and surrounding alphanumeric characters which may optionally be added <i>after</i> a main parameter name as part of a larger expression.
+<p>The ability to write almost any expression, sans whitespace, without any surrounding parentheses is for convenience. For example, writing rational numbers with a division, e.g. <code>1/2</code>, is often useful in scripts and this keeps it short. However, named constants such as <code>pi</code> cannot be written directly before a letter which separates sub-expressions (for example <code>w</code> for <a href='#modvalrange'>"wave envelope" values</a>); adding parentheses around the constant name solves such issues by separating the two.
 </p>
 <p>Some parameters support named constants specific to that type
 of value; unlike other names, they are capital one-letter names.

@@ -68,7 +68,7 @@ for those OSes without the need for changes.
 <p>A more interesting test to run after building is the following,
 which produces 10 seconds of "engine rumble" using PM:
 </p>
-<pre>./saugns -e "Osin f137 t10 p[Osin f32 p[Osin r(4/3)]]"</pre>
+<pre>./saugns -e "Osin f137 t10 p[Osin f10*pi p[Osin r4/3(pi/3)]]"</pre>
 <p>Or how about three 1-second random PM timbres?
 </p>
 <pre>./saugns -e "/seed(time()) Osin p[Osin rrand(); rrand(); rrand()]"</pre>
@@ -111,9 +111,9 @@ full-featured is different than that taken by most languages.
 But the planning is only half-formulated, and ideas are welcome,
 as long as they allow for something reasonably simple.
 </p>
-<h3 id='syntax-changes'>Syntax changes</h3>
+<h3 id='saulang-changes'>Changes between versions</h3>
 <p>The SAU language sometimes changes between versions of the saugns program.
-Changes are listed both in the version tags and in a shorter <a href='changes.html#syntax'>syntax change log</a>.
+Changes are listed both in the version tags and in a shorter <a href='changes.html#saulang'>language change log</a>.
 </p>
 <div class='header'>
 <h2 id='project'>Project and plans</h2>
