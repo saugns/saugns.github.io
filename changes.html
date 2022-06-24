@@ -26,7 +26,10 @@ description, which also goes back before the tagged versions.
 	</ul>
 </li>
 <li><a href='#saulang'>SAU language changes</a><ul>
-	<li><a href='#saulang-v0.3.11'>v0.3.11</a></li>
+	<li><a href='#saulang-v0.3.11'>v0.3.11</a><ul>
+		<li><a href='#saulang-v0.3.11b'>v0.3.11b</a></li>
+		</ul>
+	</li>
 	<li><a href='#saulang-v0.3.10'>v0.3.10</a><ul>
 		<li><a href='#saulang-v0.3.10b'>v0.3.10b</a></li>
 		</ul>
@@ -84,6 +87,12 @@ description, which also goes back before the tagged versions.
 	<li>Add constants <code>mf</code>, <code>pi</code>.</li>
 	</ul>
 </li>
+</ul>
+<h4 id='saulang-v0.3.11b'>v0.3.11b</h4>
+<ul>
+<li>For modulation with value range, change delimiters between the parts from <code>Xw,Y[...]</code> to <code>X,wY[...]</code>.</li>
+<li>For frequency-multiplied PM, require a <code>,</code> just before <code>f[...]</code>. This is now the case for all such sub-parameters.</li>
+<li>Numerical expressions. Allow shorthand multiplying (leaving out a <code>*</code>) for expressions like <code>(X)Y</code> too, not only <code>X(Y)</code>.</li>
 </ul>
 <h3 id='saulang-v0.3.10'>v0.3.10</h3>
 <ul>
