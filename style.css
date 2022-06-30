@@ -84,6 +84,12 @@ footer, .footer {
 	text-align: right;
 	margin: 1em 0em;
 }
+.left {
+	text-align: left;
+}
 .center {
 	text-align: center;
+}
+.right {
+	text-align: right;
 }

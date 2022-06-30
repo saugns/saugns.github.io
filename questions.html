@@ -30,6 +30,7 @@ Ideas and suggestions are welcome as I rethink what to develop it all into.
 	<li><a href='#Real-time'>Can it be used with real-time control?</a></li>
 	<li><a href='#Alternatives'>What main alternatives exist?</a><ul>
 		<li><a href='#supercollider'>Compared to SuperCollider</a></li>
+		<li><a href='#sloc'>Source code size comparison</a></li>
 		</ul>
 	</li>
 	</ul>
@@ -77,9 +78,9 @@ for the same language, at some point when the language is mature.
 </p>
 <h3 id='Alternatives'>What main alternatives exist?</h3>
 <p>The most well-known among more full-featured alternatives are:
-<a href="https://csound.com/">csound</a>, <a href="http://rtcmix.org/">RTcmix</a>, <a href="https://supercollider.github.io/">SuperCollider</a>, and <a href="https://chuck.cs.princeton.edu/">ChucK</a>. While saugns is simpler to use as a tone generator (or to make a variety of noises with terse scripts), those programs are designed to be used more as musicians tend to use software.
+<a href="https://csound.com/">csound</a>, <a href="http://rtcmix.org/">RTcmix</a>, <a href="https://supercollider.github.io/">SuperCollider</a>, and <a href="https://chuck.cs.princeton.edu/">ChucK</a>. While saugns is simpler to use as a tone generator (or to make a variety of noises with terse scripts), those programs are designed to be used more as musicians tend to use software. They are also equipped with larger varieties of synthesis and filtering methods.
 </p>
-<p>Even the most minimalistic of these, ChucK, is much larger in lines of code than saugns. However, saugns stands apart from all big-name alternatives in lacking the modern feature of support for live coding (see the <a href='#Real-time'>real-time question</a> above).
+<p>Even the most minimalistic of these, ChucK, is much larger in lines of code than saugns. However, saugns also stands apart from all big-name alternatives in lacking the modern feature of support for live coding (see the <a href='#Real-time'>real-time question</a> above).
 </p>
 <h4 id='supercollider'>Compared to SuperCollider</h4>
 <p>The <a href='language.html'>SAU language</a> is simple and lacks many features, while <a href="https://supercollider.github.io/">SuperCollider</a> is a main example of a language and system providing everything and the kitchen sink with a more conventional-looking language syntax. Maybe even more importantly, systems like SuperCollider are meant for live coding and experimenting with an interactive interpreter. SAU doesn't currently have a live coding implementation, but it's very easy to write and test short scripts which have finite timing &ndash; it's an aim to make it simple to use by writing, running, and tweaking scripts.
@@ -100,6 +101,34 @@ Furthermore, only some varieties of synthesis are supported.
 the default time of 1 second. It could also be included in
 a list of modulators, and will then be linked to a carrier
 and play when the carrier does.
+</p>
+<h4 id='sloc'>Source code size comparison</h4>
+<table style="float:right; max-width:50%">
+<tr>
+	<th>Software</th><th><abbr title="Source lines of code">SLOC</abbr></th>
+</tr>
+<tr>
+	<td>saugns v0.3.11b</td>
+	<td class="right">6,879</td>
+</tr>
+<tr>
+	<td>chuck v1.4.1.0</td>
+	<td class="right">134,822</td>
+</tr>
+<tr>
+	<td>RTcmix v4.3.2</td>
+	<td class="right">139,824</td>
+</tr>
+<tr>
+	<td>csound v6.17.0</td>
+	<td class="right">227,246</td>
+</tr>
+<tr>
+	<td>SuperCollider v3.12.2</td>
+	<td class="right">1,162,738</td>
+</tr>
+</table>
+<p>This table contains a quick source code size (lines of code) comparison, using <a href="https://dwheeler.com/sloccount/">SLOCCount</a>. (Other tools may differ, e.g. <a href="https://github.com/AlDanial/cloc">cloc</a> gives numbers for each package varying in a proportionally small way, except for csound which it judges to be about 50% larger.) The exact numbers are suspect, especially as all the projects contain script files in the languages they implement, which are not properly recognized by the counting tool used. Such files, which comprise a smaller portion of the real total size, are sometimes ignored and sometimes treated as written in one or another more well-known language. Exact numbers will also vary as new software versions are released. Differences in order of magnitude however seem more sturdy and long-lasting.
 </p>
 <div class='footer'>Text available under version 4.0 of <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons BY-SA" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>.
 </div>
