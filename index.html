@@ -2,7 +2,7 @@
 <html xmlns='http://www.w3.org/1999/xhtml'>
 <head>
 	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-	<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+	<meta http-equiv='Refresh' content="0; url='https://sau.frama.io'" />
 	<meta name='description'
 content="Home of the saugns project and SAU (Scriptable AUdio) language." />
 	<meta name='keywords'
@@ -11,132 +11,7 @@ content="saugns, SAU language, Scriptable AUdio, scripting language, FM" />
 <title>saugns &amp; SAU</title>
 </head>
 <body>
-<h1>saugns &amp; the SAU language</h1>
-<p><a href='#saugns'>saugns</a> is an audio generation program. Written in C,
-it implements the <a href='#SAU'>SAU</a> (Scriptable AUdio) language
-&ndash; a simple language for mathematical audio synthesis.
+<p><i>Moved to '<a href='https://sau.frama.io'>https://sau.frama.io</a>'.</i>
 </p>
-<div class='toc'>
-<h2>Project and downloads</h2>
-<ul>
-<li><a href="https://github.com/saugns/saugns">On GitHub</a>,
-`<tt>git clone </tt><code>https://github.com/saugns/saugns.git</code>`</li>
-<li><a href="https://codeberg.org/sau/saugns">On Codeberg</a>,
-`<tt>git clone </tt><code>https://codeberg.org/sau/saugns.git</code>`</li>
-<li><a href="https://framagit.org/sau/saugns">On Framagit</a>,
-`<tt>git clone </tt><code>https://framagit.org/sau/saugns.git</code>`</li>
-</ul>
-<h2>Browse pages</h2>
-<ul>
-<li><a href='usage.html'>Command-line usage</a></li>
-<li><a href='language.html'>SAU language overview</a></li>
-<li><a href='changes.html'>Versions &amp; change logs</a></li>
-<li><a href='questions.html'>Answered questions</a></li>
-<li><a href='design.html'>Design and main ideas</a></li>
-<li><a href='history.html'>History of the project</a></li>
-</ul>
-</div>
-<div class='header'>
-<h2 id='saugns'>saugns program</h2>
-<p>More on command-line usage <a href='usage.html'>here</a>.
-</p>
-</div>
-<p>saugns (the Scriptable AUdio GeNeration System) is a
-command-line program which reads SAU (Scriptable AUdio)
-scripts or strings and produces audio. Output can be to
-system audio, and/or a 16-bit PCM WAV file, an AU file
-or stream, or raw audio sent to stdout (for interfacing
-with other applications).
-</p>
-<p>The program is written in C and on the lightweight side,
-without any dependencies beyond the standard C library and
-support for system audio on the given
-<a href='questions.html#Platforms'>platform</a>.
-While currently smaller than 100 KB when built on my systems,
-it may grow with the language.
-</p>
-<p>Mainly tested on x86/x86-64 on *BSD and Linux systems, but
-may generally work on 32-bit and 64-bit little-endian systems
-for those OSes without the need for changes.
-</p>
-<p>The <a href="https://github.com/saugns/saugns/blob/stable/README.md">README</a> file (GitHub view) describes how to build and install it.
-(Short version: For the 4 major BSDs, `<tt>make</tt>` is enough to get it built.)
-</p>
-<h3 id='simple-tests'>Simple tests</h3>
-<p>The program built, a 1-second 440 Hz test tone can be produced by simply running:
-</p>
-<pre>./saugns -e "Osin"</pre>
-<p>A more interesting test to run after building is the following,
-which produces 10 seconds of "engine rumble" using PM:
-</p>
-<pre>./saugns -e "Osin f137 t10 p[Osin f10*pi p[Osin r4/3(pi/3)]]"</pre>
-<p>Or how about three 1-second random PM timbres?
-</p>
-<pre>./saugns -e "/seed(time()) Osin p[Osin rrand(); rrand(); rrand()]"</pre>
-<p>A set of example and test scripts are included,
-along with a concise SAU language reference, as described in the README file.
-</p>
-<h3 id='saugns-licensing'>Licensing</h3>
-<p>saugns is distributed under the terms of the
-<a href="https://www.gnu.org/licenses/lgpl-3.0.en.html">GNU Lesser General Public License (LGPL), version 3</a> or later.
-Some smaller parts are however more permissively licensed, and each such file
-notes which license (e.g. the ISC license) it is provided under.
-</p>
-<p>This website is available under the <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 License</a>.
-</p>
-<div class='header'>
-<h2 id='SAU'>SAU language</h2>
-<p>A more how-to overview is <a href='language.html'>here</a>.
-A more detail-oriented language reference is in the saugns <a href="https://github.com/saugns/saugns/blob/stable/doc/README.SAU">doc/README.SAU</a> file (GitHub view).
-</p>
-</div>
-<p>SAU is a simple language for mathematical audio synthesis,
-without support for the use of pre-recorded samples.
-While developed with the aim of becoming useful for writing
-electronic music, the language still has significant limitations,
-and the audio generated is somewhat retro-ish in its qualities.
-It is however easy to use for experimenting with sounds.
-</p>
-<p>Currently, the only type of audio generator is the oscillator.
-A set of wave types are supported, as well as AM/RM, FM,
-and PM (the "FM" of most commercial synthesizers). An arbitrary
-number of oscillators can be used.
-</p>
-<p>The long-term goal is for the syntax both to describe complex sounds
-in a simple way, and, especially, for it to make it simple to write
-long and intricate sequences of sounds &ndash; music &ndash; both
-tersely and in a way easy to mentally map and keep track of. The former
-may be the easier part; the latter requires greater expressiveness
-than the language has at present. The road towards something more
-full-featured is different than that taken by most languages.
-But the planning is only half-formulated, and ideas are welcome,
-as long as they allow for something reasonably simple.
-</p>
-<h3 id='saulang-changes'>Changes between versions</h3>
-<p>The SAU language sometimes changes between versions of the saugns program.
-Changes are listed both in the version tags and in a shorter <a href='changes.html#saulang'>language change log</a>.
-</p>
-<div class='header'>
-<h2 id='project'>Project and plans</h2>
-<p>The history is briefly described <a href='history.html'>here</a>.
-</p>
-</div>
-<p>At some point in the future, the bulk of the program
-could be split off into a C library implementing
-support for the SAU language. Such a library could be used
-in e.g. media players to play SAU files,
-or in retro-ish games to play music or sounds from SAU files.
-</p>
-<p>Some further ideas are listed on the
-<a href="https://github.com/saugns/saugns/wiki">saugns GitHub wiki</a>.
-</p>
-<p>I have a mostly software-related
-<a href="https://joelkp.frama.io">personal website</a> where I touch on related things.
-</p>
-<h2 id='contact'>Contact</h2>
-<p>Any of the sites which the project is on can be used: <a href="https://github.com/saugns">GitHub</a>, <a href="https://codeberg.org/sau">Codeberg</a>, or <a href="https://framagit.org/sau">Framagit</a>. Feedback is welcome, and you can also reach me by email (Gmail, joelkpettersson).
-</p>
-<div class='footer'>Text available under version 4.0 of <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons BY-SA" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>.
-</div>
 </body>
 </html>

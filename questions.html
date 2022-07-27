@@ -2,7 +2,7 @@
 <html xmlns='http://www.w3.org/1999/xhtml'>
 <head>
 	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
-	<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+	<meta http-equiv='Refresh' content="0; url='https://sau.frama.io/questions.html'" />
 	<meta name='description'
 content="Answered questions about the saugns program." />
 	<meta name='keywords'
@@ -11,127 +11,7 @@ content="saugns, questions, answers" />
 <title>saugns Q&amp;A</title>
 </head>
 <body>
-<div class='nav'><img src="images/sau-logo88x50.png" alt=" " style="float: right" />
-Back to <a href='index.html'>main page</a>.
-</div>
-<h1>Answered questions about saugns</h1>
-<p>This could be a FAQ page, except that questions have been infrequent.
-Here are questions and answers, and also some to cover other possible questions.
+<p><i>Moved to '<a href='https://sau.frama.io/questions.html'>https://sau.frama.io/questions.html</a>'.</i>
 </p>
-<p>As of 2022, I haven't had much feedback on the program and its language,
-and practically no in-depth discussion for the last decade on how it works.
-Ideas and suggestions are welcome as I rethink what to develop it all into.
-</p>
-<div class='toc'>
-<h2 id='contents'>Contents</h2>
-<ul>
-<li><a href='#Platforms'>Platforms &amp; modifications</a></li>
-<li><a href='#Re-use'>Re-using smaller parts</a></li>
-<li><a href='#Specific'>Specific questions</a><ul>
-	<li><a href='#Real-time'>Can it be used with real-time control?</a></li>
-	<li><a href='#Alternatives'>What main alternatives exist?</a><ul>
-		<li><a href='#supercollider'>Compared to SuperCollider</a></li>
-		<li><a href='#sloc'>Source code size comparison</a></li>
-		</ul>
-	</li>
-	</ul>
-</li>
-</ul>
-</div>
-<h2 id='Platforms'>Platforms &amp; modifications</h2>
-<p><a href='index.html#saugns'>saugns</a> is mainly developed on
-x86/x86-64, because currently, such are the computers I've used.
-However, there's no architecture-specific code in the program,
-and it reportedly works fine on Raspberry Pi 3, i.e. ARM.
-Generally, little-endian 32-bit and 64-bit architectures can
-work fine with the current code unless something has been missed.
-</p>
-<p>For big-endian, not knowing more yet, at a minimum the audio file
-output code must change so that WAV data is always little endian and
-AU data is always big endian. (This would be a smaller change, as endian
-conversion code already exists, to handle AU for little endian systems.)
-</p>
-<h3 id='OSes'>Operating systems</h3>
-<p>Tested operating systems include the four major BSDs (FreeBSD,
-OpenBSD, NetBSD, DragonFly), and various GNU/Linux distros. *nix,
-in general, may be the easiest to further port the program to.
-</p>
-<p>Written in C99, the program still works on 2010-ish 32-bit x86
-DragonFly with GCC 4, and other similar-ish *nix systems of that age.
-</p>
-<h2 id='Re-use'>Re-using smaller parts</h2>
-<p>Small parts of saugns, e.g. the oscillator code (for producing
-the audio at one "end" of what the program does), low-level "text
-file" buffer code (for parsing input at the other "end"), utility
-code at the lowest level (for example the mempool), do not depend
-on the bigger things which use them, and can be copied for re-use
-in other software fairly simply. Note that smaller components are
-usually written to fit how saugns uses them, and may turn out too
-simple or too specific for other needs.
-</p>
-<h2 id='Specific'>Specific questions</h2>
-<h3 id='Real-time'>Can it be used with real-time control?</h3>
-<p>Currently no. There is no scheduling of input to allow control
-while the program is running. It can only be started and stopped.
-Support for real-time interactive use, or live coding, could be a
-later project to implement in some way. Possibly in a new program
-for the same language, at some point when the language is mature.
-</p>
-<h3 id='Alternatives'>What main alternatives exist?</h3>
-<p>The most well-known among more full-featured alternatives are:
-<a href="https://csound.com/">csound</a>, <a href="http://rtcmix.org/">RTcmix</a>, <a href="https://supercollider.github.io/">SuperCollider</a>, and <a href="https://chuck.cs.princeton.edu/">ChucK</a>. While saugns is simpler to use as a tone generator (or to make a variety of noises with terse scripts), those programs are designed to be used more as musicians tend to use software. They are also equipped with larger varieties of synthesis and filtering methods.
-</p>
-<p>Even the most minimalistic of these, ChucK, is much larger in lines of code than saugns. However, saugns also stands apart from all big-name alternatives in lacking the modern feature of support for live coding (see the <a href='#Real-time'>real-time question</a> above).
-</p>
-<h4 id='supercollider'>Compared to SuperCollider</h4>
-<p>The <a href='language.html'>SAU language</a> is simple and lacks many features, while <a href="https://supercollider.github.io/">SuperCollider</a> is a main example of a language and system providing everything and the kitchen sink with a more conventional-looking language syntax. Maybe even more importantly, systems like SuperCollider are meant for live coding and experimenting with an interactive interpreter. SAU doesn't currently have a live coding implementation, but it's very easy to write and test short scripts which have finite timing &ndash; it's an aim to make it simple to use by writing, running, and tweaking scripts.
-</p>
-<p>In SAU, data cannot currently be held or combined without
-specifying carrier oscillators which play. While some simple
-things are simpler in SAU (including playing with modulation
-types), expressiveness drops beyond doing individual sounds.
-Furthermore, only some varieties of synthesis are supported.
-</p>
-<p>In SuperCollider, a most basic thing, generating a sine wave, looks as follows. Note that it doesn't actually play it, which requires a few additional details.
-</p>
-<pre>SinOsc.ar(440, 0, 0.5);</pre>
-<p>In SAU, the closest-looking equivalent is:
-</p>
-<pre>Osin f440 p0 a0.5</pre>
-<p>By itself, this is a carrier oscillator which will play for
-the default time of 1 second. It could also be included in
-a list of modulators, and will then be linked to a carrier
-and play when the carrier does.
-</p>
-<h4 id='sloc'>Source code size comparison</h4>
-<table style="float:right; max-width:50%">
-<tr>
-	<th>Software</th><th><abbr title="Source lines of code">SLOC</abbr></th>
-</tr>
-<tr>
-	<td>saugns v0.3.11b</td>
-	<td class="right">6,879</td>
-</tr>
-<tr>
-	<td>chuck v1.4.1.0</td>
-	<td class="right">134,822</td>
-</tr>
-<tr>
-	<td>RTcmix v4.3.2</td>
-	<td class="right">139,824</td>
-</tr>
-<tr>
-	<td>csound v6.17.0</td>
-	<td class="right">227,246</td>
-</tr>
-<tr>
-	<td>SuperCollider v3.12.2</td>
-	<td class="right">1,162,738</td>
-</tr>
-</table>
-<p>This table contains a quick source code size (lines of code) comparison, using <a href="https://dwheeler.com/sloccount/">SLOCCount</a>. (Other tools may differ, e.g. <a href="https://github.com/AlDanial/cloc">cloc</a> gives numbers for each package varying in a proportionally small way, except for csound which it judges to be about 50% larger.) The exact numbers are suspect, especially as all the projects contain script files in the languages they implement, which are not properly recognized by the counting tool used. Such files, which comprise a smaller portion of the real total size, are sometimes ignored and sometimes treated as written in one or another more well-known language. Exact numbers will also vary as new software versions are released. Differences in order of magnitude however seem more sturdy and long-lasting.
-</p>
-<div class='footer'>Text available under version 4.0 of <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons BY-SA" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/80x15.png" /></a>.
-</div>
 </body>
 </html>
